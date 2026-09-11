@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { AppLoader } from "@/components/app-loader";
 
 const geistSans = Geist({
   variable: "--font-geist",
@@ -19,41 +20,27 @@ export const metadata: Metadata = {
     default: "SSC Activity Hub | Basilan State College",
     template: "%s | SSC Activity Hub",
   },
-
   description:
-    "The official digital activity hub of the Supreme Student Council of Basilan State College. Discover Intramurals activities, schedules, guidelines, announcements, and registration information.",
-
+    "The official digital activity hub of the Supreme Student Council of Basilan State College. Discover Parageyan 2026 activities, schedules, guidelines, and participation information.",
   keywords: [
     "SSC Activity Hub",
     "Basilan State College",
+    "Parageyan 2026",
     "Intramurals 2026",
     "Supreme Student Council",
     "Student Activities",
-    "College Events",
   ],
-
-  authors: [
-    {
-      name: "Supreme Student Council - Basilan State College",
-    },
-  ],
-
+  authors: [{ name: "Supreme Student Council - Basilan State College" }],
   creator: "Supreme Student Council - Basilan State College",
-
   openGraph: {
     title: "SSC Activity Hub | Basilan State College",
-
     description:
-      "Your central guide for SSC-supported Intramurals activities, schedules, guidelines, and announcements.",
-
+      "Official student activity platform for Parageyan 2026.",
     type: "website",
   },
-
   icons: {
     icon: "/ssc-logo.jpg",
-
     shortcut: "/ssc-logo.jpg",
-
     apple: "/ssc-logo.jpg",
   },
 };
@@ -63,27 +50,24 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
+
     <html
       lang="en"
-      className={`
-        ${geistSans.variable}
-        ${geistMono.variable}
-        h-full
-        antialiased
-      `}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body
-        className="
-          min-h-screen
-          flex
-          flex-col
-          bg-background
-          text-foreground
-        "
-      >
-        {children}
+
+      <body className="min-h-screen flex flex-col bg-background text-foreground">
+
+        <AppLoader>
+          {children}
+        </AppLoader>
+
       </body>
+
     </html>
+
   );
+
 }
