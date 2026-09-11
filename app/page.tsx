@@ -7,7 +7,9 @@ import { IntroSection } from "@/components/intro-section";
 import { FeaturedActivities } from "@/components/featured-activities";
 import { PlaceholderSection } from "@/components/placeholder-section";
 import { Footer } from "@/components/footer";
-import { PLACEHOLDER_SECTIONS } from "@/data/placeholders";
+import { EventSchedule } from "@/components/event-schedule";
+import { HowToParticipate } from "@/components/how-to-participate";
+import { SSCMessage } from "@/components/ssc-message";
 
 export default function Home() {
   return (
@@ -15,23 +17,24 @@ export default function Home() {
       <Navbar />
 
       <HeroSection />
-      <QuickAccess />
-      <AboutSSC />
-      <CollegeSpirit />
-      <IntroSection />
-      <FeaturedActivities />
 
-      {PLACEHOLDER_SECTIONS.map((section) => (
-        <PlaceholderSection
-          key={section.id}
-          id={section.id}
-          eyebrow={section.eyebrow}
-          title={section.title}
-          description={section.description}
-        />
-      ))}
+<QuickAccess />
 
-      <Footer />
+<AboutSSC />
+
+<IntroSection />
+
+<FeaturedActivities />
+
+<EventSchedule />
+
+<HowToParticipate />
+
+<CollegeSpirit />
+
+<SSCMessage />
+
+<Footer />
     </main>
   );
 }
