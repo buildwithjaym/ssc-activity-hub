@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -66,7 +67,7 @@ const spiritAnimals = [
     college: "College of Public Administration",
     shortCode: "CPADM",
     animal: "Eagle",
-    color: "#D4A017", // Yellow
+    color: "#ebb120",
     image: "/spirits/cpadm.jpg",
     description:
       "Vision and leadership in service. The Eagle represents clarity, governance, and rising above for the public good.",
@@ -83,12 +84,12 @@ const spiritAnimals = [
       "Steady, strong, and deeply rooted. The Carabao stands for hard work, patience, and the foundation of our land.",
     rally: "Rooted. Strong. Enduring.",
   },
-   {
+  {
     id: "ihtm",
     college: "Institute of Hospitality & Tourism Management",
     shortCode: "IHTM",
-    animal: "Lion",
-    color: "#8B6914", // Dark Gold
+    animal: "Narwhal",
+    color: "#8B6914",
     image: "/spirits/ihtm.jpg",
     description:
       "Warmth, excellence, and presence. The Lion represents service with pride and hospitality that leaves a mark.",
@@ -99,29 +100,47 @@ const spiritAnimals = [
     college: "College of Allied Health",
     shortCode: "CAH",
     animal: "Female Tiger",
-    color: "#6C3483",
+    color: "#c936bc",
     image: "/spirits/cah.jpg",
     description:
       "Fierce yet nurturing. The Female Tiger embodies strength, care, and the quiet power of those who heal.",
     rally: "Heal. Grow. Transform.",
   },
- 
 ];
 
 function SpiritCard({ animal }: { animal: (typeof spiritAnimals)[0] }) {
   const [flipped, setFlipped] = useState(false);
 
+  const handleFlip = () => {
+    // Play flip sound
+    const audio = new Audio("/flip.mp3");
+    audio.volume = 0.35;
+
+    // Play the sound
+    audio.play().catch(() => {
+      // Prevent console errors if browser blocks playback
+    });
+
+    // Flip the card
+    setFlipped((prev) => !prev);
+  };
+
   return (
     <div
       className="relative h-[400px] w-full cursor-pointer"
       style={{ perspective: "1200px" }}
-      onClick={() => setFlipped((prev) => !prev)}
+      onClick={handleFlip}
     >
       <motion.div
         className="relative h-full w-full"
         animate={{ rotateY: flipped ? 180 : 0 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        style={{ transformStyle: "preserve-3d" }}
+        transition={{
+          duration: 0.6,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+        style={{
+          transformStyle: "preserve-3d",
+        }}
       >
         {/* FRONT */}
         <div
@@ -131,20 +150,26 @@ function SpiritCard({ animal }: { animal: (typeof spiritAnimals)[0] }) {
             background: `linear-gradient(165deg, ${animal.color} 0%, #0B1A14 100%)`,
           }}
         >
+          {/* Decorative glow */}
           <div
             className="absolute -right-16 -top-16 h-48 w-48 rounded-full opacity-20 blur-3xl"
-            style={{ backgroundColor: animal.color }}
+            style={{
+              backgroundColor: animal.color,
+            }}
           />
 
+          {/* College Code */}
           <div className="relative z-10 flex items-center gap-3 px-6 pt-6">
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10">
               <Flame className="h-5 w-5 text-[#D4AF37]" />
             </div>
+
             <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#D4AF37]">
               {animal.shortCode}
             </p>
           </div>
 
+          {/* Spirit Image */}
           <div className="relative mx-auto mt-6 h-36 w-36 overflow-hidden rounded-full border-2 border-white/20 shadow-lg">
             <Image
               src={animal.image}
@@ -155,12 +180,19 @@ function SpiritCard({ animal }: { animal: (typeof spiritAnimals)[0] }) {
             />
           </div>
 
+          {/* Card Information */}
           <div className="relative z-10 mt-auto px-6 pb-7 text-center">
-            <h3 className="text-lg font-bold text-white">{animal.college}</h3>
+            <h3 className="text-lg font-bold text-white">
+              {animal.college}
+            </h3>
+
             <p className="mt-1 text-xl font-semibold text-[#F0D060]">
               {animal.animal}
             </p>
-            <p className="mt-4 text-[11px] text-white/40">Tap to reveal</p>
+
+            <p className="mt-4 text-[11px] text-white/40">
+              Tap to reveal
+            </p>
           </div>
         </div>
 
@@ -173,21 +205,28 @@ function SpiritCard({ animal }: { animal: (typeof spiritAnimals)[0] }) {
             background: `linear-gradient(165deg, ${animal.color} 0%, #0B1A14 100%)`,
           }}
         >
+          {/* College Code */}
           <div className="flex items-center gap-3">
             <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10">
               <Flame className="h-4 w-4 text-[#D4AF37]" />
             </div>
+
             <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#D4AF37]">
               {animal.shortCode}
             </p>
           </div>
 
-          <h3 className="mt-6 text-2xl font-bold text-white">{animal.animal}</h3>
+          {/* Animal Name */}
+          <h3 className="mt-6 text-2xl font-bold text-white">
+            {animal.animal}
+          </h3>
 
+          {/* Description */}
           <p className="mt-4 flex-1 text-sm leading-relaxed text-white/75">
             {animal.description}
           </p>
 
+          {/* Rally */}
           <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
             <p className="text-center text-sm font-semibold text-[#F0D060]">
               {animal.rally}
@@ -201,29 +240,47 @@ function SpiritCard({ animal }: { animal: (typeof spiritAnimals)[0] }) {
 
 export function CollegeSpirit() {
   return (
-    <section id="spirit" className="bg-white px-5 py-20 sm:px-8 lg:px-10 lg:py-28">
+    <section
+      id="spirit"
+      className="bg-white px-5 py-20 sm:px-8 lg:px-10 lg:py-28"
+    >
       <div className="mx-auto max-w-7xl">
+        {/* Section Header */}
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#D4AF37]">
             College Spirit
           </p>
+
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-[#0A2A1F] sm:text-4xl">
             Discover Your College Spirit Animal
           </h2>
+
           <p className="mt-4 text-sm leading-relaxed text-slate-600 sm:text-base">
-            Every college carries a unique spirit. Find yours and carry it with
-            pride throughout Parageyan 2026.
+            Every college carries a unique spirit. Find yours and carry it
+            with pride throughout Parageyan 2026.
           </p>
         </div>
 
+        {/* Spirit Cards */}
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {spiritAnimals.map((animal, index) => (
             <motion.div
               key={animal.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.06, duration: 0.45 }}
+              initial={{
+                opacity: 0,
+                y: 20,
+              }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+              }}
+              viewport={{
+                once: true,
+              }}
+              transition={{
+                delay: index * 0.06,
+                duration: 0.45,
+              }}
             >
               <SpiritCard animal={animal} />
             </motion.div>
