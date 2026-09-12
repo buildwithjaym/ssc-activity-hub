@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AppLoader } from "@/components/app-loader";
+import { SITE_CONFIG } from "@/components/site-config";
 
 const geistSans = Geist({
   variable: "--font-geist",
@@ -17,31 +18,41 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "SSC Activity Hub | Basilan State College",
-    template: "%s | SSC Activity Hub",
+    default: `${SITE_CONFIG.name} | ${SITE_CONFIG.institution}`,
+    template: `%s | ${SITE_CONFIG.name}`,
   },
-  description:
-    "The official digital activity hub of the Supreme Student Council of Basilan State College. Discover Parageyan 2026 activities, schedules, guidelines, and participation information.",
+
+  description: SITE_CONFIG.description,
+
   keywords: [
     "SSC Activity Hub",
     "Basilan State College",
     "Parageyan 2026",
-    "Intramurals 2026",
-    "Supreme Student Council",
+    "Intramurals",
     "Student Activities",
   ],
-  authors: [{ name: "Supreme Student Council - Basilan State College" }],
+
+  authors: [
+    {
+      name: "Supreme Student Council - Basilan State College",
+    },
+  ],
+
   creator: "Supreme Student Council - Basilan State College",
+
   openGraph: {
     title: "SSC Activity Hub | Basilan State College",
+
     description:
-      "Official student activity platform for Parageyan 2026.",
+      "Official digital platform for Parageyan 2026 activities, schedules, and student participation.",
+
     type: "website",
   },
+
   icons: {
-    icon: "/ssc-logo.jpg",
-    shortcut: "/ssc-logo.jpg",
-    apple: "/ssc-logo.jpg",
+    icon: SITE_CONFIG.images.favicon,
+    shortcut: SITE_CONFIG.images.favicon,
+    apple: SITE_CONFIG.images.logo,
   },
 };
 
@@ -50,24 +61,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
-
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-
       <body className="min-h-screen flex flex-col bg-background text-foreground">
-
-        <AppLoader>
-          {children}
-        </AppLoader>
-
+        <AppLoader>{children}</AppLoader>
       </body>
-
     </html>
-
   );
-
 }
