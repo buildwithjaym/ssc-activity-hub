@@ -23,8 +23,9 @@ export const SITE_CONFIG = {
     favicon: "favicon",
     hero: "basc.png",
   },
+
   audio: {
-    flip: "flip.mp3",
+    flip: "flip",
   },
   navigation: [
     {
