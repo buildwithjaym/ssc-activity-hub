@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { CldImage } from "next-cloudinary";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Calendar } from "lucide-react";
@@ -23,7 +23,7 @@ const activities: Activity[] = [
     category: "Creative",
     description:
       "Create banners and mascots that proudly represent your college spirit.",
-    image: "/activities/banner.jpg",
+    image: "banner.jpg",
     status: "Registration Open",
     guidelinesUrl: "/guidelines/banner",
     facebookUrl: "https://facebook.com",
@@ -32,9 +32,8 @@ const activities: Activity[] = [
     title: "Mascot Making Contest",
     date: "Sep 28–30, 2026",
     category: "Creative",
-    description:
-      "Create mascots that proudly represent your college spirit.",
-    image: "/activities/mascot.jpg",
+    description: "Create mascots that proudly represent your college spirit.",
+    image: "mascot.jpg",
     status: "Registration Open",
     guidelinesUrl: "/guidelines/mascot",
     facebookUrl: "https://facebook.com",
@@ -45,7 +44,7 @@ const activities: Activity[] = [
     category: "Cultural",
     description:
       "Celebrate student talent through music, performances, and entertainment.",
-    image: "/activities/mini-concert.jpg",
+    image: "mini-concert.jpg",
     status: "Coming Soon",
     guidelinesUrl: "/guidelines/mini-concert",
     facebookUrl: "",
@@ -56,7 +55,7 @@ const activities: Activity[] = [
     category: "Sports",
     description:
       "Run, have fun, and celebrate unity with the Parageyan community.",
-    image: "/activities/fun-run.jpg",
+    image: "fun-run.jpg",
     status: "Registration Open",
     guidelinesUrl: "/guidelines/color-fun-run",
     facebookUrl: "https://facebook.com",
@@ -67,7 +66,7 @@ const activities: Activity[] = [
     category: "Sports",
     description:
       "Enjoy traditional Filipino games while competing with fellow students.",
-    image: "/activities/larong-pinoy.jpg",
+    image: "larong-pinoy.jpg",
     status: "Coming Soon",
     guidelinesUrl: "/guidelines/larong-pinoy",
     facebookUrl: "",
@@ -78,7 +77,7 @@ const activities: Activity[] = [
     category: "Academic",
     description:
       "Put your knowledge to the test in an exciting academic competition.",
-    image: "/activities/brains.jpg",
+    image: "brains.jpg",
     status: "Coming Soon",
     guidelinesUrl: "/guidelines/battle-of-the-brains",
     facebookUrl: "https://facebook.com",
@@ -89,7 +88,7 @@ const activities: Activity[] = [
     category: "Community",
     description:
       "Showcase creativity, entrepreneurship, and college pride through booths.",
-    image: "/activities/trade-fair.jpg",
+    image: "trade-fair.jpg",
     status: "Coming Soon",
     guidelinesUrl: "/guidelines/trade-fair",
     facebookUrl: "",
@@ -110,6 +109,13 @@ function FacebookIcon() {
 }
 
 function ActivityCard({ activity }: { activity: Activity }) {
+  if(process.env.NODE_ENV==="development"){
+ console.log(
+   "Cloudinary Activity:",
+   activity.title,
+   activity.image
+ );
+}
   return (
     <motion.article
       initial={{ opacity: 0, y: 18 }}
@@ -128,16 +134,23 @@ function ActivityCard({ activity }: { activity: Activity }) {
     >
       {/* Image */}
       <div className="relative h-56 overflow-hidden sm:h-52 lg:h-56">
-        <Image
+        <CldImage
           src={activity.image}
           alt={activity.title}
           fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          sizes="(max-width:640px) 100vw,
+ (max-width:1024px) 50vw,
+ 33vw"
+          crop="fill"
+          gravity="auto"
+          quality="auto"
+          format="auto"
+          loading="lazy"
           className="
-            object-cover
-            transition-transform duration-500
-            group-hover:scale-[1.04]
-          "
+ object-cover
+ transition-transform duration-500
+ group-hover:scale-[1.04]
+ "
         />
 
         <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
@@ -201,7 +214,6 @@ function ActivityCard({ activity }: { activity: Activity }) {
             "
           >
             View guidelines
-
             <ArrowRight
               className="
                 h-4 w-4
@@ -262,7 +274,6 @@ export function FeaturedActivities() {
               Supreme Student Council for Parageyan 2026.
             </p>
           </div>
-
         </div>
 
         {/* Activity Grid */}
