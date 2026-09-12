@@ -1,11 +1,10 @@
-
 "use client";
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { Flame } from "lucide-react";
-
+import { CldImage } from "next-cloudinary";
+import { SITE_CONFIG } from "./site-config";
 const spiritAnimals = [
   {
     id: "iis",
@@ -13,7 +12,7 @@ const spiritAnimals = [
     shortCode: "IIS",
     animal: "Eagle",
     color: "#1A5276",
-    image: "/spirits/iis.jpg",
+    image: "iis.jpg",
     description:
       "Clear vision and soaring ambition. The Eagle represents faith, wisdom, and the courage to rise above.",
     rally: "Rise. Believe. Soar.",
@@ -24,7 +23,7 @@ const spiritAnimals = [
     shortCode: "CTE",
     animal: "Wolves",
     color: "#A93226",
-    image: "/spirits/cte.jpg",
+    image: "cte",
     description:
       "Loyal, united, and strong. The Wolves represent resilience, teamwork, and the educators who shape the future.",
     rally: "Rise. Teach. Inspire.",
@@ -35,7 +34,7 @@ const spiritAnimals = [
     shortCode: "CCJE",
     animal: "Black Panther",
     color: "#1C2833",
-    image: "/spirits/ccje.jpg",
+    image: "ccje.jpg",
     description:
       "Silent strength and sharp instinct. The Black Panther stands for discipline, justice, and unwavering protection.",
     rally: "United. Disciplined. Strong.",
@@ -46,7 +45,7 @@ const spiritAnimals = [
     shortCode: "CCS",
     animal: "Golden Phoenix",
     color: "#6C1D2B",
-    image: "/spirits/ccs.jpg",
+    image: "ccs",
     description:
       "Rising with precision and power. The Golden Phoenix embodies innovation, speed, and the digital future.",
     rally: "Focus. Code. Dominate.",
@@ -57,7 +56,7 @@ const spiritAnimals = [
     shortCode: "CHUSOCOM",
     animal: "Golden Lion",
     color: "#066fb4",
-    image: "/spirits/chusocom.jpg",
+    image: "chusocom.jpg",
     description:
       "Bold, expressive, and commanding. The Golden Lion thrives on ideas, stories, and powerful connections.",
     rally: "Speak. Connect. Create.",
@@ -68,7 +67,7 @@ const spiritAnimals = [
     shortCode: "CPADM",
     animal: "Eagle",
     color: "#ebb120",
-    image: "/spirits/cpadm.jpg",
+    image: "cpadm.jpg",
     description:
       "Vision and leadership in service. The Eagle represents clarity, governance, and rising above for the public good.",
     rally: "Serve. Lead. Elevate.",
@@ -79,7 +78,7 @@ const spiritAnimals = [
     shortCode: "CA",
     animal: "Carabao",
     color: "#196F3D",
-    image: "/spirits/ca.jpg",
+    image: "ca.jpg",
     description:
       "Steady, strong, and deeply rooted. The Carabao stands for hard work, patience, and the foundation of our land.",
     rally: "Rooted. Strong. Enduring.",
@@ -90,7 +89,7 @@ const spiritAnimals = [
     shortCode: "IHTM",
     animal: "Narwhal",
     color: "#8B6914",
-    image: "/spirits/ihtm.jpg",
+    image: "ihtm.jpg",
     description:
       "Warmth, excellence, and presence. The Lion represents service with pride and hospitality that leaves a mark.",
     rally: "Serve. Shine. Excel.",
@@ -101,7 +100,7 @@ const spiritAnimals = [
     shortCode: "CAH",
     animal: "Female Tiger",
     color: "#c936bc",
-    image: "/spirits/cah.jpg",
+    image: "cah.jpg",
     description:
       "Fierce yet nurturing. The Female Tiger embodies strength, care, and the quiet power of those who heal.",
     rally: "Heal. Grow. Transform.",
@@ -110,16 +109,23 @@ const spiritAnimals = [
 
 function SpiritCard({ animal }: { animal: (typeof spiritAnimals)[0] }) {
   const [flipped, setFlipped] = useState(false);
-
+  if(process.env.NODE_ENV==="development"){
+ console.log(
+   "Cloudinary:",
+   animal.shortCode,
+   animal.image
+ );
+}
   const handleFlip = () => {
-    // Play flip sound
-    const audio = new Audio("/flip.mp3");
-    audio.volume = 0.35;
 
-    // Play the sound
-    audio.play().catch(() => {
-      // Prevent console errors if browser blocks playback
-    });
+  const audio = new Audio(SITE_CONFIG.audio.flip);
+
+  audio.volume = 0.35;
+
+  audio.play().catch(() => {
+    console.log("Audio playback blocked by browser");
+  });
+
 
     // Flip the card
     setFlipped((prev) => !prev);
@@ -171,28 +177,29 @@ function SpiritCard({ animal }: { animal: (typeof spiritAnimals)[0] }) {
 
           {/* Spirit Image */}
           <div className="relative mx-auto mt-6 h-36 w-36 overflow-hidden rounded-full border-2 border-white/20 shadow-lg">
-            <Image
+            <CldImage
               src={animal.image}
               alt={animal.animal}
               fill
-              className="object-cover"
               sizes="144px"
+              crop="fill"
+              gravity="auto"
+              quality="auto"
+              format="auto"
+              loading="lazy"
+              className="object-cover"
             />
           </div>
 
           {/* Card Information */}
           <div className="relative z-10 mt-auto px-6 pb-7 text-center">
-            <h3 className="text-lg font-bold text-white">
-              {animal.college}
-            </h3>
+            <h3 className="text-lg font-bold text-white">{animal.college}</h3>
 
             <p className="mt-1 text-xl font-semibold text-[#F0D060]">
               {animal.animal}
             </p>
 
-            <p className="mt-4 text-[11px] text-white/40">
-              Tap to reveal
-            </p>
+            <p className="mt-4 text-[11px] text-white/40">Tap to reveal</p>
           </div>
         </div>
 
@@ -256,8 +263,8 @@ export function CollegeSpirit() {
           </h2>
 
           <p className="mt-4 text-sm leading-relaxed text-slate-600 sm:text-base">
-            Every college carries a unique spirit. Find yours and carry it
-            with pride throughout Parageyan 2026.
+            Every college carries a unique spirit. Find yours and carry it with
+            pride throughout Parageyan 2026.
           </p>
         </div>
 
