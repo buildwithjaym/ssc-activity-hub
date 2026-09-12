@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Flame } from "lucide-react";
 import { CldImage } from "next-cloudinary";
+import { cloudinaryAudio } from "@/lib/cloudinary";
 import { SITE_CONFIG } from "./site-config";
 const spiritAnimals = [
   {
@@ -116,20 +117,23 @@ function SpiritCard({ animal }: { animal: (typeof spiritAnimals)[0] }) {
    animal.image
  );
 }
+ 
+
   const handleFlip = () => {
 
-  const audio = new Audio(SITE_CONFIG.audio.flip);
+  const audio = new Audio(
+    cloudinaryAudio(SITE_CONFIG.audio.flip)
+  );
 
   audio.volume = 0.35;
 
   audio.play().catch(() => {
-    console.log("Audio playback blocked by browser");
+    console.log("Audio playback blocked");
   });
 
 
-    // Flip the card
-    setFlipped((prev) => !prev);
-  };
+  setFlipped((prev)=>!prev);
+};
 
   return (
     <div
