@@ -6,13 +6,24 @@ import { ArrowRight, CalendarDays, Flame } from "lucide-react";
 
 import { EventStatus } from "./event-status";
 import { SITE_CONFIG } from "./site-config";
-
+import { CldImage } from "next-cloudinary";
 export function HeroSection() {
   return (
     <section id="home" className="relative flex min-h-screen items-center overflow-hidden bg-[#0A2A1F]">
 
       <div className="absolute inset-0">
-        <Image src={SITE_CONFIG.images.hero} alt="Basilan State College campus" fill priority className="object-cover object-center" sizes="100vw" />
+        <CldImage
+    src={SITE_CONFIG.images.hero}
+    alt="Basilan State College campus"
+    fill
+    priority
+    sizes="100vw"
+    crop="fill"
+    gravity="auto"
+    quality="auto"
+    format="auto"
+    className="object-cover object-center"
+  />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0A2A1F]/85 via-[#0A2A1F]/70 to-[#0A2A1F]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(212,175,55,0.12),transparent_50%)]" />
       </div>
