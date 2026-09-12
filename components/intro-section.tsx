@@ -36,7 +36,7 @@ const highlights = [
 
 export function IntroSection() {
   return (
-    <section className="bg-[#F8F5EF] px-5 py-20 sm:px-8 lg:px-10 lg:py-28">
+    <section className="bg-white px-5 py-20 sm:px-8 lg:px-10 lg:py-28">
       <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:items-center">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
