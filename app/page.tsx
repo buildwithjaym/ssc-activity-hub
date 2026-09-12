@@ -5,7 +5,6 @@ import { AboutSSC } from "@/components/about-ssc";
 import { CollegeSpirit } from "@/components/college-spirit";
 import { IntroSection } from "@/components/intro-section";
 import { FeaturedActivities } from "@/components/featured-activities";
-import { PlaceholderSection } from "@/components/placeholder-section";
 import { Footer } from "@/components/footer";
 import { EventSchedule } from "@/components/event-schedule";
 import { HowToParticipate } from "@/components/how-to-participate";
