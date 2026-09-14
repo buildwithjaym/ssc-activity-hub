@@ -10,9 +10,9 @@ export const SITE_CONFIG = {
 
     label: "Basilan State College Parageyan 2026",
 
-    startDate: "2026-10-03T07:00:00+08:00",
+    startDate: "2026-10-03T07:00:00+08:00", //October 03, 2026 7:00am
 
-    endDate: "2026-10-09T18:00:00+08:00",
+    endDate: "2026-10-09T12:00:00+08:00",  //October 09, 2026 12:00am
   },
 
   description:
@@ -46,6 +46,10 @@ export const SITE_CONFIG = {
     {
       label: "Schedule",
       href: "#schedule",
+    },
+    {
+      label: "Officers",
+      href: "officers/2026",
     },
 
     {
