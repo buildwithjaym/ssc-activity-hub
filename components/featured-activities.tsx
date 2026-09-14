@@ -23,7 +23,7 @@ const activities: Activity[] = [
     category: "Creative",
     description:
       "Create banners and mascots that proudly represent your college spirit.",
-    image: "banner.jpg",
+    image: "banners.jpg",
     status: "Registration Open",
     guidelinesUrl: "/guidelines/banner",
     facebookUrl: "https://facebook.com",
@@ -33,7 +33,7 @@ const activities: Activity[] = [
     date: "Sep 28–30, 2026",
     category: "Creative",
     description: "Create mascots that proudly represent your college spirit.",
-    image: "mascot.jpg",
+    image: "mascots.jpg",
     status: "Registration Open",
     guidelinesUrl: "/guidelines/mascot",
     facebookUrl: "https://facebook.com",
