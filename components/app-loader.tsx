@@ -30,3 +30,4 @@ export function AppLoader({
   return loading ? <Loading /> : children;
 
 }
+
