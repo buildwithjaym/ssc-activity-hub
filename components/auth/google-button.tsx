@@ -5,11 +5,7 @@ import { useState } from "react";
 
 function GoogleIcon() {
   return (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-    >
+    <svg width="20" height="20" viewBox="0 0 24 24">
       <path
         fill="#4285F4"
         d="M21.35 12.27c0-.72-.06-1.42-.18-2.09H12v3.96h5.25a4.5 4.5 0 0 1-1.95 2.95v2.46h3.16c1.85-1.7 2.89-4.2 2.89-7.28z"
@@ -33,80 +29,81 @@ function GoogleIcon() {
   );
 }
 
-
 export default function GoogleButton() {
-
   const supabase = createClient();
 
-  const [loading,setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-
-  async function handleLogin(){
+  async function handleLogin() {
+    if (loading) return;
 
     try {
-
       setLoading(true);
 
-      await supabase.auth.signInWithOAuth({
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
 
-        provider:"google",
-
-        options:{
-          redirectTo:
-          `${window.location.origin}/voting-system`
-        }
-
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+        },
       });
 
+      if (error) {
+        console.error("Google login error:", error.message);
 
-    } catch(error){
-
-      console.error(error);
-
-    } finally {
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error("Unexpected login error:", error);
 
       setLoading(false);
-
     }
-
   }
 
-
   return (
-
     <button
+      type="button"
       onClick={handleLogin}
       disabled={loading}
       className="
-      flex
-      items-center
-      justify-center
-      gap-3
-      w-full
-      rounded-xl
-      bg-white
-      px-6
-      py-3
-      text-black
-      font-semibold
-      shadow-sm
-      border
-      hover:bg-zinc-100
-      transition
-      disabled:opacity-60
-      "
+group
+flex
+w-full
+items-center
+justify-center
+gap-3
+rounded-xl
+border
+border-slate-200
+bg-white
+px-6
+py-3
+font-semibold
+text-black
+shadow-sm
+transition
+duration-300
+
+hover:-translate-y-0.5
+hover:bg-zinc-100
+hover:shadow-md
+
+disabled:cursor-not-allowed
+disabled:opacity-60
+"
     >
+      <div
+        className="
+transition
+duration-300
+group-hover:scale-110
+"
+      >
+        <GoogleIcon />
+      </div>
 
-      <GoogleIcon/>
-
-      {
-        loading
-        ? "Connecting..."
-        : "Continue with Google"
-      }
-
+      <span>{loading ? "Connecting..." : "Continue with Google"}</span>
     </button>
-
   );
-
 }
+;
