@@ -56,6 +56,7 @@ export const SITE_CONFIG = {
       label: "How to Join",
       href: "#participate",
     },
+    
   ],
 
   colors: {
