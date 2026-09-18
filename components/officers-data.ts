@@ -36,9 +36,9 @@ export const OFFICERS_DATA = {
       position: "SSC Vice President",
       unit: "CTE",
       image: "vpres",
-      facebook: "",
+      facebook: "https://www.facebook.com/jay.pee.723715?mibextid=ZbWKwL ",
       bio:
-        "Supports council operations and assists in implementing programs that promote student welfare and campus involvement.",
+        "I’m John Paul L. Labastilla, Vice President of the Supreme Student Council at Basilan State College and a BSED Mathematics student, actively involved in student leadership, music, creativity, community service, youth empowerment, and health advocacy. I serve as President of the BaSC Choir, Auditor of the BSED organization, and an Editorial Cartoonist and Creative Artist, while also participating in youth, media, and community service organizations. Through these experiences, I continue to grow by working with diverse people and promoting service, collaboration, and holistic youth well-being, including physical, mental, and emotional health. As an SSC leader, I value service, integrity, and empowerment, believing that leadership is not about creating followers, but helping others become leaders themselves.",
     },
   ],
 
@@ -105,20 +105,20 @@ export const OFFICERS_DATA = {
       position: "SSC Senator",
       unit: "CTE",
       image: "shai",
-      facebook: "",
+      facebook: "https://www.facebook.com/shaira.abdu.2024",
       bio:
-        "Contributes to student activities and strengthens collaboration among student organizations.",
+        "I’m Nursaira S. Abdo, your SSC Senato fr! 💅Leadership, to me, means leading with heart and leading by dili puro sulti lang.I stand for equality, straight-up honesty, and real action. Lezzzgaur everyone! 🫶",
     },
 
     {
       rank: 7,
-      name: "Jayvie M. Eugenio",
+      name: "Javie M. Eugenio",
       position: "SSC Senator",
       unit: "CCJE",
       image: "crim",
-      facebook: "",
+      facebook: "https://www.facebook.com/profile.php?id=100034957951403",
       bio:
-        "Promotes responsible leadership and contributes to effective student representation.",
+        "Hi, I’m Javie M. Eugenio, an SSC Officer. For me, being a leader is not just about having a position, but being someone who is willing to listen, help, and stand for the students. I want to do my part by representing my fellow students, listening to their concerns, and working with them to make our school a better place.",
     },
 
     {
@@ -127,7 +127,7 @@ export const OFFICERS_DATA = {
       position: "SSC Senator",
       unit: "CHUSOCOM",
       image: "zar",
-      facebook: "https://www.facebook.com/share/1D2uR5ZvQc/?mibextid=wwXIfr",
+      facebook: "https://www.facebook.com/share/1CkJwg6CVr/?mibextid=wwXIfr",
       bio:
         "Hard working and Hardly Working. Depends on who’s asking",
     },
@@ -148,7 +148,7 @@ export const OFFICERS_DATA = {
       name: "James Ryan H. Reyes",
       position: "SSC Senator",
       unit: "CPAdm",
-      image: "logo",
+      image: "ryan",
       facebook: "",
       bio:
         "Contributes to student governance through cooperation, leadership, and public service.",
@@ -213,7 +213,7 @@ export const OFFICERS_DATA = {
       name: "Sarha",
       position: "College Representative",
       unit: "CPAdm",
-      image: "logo",
+      image: "sarha",
       facebook: "",
       bio:
         "Supports college representation and helps coordinate student concerns.",
@@ -241,8 +241,8 @@ export const OFFICERS_DATA = {
 
     {
       name: "Adzra H. Aknalin",
-      position: "OSC Representative",
-      unit: "TIPO-TIPO OSC",
+      position: "Representative",
+      unit: "Representative",
       image: "adzra",
       facebook: "",
       bio:
@@ -251,8 +251,8 @@ export const OFFICERS_DATA = {
 
     {
       name: "Gerry A. Jannatil",
-      position: "OSC Representative",
-      unit: "STA CLARA OSC",
+      position: "Representative",
+      unit: "CA",
       image: "clara_rep",
       facebook: "https://www.facebook.com/jannatilgerry",
       bio:
@@ -261,4 +261,123 @@ export const OFFICERS_DATA = {
 
   ],
 
+appointees: [
+
+    {
+      name: "John Kirby V. Saavedra",
+      position: "General Secretary",
+      unit: "CAH",
+      image: "gen_sec",
+      facebook: "https://www.facebook.com/share/1WrhK46HVo/",
+      bio:
+        "Hi I'm John Kirby,  you can call me Kirby or Kirb and I'm the Gen. Secretary of SSC. About me, I'm a silent person, I do my works privately, and I hate exposure tbh. ",
+    },
+
+    {
+      name: "Nadzree A. Sulaiman",
+      position: "Treasurer",
+      unit: "CHUSOCOM",
+      image: "treasurer",
+      facebook: "",
+      bio: 
+      ""
+    },
+    
+    {
+      name: "Alshameer Saratal",
+      position: "Auditor",
+      unit: "CAH",
+      image: "auditor",
+      facebook: "",
+      bio:
+        "Being a student leader is to serve the student body and contribute to the learning community. As an SSC officer, I always believed that leadership is such a crucial role and must not be taken for granted. It should be embodied and not to chase clout from it.",
+    },
+
+    {
+      name: "Jalal A. Rafik Sharif",
+      position: "PIO",
+      unit: "CCS",
+      image: "pio",
+      facebook: "",
+      bio: 
+      ""
+    },
+
+    {
+      name: "Dione Barbel Catubag",
+      position: "Project Manager",
+      unit: "CCJE",
+      image: "project_manager",
+      facebook: "",
+      bio:
+        "Being a student leader is to serve the student body and contribute to the learning community. As an SSC officer, I always believed that leadership is such a crucial role and must not be taken for granted. It should be embodied and not to chase clout from it.",
+    },
+
+ 
+  ],
+
+
+marshall : [
+
+  {
+    name: "Jan Ivan Vincent Garingo",
+    position: "Marshall",
+    unit: "CPADM",
+    image: "ivan",
+    facebook: "",
+    bio:
+    "",
+  },
+
+   {
+    name: "Ramram Sappalon",
+    position: "Marshall",
+    unit: "CCJE",
+    image: "ramram",
+    facebook: "",
+    bio:
+    "",
+  },
+
+   {
+    name: "Almhansur Madjakin",
+    position: "Marshall",
+    unit: "CCJE",
+    image: "mhansur",
+    facebook: "",
+    bio:
+    "",
+  },
+
+   {
+    name: "Emmil C. Asaali",
+    position: "Marshall",
+    unit: "CCJE",
+    image: "emil",
+    facebook: "https://www.facebook.com/share/1DeJhFQHGg/?mibextid=wwXIfr",
+    bio:
+    "Hi, I'm Emmil C. Asaali, an SSC Officer who wants to help. I believe that being a leader is not just about having a position, but also about being responsible, approachable, and willing to listen. I want to do my best to serve the students, listen to their concerns, and help make our school a better place for everyone.",
+  },
+  
+  {
+    name: "Arnafy Tulawie",
+    position: "Marshall",
+    unit: "CHUSOCOM",
+    image: "arnafy",
+    facebook: "",
+    bio:
+    "",
+  },
+
+   {
+    name: "Rhadsmier Toting",
+    position: "Marshall",
+    unit: "CHUSOCOM",
+    image: "toting",
+    facebook: "",
+    bio:
+    "",
+  },
+
+],
 } as const;

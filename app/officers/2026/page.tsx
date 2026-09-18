@@ -201,6 +201,24 @@ export default function OfficersPage() {
                   Representatives
                 </p>
               </div>
+
+               <div className="rounded-xl border border-white/10 bg-white/5 px-5 py-3 backdrop-blur-md">
+                <p className="text-xl font-bold text-white">
+                  {OFFICERS_DATA.appointees.length}
+                </p>
+                <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-white/50">
+                  Appointees
+                </p>
+              </div>
+                <div className="rounded-xl border border-white/10 bg-white/5 px-5 py-3 backdrop-blur-md">
+                <p className="text-xl font-bold text-white">
+                  {OFFICERS_DATA.marshall.length}
+                </p>
+                <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-white/50">
+                  Marshall
+                </p>
+              </div>
+
             </motion.div>
           </div>
 
@@ -244,7 +262,7 @@ export default function OfficersPage() {
             title="SSC Senators"
             description="Elected student leaders who represent the concerns, ideas, and initiatives of the student body."
           />
-          <div className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {OFFICERS_DATA.senators.map((officer, i) => (
               <OfficerCard key={officer.name} officer={officer} index={i} />
             ))}
@@ -256,13 +274,38 @@ export default function OfficersPage() {
             title="College Representatives"
             description="Connects departments/colleges with the Supreme Student Council."
           />
-          <div className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {OFFICERS_DATA.representatives.map((officer, i) => (
               <OfficerCard key={officer.name} officer={officer} index={i} />
             ))}
           </div>
         </div>
-      </section>
+    
+
+      <div>
+          <SectionHeader
+            title="Appointees"
+            description="Capable and worth one."
+          />
+          <div className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {OFFICERS_DATA.appointees.map((officer, i) => (
+              <OfficerCard key={officer.name} officer={officer} index={i} />
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <SectionHeader
+            title="Marshall"
+            description="The Defender."
+          />
+          <div className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {OFFICERS_DATA.marshall.map((officer, i) => (
+              <OfficerCard key={officer.name} officer={officer} index={i} />
+            ))}
+          </div>
+        </div>
+     </section>
 
       {/* Closing */}
       <section className="bg-[#0A2A1F] px-5 py-14 text-center text-white">

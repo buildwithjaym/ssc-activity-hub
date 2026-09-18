@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { CldImage } from "next-cloudinary";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ArrowRight } from "lucide-react";
+import Link  from "next/link";
 
 import { SITE_CONFIG } from "./site-config";
 
@@ -74,7 +75,29 @@ export function Navbar() {
                 {item.label}
               </a>
             ))}
-
+            <Link
+              href="/voting"
+              className="
+hidden
+items-center
+gap-2
+rounded-full
+bg-[#D4AF37]
+px-5
+py-2.5
+text-[11px]
+font-bold
+text-[#123F2A]
+transition
+duration-300
+hover:scale-105
+hover:shadow-lg
+lg:flex
+"
+            >
+              Vote Now
+              <ArrowRight size={14} />
+            </Link>
           </div>
 
 
@@ -85,7 +108,29 @@ export function Navbar() {
             onClick={() => setIsOpen((prev) => !prev)}
             className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-white backdrop-blur-xl transition hover:bg-white/15 lg:hidden"
           >
-
+            <Link
+              href="/voting"
+              className="
+hidden
+items-center
+gap-2
+rounded-full
+bg-[#D4AF37]
+px-5
+py-2.5
+text-[11px]
+font-bold
+text-[#123F2A]
+transition
+duration-300
+hover:scale-105
+hover:shadow-lg
+lg:flex
+"
+            >
+              Vote Now
+              <ArrowRight size={14} />
+            </Link>
             <AnimatePresence mode="wait" initial={false}>
               {isOpen ? (
                 <motion.span
@@ -143,6 +188,7 @@ export function Navbar() {
                 >
 
                   {item.label}
+                  
 
                   {index === 0 && (
                     <span className="ml-auto h-1.5 w-1.5 rounded-full bg-[#D4AF37]" />

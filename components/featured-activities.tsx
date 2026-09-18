@@ -39,6 +39,29 @@ const activities: Activity[] = [
     facebookUrl: "https://facebook.com",
   },
   {
+    title: "Bench Yell",
+    date: "Oct 3, 2026",
+    category: "Per College",
+    description:
+      "Bring the Energy. Bring the Noise. Be Part of the Cheer!",
+    image: "bench_yell.jpg",
+    status: "Coming Soon",
+    guidelinesUrl: "#activities",
+    facebookUrl: "",
+  },
+
+   {
+    title: "qweqxawrx",
+    date: "Oct 3, 2026",
+    category: "Per College",
+    description:
+      "Bring the Energy. Bring the Noise. Be Part of the Cheer!",
+    image: "bench_yell.jpg",
+    status: "Coming Soon",
+    guidelinesUrl: "#activities",
+    facebookUrl: "",
+  },
+  {
     title: "Mini Concert",
     date: "Oct 3, 2026",
     category: "Cultural",
@@ -49,6 +72,18 @@ const activities: Activity[] = [
     guidelinesUrl: "/guidelines/mini-concert",
     facebookUrl: "",
   },
+  {
+    title: "Movie House",
+    date: "TBA",
+    category: "Entertainment",
+    description:
+      "Watch a movie together and let the love grows within.",
+    image: "movie_house.jpg",
+    status: "Coming Soon",
+    guidelinesUrl: "#activities",
+    facebookUrl: "https://facebook.com",
+  },
+  
   {
     title: "Color Fun Run",
     date: "Oct 6, 2026",
@@ -88,7 +123,7 @@ const activities: Activity[] = [
     category: "Community",
     description:
       "Showcase creativity, entrepreneurship, and college pride through booths.",
-    image: "trade-fair.jpg",
+    image: "trade-fairs.jpg",
     status: "Coming Soon",
     guidelinesUrl: "/guidelines/trade-fair",
     facebookUrl: "",

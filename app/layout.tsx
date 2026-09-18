@@ -4,6 +4,8 @@ import "./globals.css";
 import { AppLoader } from "@/components/app-loader";
 import { SITE_CONFIG } from "@/components/site-config";
 
+import { Toaster } from "sonner";
+
 const geistSans = Geist({
   variable: "--font-geist",
   subsets: ["latin"],
@@ -28,6 +30,9 @@ export const metadata: Metadata = {
     "SSC Activity Hub",
     "Basilan State College",
     "Parageyan 2026",
+    "Parageyan Voting System",
+    "Jaymar Maruji",
+    "People Choice Award",
     "Intramurals",
     "Student Activities",
   ],
@@ -44,7 +49,7 @@ export const metadata: Metadata = {
     title: "SSC Activity Hub | Basilan State College",
 
     description:
-      "Official digital platform for Parageyan 2026 activities, schedules, and student participation.",
+      "Official digital platform for Parageyan 2026 activities, schedules, student participation and voting system for people choice award.",
 
     type: "website",
   },
@@ -68,6 +73,10 @@ export default function RootLayout({
     >
       <body className="min-h-screen flex flex-col bg-background text-foreground">
         <AppLoader>{children}</AppLoader>
+         <Toaster
+    position="top-right"
+    richColors
+  />
       </body>
     </html>
   );
