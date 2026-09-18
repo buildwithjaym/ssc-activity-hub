@@ -22,6 +22,8 @@ export const SITE_CONFIG = {
     logo: "ssc-logo",
     favicon: "favicon",
     hero: "basc.png",
+    basu: "basu-logo",
+    ssc: "trans-logo",
   },
 
   audio: {
