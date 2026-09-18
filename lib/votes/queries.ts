@@ -1,342 +1,369 @@
+"use server";
+
 import {
-createClient
+  createClient,
 } from "@/lib/supabase/server";
 
 
+/*
+|--------------------------------------------------------------------------
+| DASHBOARD
+|--------------------------------------------------------------------------
+*/
 
-export async function getVoteDashboard(){
+export async function getVoteDashboard() {
 
-
-const supabase =
-await createClient();
-
-
-
-const {
-
-count:totalVotes
-
-}=await supabase
-
-.from("votes")
-
-.select(
-"id",
-{
-count:"exact",
-head:true
-}
-);
+  const supabase =
+    await createClient();
 
 
+  const {
+    count: totalVotes,
+  } = await supabase
+    .from("votes")
+    .select(
+      "id",
+      {
+        count: "exact",
+        head: true,
+      },
+    );
 
 
-const {
-
-data:voterData
-
-}=await supabase
-
-.from("votes")
-
-.select(
-"voter_id"
-);
+  const {
+    data: voterData,
+  } = await supabase
+    .from("votes")
+    .select("voter_id");
 
 
-
-const uniqueVoters =
-new Set(
-voterData?.map(
-(item)=>item.voter_id
-)
-);
-
-
+  const uniqueVoters =
+    new Set(
+      voterData?.map(
+        (item) =>
+          item.voter_id,
+      ),
+    );
 
 
-
-const {
-
-count:totalCategories
-
-}=await supabase
-
-.from("categories")
-
-.select(
-"id",
-{
-count:"exact",
-head:true
-}
-);
+  const {
+    count: totalCategories,
+  } = await supabase
+    .from("categories")
+    .select(
+      "id",
+      {
+        count: "exact",
+        head: true,
+      },
+    );
 
 
+  return {
 
+    totalVotes:
+      totalVotes ?? 0,
 
+    totalVoters:
+      uniqueVoters.size,
 
-return {
+    totalCategories:
+      totalCategories ?? 0,
 
-totalVotes:
-totalVotes ?? 0,
-
-
-totalVoters:
-uniqueVoters.size,
-
-
-totalCategories:
-totalCategories ?? 0
-
-};
-
+  };
 
 }
 
 
+/*
+|--------------------------------------------------------------------------
+| VOTING SETTINGS
+|--------------------------------------------------------------------------
+*/
+
+export async function getVotingSettings() {
+
+  const supabase =
+    await createClient();
 
 
+  const {
+    data,
+    error,
+  } = await supabase
+    .from("voting_settings")
+    .select("*")
+    .order(
+      "created_at",
+      {
+        ascending: false,
+      },
+    )
+    .limit(1)
+    .maybeSingle();
 
 
+  if (error) {
+    throw new Error(
+      error.message,
+    );
+  }
 
 
-export async function getVotingSettings(){
-
-
-const supabase =
-await createClient();
-
-
-
-const {
-data
-}=await supabase
-
-.from("voting_settings")
-
-.select("*")
-
-.order(
-"created_at",
-{
-ascending:false
-}
-)
-
-.limit(1)
-
-.maybeSingle();
-
-
-
-return data ?? null;
-
-
-}
-
-
-
-
-
-
-
-
-export async function getVotingResults(){
-
-
-const supabase =
-await createClient();
-
-
-
-const {
-data,
-error
-}=await supabase
-
-.from("votes")
-
-.select(`
-
-id,
-
-candidate:candidate_id(
-
-id,
-
-candidate_number,
-
-full_name,
-
-image_url,
-
-college
-
-),
-
-
-category:category_id(
-
-id,
-
-name
-
-)
-
-
-`);
-
-
-
-
-
-if(error){
-
-console.log(error.message);
-
-return [];
+  return data ?? null;
 
 }
 
 
+/*
+|--------------------------------------------------------------------------
+| CATEGORIES
+|--------------------------------------------------------------------------
+*/
+
+export async function getVoteCategories(
+  eventId?: string,
+) {
+
+  const supabase =
+    await createClient();
 
 
-
-const results:any={};
-
-
-
-
-
-data?.forEach(
-(vote:any)=>{
-
-
-const key =
-vote.candidate.id;
-
-
-
-
-if(!results[key]){
+  let query =
+    supabase
+      .from("categories")
+      .select(`
+        id,
+        event_id,
+        name
+      `)
+      .order(
+        "name",
+        {
+          ascending: true,
+        },
+      );
 
 
-results[key]={
+  if (eventId) {
 
-candidate:
-vote.candidate,
+    query =
+      query.eq(
+        "event_id",
+        eventId,
+      );
 
-
-category:
-vote.category,
-
-
-votes:0
-
-};
+  }
 
 
-}
+  const {
+    data,
+    error,
+  } = await query;
 
 
-
-results[key].votes++;
-
-
-}
-
-);
+  if (error) {
+    throw new Error(
+      error.message,
+    );
+  }
 
 
-
-
-
-return Object.values(results)
-
-.sort(
-(a:any,b:any)=>
-b.votes-a.votes
-)
-
-.map(
-(item:any,index)=>({
-
-...item,
-
-rank:index+1
-
-
-})
-);
-
+  return data ?? [];
 
 }
 
 
+/*
+|--------------------------------------------------------------------------
+| VOTING RESULTS
+|--------------------------------------------------------------------------
+*/
+
+export async function getVotingResults(
+  categoryId?: string,
+) {
+
+  const supabase =
+    await createClient();
 
 
+  const {
+    data,
+    error,
+  } = await supabase
+    .from("votes")
+    .select(`
+      id,
+
+      candidate:candidate_id(
+        id,
+        candidate_number,
+        full_name,
+        image_url,
+        college
+      ),
+
+      category:category_id(
+        id,
+        name
+      )
+    `);
 
 
+  if (error) {
+    throw new Error(
+      error.message,
+    );
+  }
 
 
+  /*
+   * Filter by category when selected.
+   * Empty/undefined category means all categories.
+   */
 
-export async function getRecentVotes(){
-
-
-const supabase =
-await createClient();
-
-
-
-const {
-data
-}=await supabase
-
-.from("votes")
-
-.select(`
-
-id,
-
-created_at,
+  const filteredData =
+    categoryId
+      ? (data ?? []).filter(
+          (vote: any) =>
+            vote.category?.id ===
+            categoryId,
+        )
+      : data ?? [];
 
 
-candidate:candidate_id(
+  /*
+   * Group votes by candidate.
+   */
 
-full_name
-
-),
-
-
-category:category_id(
-
-name
-
-),
+  const groupedResults:
+    Record<string, any> = {};
 
 
-voter:voter_id(
+  filteredData.forEach(
+    (vote: any) => {
 
-full_name
+      const candidateId =
+        vote.candidate?.id;
 
-)
+
+      if (!candidateId) {
+        return;
+      }
 
 
-`)
+      if (
+        !groupedResults[
+          candidateId
+        ]
+      ) {
 
-.order(
-"created_at",
-{
-ascending:false
+        groupedResults[
+          candidateId
+        ] = {
+
+          candidate:
+            vote.candidate,
+
+          category:
+            vote.category,
+
+          votes: 0,
+
+        };
+
+      }
+
+
+      groupedResults[
+        candidateId
+      ].votes++;
+
+    },
+  );
+
+
+  /*
+   * Sort highest votes first
+   * and generate fresh ranking.
+   */
+
+  return Object
+    .values(
+      groupedResults,
+    )
+    .sort(
+      (a: any, b: any) =>
+        b.votes -
+        a.votes,
+    )
+    .map(
+      (
+        item: any,
+        index: number,
+      ) => ({
+
+        ...item,
+
+        rank:
+          index + 1,
+
+      }),
+    );
+
 }
-)
-
-.limit(10);
 
 
+/*
+|--------------------------------------------------------------------------
+| RECENT VOTES
+|--------------------------------------------------------------------------
+*/
 
-return data ?? [];
+export async function getRecentVotes() {
 
+  const supabase =
+    await createClient();
+
+
+  const {
+    data,
+    error,
+  } = await supabase
+    .from("votes")
+    .select(`
+      id,
+      created_at,
+
+      candidate:candidate_id(
+        full_name
+      ),
+
+      category:category_id(
+        name
+      ),
+
+      voter:voter_id(
+        full_name
+      )
+    `)
+    .order(
+      "created_at",
+      {
+        ascending: false,
+      },
+    )
+    .limit(10);
+
+
+  if (error) {
+    throw new Error(
+      error.message,
+    );
+  }
+
+
+  return data ?? [];
 
 }
