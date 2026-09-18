@@ -16,135 +16,84 @@ import {
   X,
 } from "lucide-react";
 
-
 import { CldImage } from "next-cloudinary";
 
 import { createClient } from "@/lib/supabase/client";
 
 import { SITE_CONFIG } from "@/components/site-config";
 
-
-
 const navigation = [
-
   {
-    label:"Dashboard",
-    href:"/admin",
-    icon:LayoutDashboard,
+    label: "Dashboard",
+    href: "/admin",
+    icon: LayoutDashboard,
   },
 
   {
-    label:"Candidates",
-    href:"/admin/candidates",
-    icon:Trophy,
+    label: "Candidates",
+    href: "/admin/candidates",
+    icon: Trophy,
   },
 
   {
-    label:"Votes",
-    href:"/admin/votes",
-    icon:Vote,
+    label: "Votes",
+    href: "/admin/votes",
+    icon: Vote,
   },
 
   {
-    label:"Users",
-    href:"/admin/users",
-    icon:Users,
+    label: "Voting Control",
+    href: "/admin/voting-settings",
+    icon: Users,
   },
 
   {
-    label:"Reports",
-    href:"/admin/reports",
-    icon:BarChart3,
+    label: "Profiles",
+    href: "/admin/profiles",
+    icon: Settings,
   },
-
-  {
-    label:"Settings",
-    href:"/admin/settings",
-    icon:Settings,
-  },
-
 ];
 
+interface Props {
+  open: boolean;
 
-
-
-
-interface Props{
-
-open:boolean;
-
-close:()=>void;
-
+  close: () => void;
 }
-
-
-
 
 export default function AdminSidebar({
+  open,
 
-open,
+  close,
+}: Props) {
+  const pathname = usePathname();
 
-close
+  const router = useRouter();
 
-}:Props){
+  const supabase = createClient();
 
+  async function handleLogout() {
+    await supabase.auth.signOut();
 
+    router.replace("/voting");
 
-const pathname = usePathname();
+    router.refresh();
+  }
 
-const router = useRouter();
-
-const supabase = createClient();
-
-
-
-
-
-async function handleLogout(){
-
-
-await supabase.auth.signOut();
-
-
-router.replace("/voting");
-
-
-router.refresh();
-
-
-}
-
-
-
-
-
-
-return (
-
-
-<motion.aside
-
-
-initial={{
-opacity:0,
-x:-80
-}}
-
-
-animate={{
-opacity:1,
-x:0
-}}
-
-
-transition={{
-duration:.45,
-ease:[0.22,1,0.36,1]
-}}
-
-
-
-className={`
+  return (
+    <motion.aside
+      initial={{
+        opacity: 0,
+        x: -80,
+      }}
+      animate={{
+        opacity: 1,
+        x: 0,
+      }}
+      transition={{
+        duration: 0.45,
+        ease: [0.22, 1, 0.36, 1],
+      }}
+      className={`
 
 fixed
 
@@ -186,41 +135,19 @@ ease-out
 
 
 
-${
-
-open
-
-?
-
-"translate-x-0"
-
-:
-
-"-translate-x-full"
-
-}
+${open ? "translate-x-0" : "-translate-x-full"}
 
 
 
 lg:translate-x-0
 
 `}
+    >
+      {/* MOBILE CLOSE */}
 
-
->
-
-
-
-
-
-{/* MOBILE CLOSE */}
-
-
-<button
-
-onClick={close}
-
-className="
+      <button
+        onClick={close}
+        className="
 
 absolute
 
@@ -246,27 +173,14 @@ hover:text-white
 lg:hidden
 
 "
+      >
+        <X size={20} />
+      </button>
 
->
+      {/* BRAND */}
 
-<X size={20}/>
-
-
-</button>
-
-
-
-
-
-
-
-{/* BRAND */}
-
-
-
-<div
-
-className="
+      <div
+        className="
 
 flex
 
@@ -283,14 +197,9 @@ border-white/10
 pb-6
 
 "
-
->
-
-
-
-<div
-
-className="
+      >
+        <div
+          className="
 
 relative
 
@@ -314,48 +223,26 @@ bg-white
 shadow-lg
 
 "
-
->
-
-
-<CldImage
-
-src={SITE_CONFIG.images.logo}
-
-alt="SSC Logo"
-
-fill
-
-sizes="48px"
-
-crop="fill"
-
-gravity="auto"
-
-quality="auto"
-
-format="auto"
-
-priority
-
-className="
+        >
+          <CldImage
+            src={SITE_CONFIG.images.logo}
+            alt="SSC Logo"
+            fill
+            sizes="48px"
+            crop="fill"
+            gravity="auto"
+            quality="auto"
+            format="auto"
+            priority
+            className="
 object-cover
 "
+          />
+        </div>
 
-/>
-
-
-</div>
-
-
-
-
-<div>
-
-
-<p
-
-className="
+        <div>
+          <p
+            className="
 
 text-sm
 
@@ -364,18 +251,12 @@ font-bold
 tracking-wide
 
 "
+          >
+            {SITE_CONFIG.shortName}
+          </p>
 
->
-
-{SITE_CONFIG.shortName}
-
-</p>
-
-
-
-<p
-
-className="
+          <p
+            className="
 
 mt-1
 
@@ -388,35 +269,16 @@ tracking-[0.3em]
 text-white/50
 
 "
+          >
+            Admin Console
+          </p>
+        </div>
+      </div>
 
->
+      {/* NAVIGATION */}
 
-Admin Console
-
-</p>
-
-
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-{/* NAVIGATION */}
-
-
-
-<nav
-
-className="
+      <nav
+        className="
 
 mt-8
 
@@ -425,46 +287,20 @@ flex-1
 space-y-2
 
 "
+      >
+        {navigation.map((item) => {
+          const Icon = item.icon;
 
->
+          const active =
+            pathname === item.href ||
+            (item.href !== "/admin" && pathname.startsWith(item.href));
 
-
-
-{
-
-navigation.map((item)=>{
-
-
-const Icon=item.icon;
-
-
-const active =
-
-pathname === item.href ||
-
-(
-item.href !== "/admin" &&
-pathname.startsWith(item.href)
-);
-
-
-
-return (
-
-
-<Link
-
-
-key={item.href}
-
-
-href={item.href}
-
-
-onClick={close}
-
-
-className={`
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={close}
+              className={`
 
 group
 
@@ -498,37 +334,18 @@ duration-300
 
 
 ${
-
-active
-
-?
-
-"bg-white/15 text-white shadow-lg"
-
-:
-
-"text-white/60 hover:bg-white/10 hover:text-white"
-
+  active
+    ? "bg-white/15 text-white shadow-lg"
+    : "text-white/60 hover:bg-white/10 hover:text-white"
 }
 
 
 `}
-
-
-
->
-
-
-
-{
-
-active &&
-
-<motion.div
-
-layoutId="active-admin-link"
-
-className="
+            >
+              {active && (
+                <motion.div
+                  layoutId="active-admin-link"
+                  className="
 
 absolute
 
@@ -545,20 +362,12 @@ rounded-r-full
 bg-[#D4AF37]
 
 "
+                />
+              )}
 
-/>
-
-}
-
-
-
-
-<Icon
-
-size={19}
-
-
-className={`
+              <Icon
+                size={19}
+                className={`
 
 transition-transform
 
@@ -569,65 +378,22 @@ group-hover:scale-110
 
 
 
-${
-
-active
-
-?
-
-"text-[#D4AF37]"
-
-:
-
-"text-white/50"
-
-}
+${active ? "text-[#D4AF37]" : "text-white/50"}
 
 
 `}
+              />
 
-/>
+              <span>{item.label}</span>
+            </Link>
+          );
+        })}
+      </nav>
 
+      {/* EVENT CARD */}
 
-
-
-<span>
-
-{item.label}
-
-</span>
-
-
-
-</Link>
-
-
-)
-
-
-})
-
-}
-
-
-
-</nav>
-
-
-
-
-
-
-
-
-
-{/* EVENT CARD */}
-
-
-
-<div
-
-className="
+      <div
+        className="
 
 rounded-2xl
 
@@ -642,31 +408,21 @@ bg-white/5
 p-4
 
 "
-
->
-
-
-<p
-
-className="
+      >
+        <p
+          className="
 
 text-xs
 
 font-semibold
 
 "
+        >
+          {SITE_CONFIG.event.name}
+        </p>
 
->
-
-{SITE_CONFIG.event.name}
-
-</p>
-
-
-
-<p
-
-className="
+        <p
+          className="
 
 mt-1
 
@@ -675,34 +431,16 @@ text-[10px]
 text-white/50
 
 "
+        >
+          {SITE_CONFIG.institution}
+        </p>
+      </div>
 
->
+      {/* LOGOUT */}
 
-{SITE_CONFIG.institution}
-
-</p>
-
-
-
-</div>
-
-
-
-
-
-
-
-{/* LOGOUT */}
-
-
-
-<button
-
-
-onClick={handleLogout}
-
-
-className="
+      <button
+        onClick={handleLogout}
+        className="
 
 mt-4
 
@@ -739,28 +477,10 @@ hover:bg-red-500/10
 hover:text-red-200
 
 "
-
-
->
-
-
-<LogOut size={18}/>
-
-
-Logout
-
-
-</button>
-
-
-
-
-
-
-</motion.aside>
-
-
-);
-
-
+      >
+        <LogOut size={18} />
+        Logout
+      </button>
+    </motion.aside>
+  );
 }
