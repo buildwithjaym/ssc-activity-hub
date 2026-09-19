@@ -23,7 +23,7 @@ const schedule = [
   },
   {
     date: "October 6, 2026",
-    title: "Color Fun Run",
+    title: "Fun Run",
     category: "Sports Activity",
     venue: "Basilan State College",
     description:
