@@ -9,6 +9,7 @@ import { Footer } from "@/components/footer";
 import { EventSchedule } from "@/components/event-schedule";
 import { HowToParticipate } from "@/components/how-to-participate";
 import { SSCMessage } from "@/components/ssc-message";
+import { VoteSection } from "@/components/vote-section"; // ← add this
 
 export default function Home() {
   return (
@@ -16,24 +17,16 @@ export default function Home() {
       <Navbar />
 
       <HeroSection />
-
-<QuickAccess />
-
-<AboutSSC />
-
-<IntroSection />
-
-<FeaturedActivities />
-
-<EventSchedule />
-
-<HowToParticipate />
-
-<CollegeSpirit />
-
-<SSCMessage />
-
-<Footer />
+      <QuickAccess />
+      <AboutSSC />
+      <IntroSection />
+      <FeaturedActivities />
+      <VoteSection />
+      <EventSchedule />
+      <HowToParticipate />
+      <CollegeSpirit />
+      <SSCMessage />
+      <Footer />
     </main>
   );
 }
