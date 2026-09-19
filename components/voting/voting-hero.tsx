@@ -1,16 +1,26 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ShieldCheck } from "lucide-react";
+import { ShieldCheck, ArrowLeft } from "lucide-react";
+import Link from "next/link";
 import GoogleButton from "@/components/auth/google-button";
 
 export default function VotingHero() {
   return (
-    <section className="relative min-h-[100svh] overflow-hidden bg-[#FAF8F2]">
+    <section className="relative flex min-h-[calc(100svh-88px)] items-center justify-center overflow-hidden bg-[#FAF8F2]">
       {/* Subtle background */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(212,175,55,0.12),_transparent_50%)]" />
 
-      <div className="relative mx-auto flex min-h-[100svh] max-w-5xl flex-col items-center justify-center px-5 py-24 text-center sm:px-8">
+      {/* Back to Home - text only */}
+      <Link
+        href="/"
+        className="absolute left-5 top-6 z-10 flex items-center gap-1.5 text-sm font-medium text-[#0A2A1F] transition hover:text-[#D4AF37] sm:left-8 sm:top-8"
+      >
+        <ArrowLeft size={16} />
+        <span>Back to Home</span>
+      </Link>
+
+      <div className="relative mx-auto flex w-full max-w-5xl flex-col items-center justify-center px-5 text-center sm:px-8">
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
@@ -24,7 +34,7 @@ export default function VotingHero() {
 
           {/* Main title */}
           <h1 className="mt-4 text-4xl font-bold leading-[1.1] tracking-tight text-[#0A2A1F] sm:text-5xl lg:text-6xl">
-            Mr. & Miss
+            Subul Duk Budjang
             <span className="mt-1 block text-[#D4AF37]">
               Parageyan 2026
             </span>
