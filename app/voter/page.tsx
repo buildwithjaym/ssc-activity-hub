@@ -3,6 +3,7 @@ import {
   getCategories,
   getCandidates,
   getVotingStatus,
+  getMyVotes,
 } from "./actions";
 
 
@@ -46,6 +47,8 @@ export default async function VoterPage(){
 
 
 
+
+
   const categories =
     await getCategories(
       event.id
@@ -54,8 +57,11 @@ export default async function VoterPage(){
 
 
 
+
   const firstCategory =
     categories[0];
+
+
 
 
 
@@ -78,6 +84,8 @@ export default async function VoterPage(){
 
 
 
+
+
   const voteStatus =
     await getVotingStatus(
       event.id
@@ -87,21 +95,42 @@ export default async function VoterPage(){
 
 
 
+
+  const myVotes =
+    await getMyVotes(
+      event.id
+    );
+
+
+
+
+
+
+
   return (
 
     <VoterPageClient
 
+
       event={event}
+
 
       categories={categories}
 
+
       initialCandidates={candidates}
+
 
       initialCategory={
         firstCategory?.id ?? ""
       }
 
+
       voteStatus={voteStatus}
+
+
+      myVotes={myVotes}
+
 
     />
 
