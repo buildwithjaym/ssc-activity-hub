@@ -60,8 +60,48 @@ useRef(0);
 
 
 
+
+
+const uniqueCandidates =
+useMemo(()=>{
+
+
+return Array.from(
+
+new Map(
+
+candidates.map(candidate=>[
+
+candidate.id,
+
+candidate
+
+])
+
+).values()
+
+);
+
+
+},[candidates]);
+
+
+
+
 const total =
-candidates.length;
+uniqueCandidates.length;
+
+
+
+
+useEffect(()=>{
+
+
+setActive(0);
+
+
+},[uniqueCandidates]);
+
 
 
 
@@ -69,12 +109,53 @@ const currentCandidates =
 useMemo(()=>{
 
 
-if(!total)
+if(!total){
+
 return {
+
 left:null,
+
 center:null,
+
 right:null
+
 };
+
+}
+
+
+
+if(total === 1){
+
+return {
+
+left:null,
+
+center:uniqueCandidates[0],
+
+right:null
+
+};
+
+}
+
+
+
+if(total === 2){
+
+return {
+
+left:null,
+
+center:uniqueCandidates[active],
+
+right:uniqueCandidates[
+(active+1)%total
+]
+
+};
+
+}
 
 
 
@@ -82,19 +163,19 @@ return {
 
 
 left:
-candidates[
+uniqueCandidates[
 (active-1+total)%total
 ],
 
 
 center:
-candidates[
+uniqueCandidates[
 active
 ],
 
 
 right:
-candidates[
+uniqueCandidates[
 (active+1)%total
 ]
 
@@ -102,14 +183,12 @@ candidates[
 };
 
 
+
 },[
 active,
-candidates,
+uniqueCandidates,
 total
 ]);
-
-
-
 
 
 
@@ -124,7 +203,9 @@ return;
 
 
 setActive(prev=>
+
 (prev+1)%total
+
 );
 
 
@@ -147,7 +228,9 @@ return;
 
 
 setActive(prev=>
+
 (prev-1+total)%total
+
 );
 
 
@@ -170,15 +253,18 @@ if(
 pause ||
 total<=1
 )
-
 return;
 
 
 
 const timer =
+
 setInterval(
+
 next,
+
 autoplayDelay
+
 );
 
 
@@ -188,11 +274,17 @@ return()=>clearInterval(timer);
 
 
 },[
+
 autoplay,
+
 pause,
-total,
+
 autoplayDelay,
+
+total,
+
 next
+
 ]);
 
 
@@ -201,48 +293,49 @@ next
 
 
 
-
-const startTouch =
-(e:React.TouchEvent)=>{
-
+function startTouch(
+e:React.TouchEvent
+){
 
 touchStart.current =
 e.touches[0].clientX;
 
-
-};
-
+}
 
 
 
 
 
 
-const endTouch =
-(e:React.TouchEvent)=>{
+function endTouch(
+e:React.TouchEvent
+){
 
 
 const distance =
+
 e.changedTouches[0].clientX -
+
 touchStart.current;
 
 
 
-if(distance < -60)
+if(distance < -60){
 
 next();
 
+}
 
 
-if(distance >60)
+
+if(distance > 60){
 
 prev();
 
+}
 
 
-};
-
-
+}
 
 
 
@@ -255,12 +348,16 @@ if(!total){
 
 return (
 
-<div className="
+<div
+
+className="
 py-16
 text-center
 text-sm
 text-slate-500
-">
+"
+
+>
 
 No candidates available.
 
@@ -276,9 +373,8 @@ No candidates available.
 
 
 
+
 return (
-
-
 
 <section
 
@@ -292,22 +388,18 @@ py-6
 "
 
 
-onMouseEnter={()=>
-setPause(true)
-}
 
-onMouseLeave={()=>
-setPause(false)
-}
+onMouseEnter={()=>setPause(true)}
+
+onMouseLeave={()=>setPause(false)}
 
 onTouchStart={startTouch}
 
 onTouchEnd={endTouch}
 
 
+
 >
-
-
 
 
 
@@ -326,7 +418,9 @@ justify-center
 
 
 style={{
+
 perspective:"1200px"
+
 }}
 
 
@@ -336,12 +430,8 @@ perspective:"1200px"
 
 
 
-
-
-
 {
-currentCandidates.left && (
-
+currentCandidates.left &&
 
 <motion.div
 
@@ -354,21 +444,15 @@ currentCandidates.left.id
 
 animate={{
 
-
 x:"clamp(-140px,-20vw,-240px)",
-
 
 scale:.74,
 
-
 opacity:.22,
-
 
 rotateY:35,
 
-
 filter:"blur(1px)"
-
 
 }}
 
@@ -376,11 +460,9 @@ filter:"blur(1px)"
 
 transition={{
 
-
 duration:.45,
 
 ease:"easeOut"
-
 
 }}
 
@@ -397,6 +479,7 @@ pointer-events-none
 >
 
 
+
 <CandidateCard
 
 candidate={
@@ -408,11 +491,7 @@ onVote={onVote}
 />
 
 
-
 </motion.div>
-
-
-)
 
 }
 
@@ -441,8 +520,11 @@ drag="x"
 
 
 dragConstraints={{
+
 left:0,
+
 right:0
+
 }}
 
 
@@ -450,20 +532,23 @@ right:0
 onDragEnd={(e,info)=>{
 
 
-if(info.offset.x < -70)
+if(info.offset.x < -70){
 
 next();
 
+}
 
 
-if(info.offset.x >70)
+
+if(info.offset.x >70){
 
 prev();
+
+}
 
 
 
 }}
-
 
 
 
@@ -503,7 +588,6 @@ x:-40
 
 
 
-
 transition={{
 
 duration:.4,
@@ -514,11 +598,12 @@ ease:"easeOut"
 
 
 
-
 className="
 relative
 z-20
 "
+
+
 
 >
 
@@ -551,8 +636,7 @@ onVote={onVote}
 
 
 {
-currentCandidates.right && (
-
+currentCandidates.right &&
 
 <motion.div
 
@@ -563,27 +647,19 @@ currentCandidates.right.id
 
 
 
-
 animate={{
-
 
 x:"clamp(120px,18vw,230px)",
 
-
 scale:.74,
-
 
 opacity:.22,
 
-
 rotateY:-35,
-
 
 filter:"blur(1px)"
 
-
 }}
-
 
 
 
@@ -623,9 +699,6 @@ onVote={onVote}
 
 </motion.div>
 
-
-)
-
 }
 
 
@@ -636,8 +709,8 @@ onVote={onVote}
 
 
 
-
 <button
+
 
 onClick={prev}
 
@@ -666,7 +739,6 @@ hover:scale-110
 
 >
 
-
 <ChevronLeft size={20}/>
 
 
@@ -678,7 +750,9 @@ hover:scale-110
 
 
 
+
 <button
+
 
 onClick={next}
 
@@ -707,12 +781,10 @@ hover:scale-110
 
 >
 
-
 <ChevronRight size={20}/>
 
 
 </button>
-
 
 
 
@@ -728,8 +800,8 @@ hover:scale-110
 
 
 
-
 <div
+
 
 className="
 mt-3
@@ -738,20 +810,26 @@ justify-center
 gap-2
 "
 
+
+
 >
 
 
 {
-candidates.map((item,index)=>(
+
+uniqueCandidates.map(
+
+(item,index)=>(
 
 
 <button
 
+
 key={item.id}
 
-onClick={()=>
-setActive(index)
-}
+
+onClick={()=>setActive(index)}
+
 
 
 className="
@@ -800,7 +878,10 @@ active===index
 />
 
 
-))
+)
+
+)
+
 
 }
 
@@ -812,7 +893,9 @@ active===index
 
 
 
+
 <p
+
 
 className="
 mt-2
@@ -821,12 +904,14 @@ text-xs
 text-slate-400
 "
 
+
+
 >
 
 Candidate {active+1} of {total}
 
-</p>
 
+</p>
 
 
 
@@ -836,8 +921,8 @@ Candidate {active+1} of {total}
 </section>
 
 
-
 );
+
 
 }
 
