@@ -4,92 +4,199 @@ import { useState } from "react";
 
 import { motion } from "framer-motion";
 
-import { X, Check, Lock } from "lucide-react";
+import {
+  X,
+  Check,
+  Lock,
+} from "lucide-react";
 
-import { submitVote } from "@/app/voter/actions";
+import {
+  submitVote,
+} from "@/app/voter/actions";
+
+
 
 interface Candidate {
-  id: string;
 
-  candidate_number: number | null;
+  id:string;
 
-  full_name: string;
+  candidate_number:number|null;
 
-  image_url: string | null;
+  full_name:string;
 
-  college: string | null;
+  image_url:string|null;
 
-  category_name?: string;
+  college:string|null;
+
+  category_name?:string;
+
 }
+
+
 
 interface VoteModalProps {
-  candidate: Candidate;
 
-  eventId: string;
+  candidate:Candidate;
 
-  categoryId: string;
+  eventId:string;
 
-  voteStatus: any;
+  categoryId:string;
 
-  onClose: () => void;
+  voteStatus:any;
 
-  onSuccess: () => void;
+  hasVoted:boolean;
+
+  onClose:()=>void;
+
+  onSuccess:()=>void;
+
 }
 
+
+
+
+
 export default function VoteModal({
-  candidate,
 
-  eventId,
+candidate,
 
-  categoryId,
+eventId,
 
-  voteStatus,
+categoryId,
 
-  onClose,
+voteStatus,
 
-  onSuccess,
-}: VoteModalProps) {
-  const [loading, setLoading] = useState(false);
+hasVoted,
 
-  const [error, setError] = useState("");
+onClose,
 
-  async function handleVote() {
-    if (!voteStatus.canVote) {
-      setError(voteStatus.message || "Voting is currently closed.");
+onSuccess,
 
-      return;
-    }
+}:VoteModalProps){
 
-    try {
-      setLoading(true);
 
-      setError("");
 
-      const result = await submitVote({
-        eventId,
+const [loading,setLoading] =
+useState(false);
 
-        categoryId,
 
-        candidateId: candidate.id,
-      });
+const [error,setError] =
+useState("");
 
-      if (!result.success) {
-        setError(result.message);
 
-        return;
-      }
 
-      onSuccess();
-    } catch {
-      setError("Unable to submit vote. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  }
 
-  return (
-    <div
-      className="
+
+const disabled =
+loading ||
+hasVoted ||
+!voteStatus.canVote;
+
+
+
+
+
+
+
+async function handleVote(){
+
+
+if(hasVoted){
+
+setError(
+"You already voted in this category."
+);
+
+return;
+
+}
+
+
+
+if(!voteStatus.canVote){
+
+setError(
+voteStatus.message ||
+"Voting is currently closed."
+);
+
+return;
+
+}
+
+
+
+
+try{
+
+
+setLoading(true);
+
+setError("");
+
+
+
+const result =
+await submitVote({
+
+eventId,
+
+categoryId,
+
+candidateId:candidate.id,
+
+});
+
+
+
+
+if(!result.success){
+
+setError(
+result.message
+);
+
+return;
+
+}
+
+
+
+onSuccess();
+
+
+
+}
+
+catch{
+
+
+setError(
+"Unable to submit vote. Please try again."
+);
+
+
+}
+
+finally{
+
+setLoading(false);
+
+}
+
+
+}
+
+
+
+
+
+
+return (
+
+<div
+
+className="
 fixed
 inset-0
 z-50
@@ -100,24 +207,34 @@ bg-black/40
 px-4
 backdrop-blur-md
 "
-      onClick={onClose}
-    >
-      <motion.div
-        initial={{
-          opacity: 0,
-          scale: 0.92,
-          y: 20,
-        }}
-        animate={{
-          opacity: 1,
-          scale: 1,
-          y: 0,
-        }}
-        transition={{
-          duration: 0.25,
-        }}
-        onClick={(e) => e.stopPropagation()}
-        className="
+
+onClick={onClose}
+
+>
+
+
+
+<motion.div
+
+initial={{
+opacity:0,
+scale:.92,
+y:20
+}}
+
+animate={{
+opacity:1,
+scale:1,
+y:0
+}}
+
+transition={{
+duration:.25
+}}
+
+onClick={(e)=>e.stopPropagation()}
+
+className="
 relative
 w-full
 max-w-[360px]
@@ -126,10 +243,16 @@ rounded-[28px]
 bg-white
 shadow-2xl
 "
-      >
-        <button
-          onClick={onClose}
-          className="
+
+>
+
+
+
+<button
+
+onClick={onClose}
+
+className="
 absolute
 right-3
 top-3
@@ -143,20 +266,37 @@ rounded-full
 bg-black/40
 text-white
 "
-        >
-          <X size={16} />
-        </button>
 
-        <div
-          className="
+>
+
+<X size={16}/>
+
+</button>
+
+
+
+
+
+
+
+<div
+
+className="
 px-6
 pt-6
 text-center
 "
-        >
-          {candidate.candidate_number && (
-            <div
-              className="
+
+>
+
+
+
+{
+candidate.candidate_number &&
+
+<div
+
+className="
 mx-auto
 mb-4
 inline-flex
@@ -166,47 +306,79 @@ py-1
 text-xs
 font-black
 "
-              style={{
-                background: "#D4AF37",
 
-                color: "#0A2A1F",
-              }}
-            >
-              Candidate #{candidate.candidate_number}
-            </div>
-          )}
+style={{
 
-          <div
-            className="
+background:"#D4AF37",
+
+color:"#0A2A1F"
+
+}}
+
+>
+
+Candidate #{candidate.candidate_number}
+
+</div>
+
+}
+
+
+
+
+
+<div
+
+className="
 mx-auto
 rounded-[26px]
 bg-[#F8F5EF]
 p-2
 w-fit
 "
-          >
-            <div
-              className="
+
+>
+
+<div
+
+className="
 h-[210px]
 w-[210px]
 overflow-hidden
 rounded-[22px]
 bg-slate-100
 "
-            >
-              {candidate.image_url ? (
-                <img
-                  src={candidate.image_url}
-                  alt={candidate.full_name}
-                  className="
+
+>
+
+
+
+{
+
+candidate.image_url
+
+?
+
+<img
+
+src={candidate.image_url}
+
+alt={candidate.full_name}
+
+className="
 h-full
 w-full
 object-cover
 "
-                />
-              ) : (
-                <div
-                  className="
+
+/>
+
+
+:
+
+<div
+
+className="
 flex
 h-full
 items-center
@@ -214,27 +386,54 @@ justify-center
 text-xs
 text-slate-400
 "
-                >
-                  No Image
-                </div>
-              )}
-            </div>
-          </div>
 
-          <h1
-            className="
+>
+
+No Image
+
+</div>
+
+}
+
+
+
+</div>
+
+</div>
+
+
+
+
+
+
+
+<h1
+
+className="
 mt-4
 text-xl
 font-black
 text-[#0A2A1F]
 "
-          >
-            {candidate.full_name}
-          </h1>
 
-          {candidate.college && (
-            <div
-              className="
+>
+
+{candidate.full_name}
+
+</h1>
+
+
+
+
+
+
+{
+
+candidate.college &&
+
+<div
+
+className="
 mx-auto
 mt-2
 w-fit
@@ -244,19 +443,34 @@ py-1
 text-xs
 font-bold
 "
-              style={{
-                background: "rgba(212,175,55,.15)",
 
-                color: "#0F3D2E",
-              }}
-            >
-              {candidate.college}
-            </div>
-          )}
+style={{
 
-          {candidate.category_name && (
-            <p
-              className="
+background:"rgba(212,175,55,.15)",
+
+color:"#0F3D2E"
+
+}}
+
+>
+
+{candidate.college}
+
+</div>
+
+}
+
+
+
+
+
+{
+
+candidate.category_name &&
+
+<p
+
+className="
 mt-3
 text-[10px]
 font-bold
@@ -264,20 +478,118 @@ uppercase
 tracking-[.25em]
 text-[#D4AF37]
 "
-            >
-              {candidate.category_name}
-            </p>
-          )}
-        </div>
 
-        <div
-          className="
+>
+
+{candidate.category_name}
+
+</p>
+
+}
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div
+
+className="
 px-6
 pb-6
 "
-        >
-          <div
-            className="
+
+>
+
+
+
+
+
+
+{
+
+hasVoted
+
+?
+
+
+<div
+
+className="
+mt-5
+rounded-xl
+bg-yellow-50
+px-4
+py-4
+text-center
+text-xs
+font-bold
+text-yellow-700
+"
+
+>
+
+<Lock
+size={16}
+className="mx-auto mb-2"
+/>
+
+
+You already voted in this category.
+
+</div>
+
+
+
+:
+
+
+!voteStatus.canVote
+
+?
+
+
+<div
+
+className="
+mt-5
+rounded-xl
+bg-red-50
+px-4
+py-4
+text-center
+text-xs
+font-bold
+text-red-500
+"
+
+>
+
+<Lock
+size={16}
+className="mx-auto mb-2"
+/>
+
+
+{voteStatus.message}
+
+</div>
+
+
+
+:
+
+
+<div
+
+className="
 mt-5
 rounded-xl
 bg-[#F8F5EF]
@@ -287,36 +599,27 @@ text-center
 text-xs
 text-slate-600
 "
-          >
-            Are you sure you want to vote for this candidate?
-          </div>
 
-          {!voteStatus.canVote && (
-            <div
-              className="
-mt-3
-flex
-items-center
-justify-center
-gap-2
-rounded-xl
-bg-red-50
-px-3
-py-3
-text-xs
-font-semibold
-text-red-500
-"
-            >
-              <Lock size={14} />
+>
 
-              {voteStatus.message}
-            </div>
-          )}
+Are you sure you want to vote for this candidate?
 
-          {error && (
-            <div
-              className="
+</div>
+
+}
+
+
+
+
+
+{
+
+
+error &&
+
+<div
+
+className="
 mt-3
 rounded-xl
 bg-red-50
@@ -327,22 +630,42 @@ text-xs
 font-medium
 text-red-500
 "
-            >
-              {error}
-            </div>
-          )}
 
-          <div
-            className="
+>
+
+{error}
+
+</div>
+
+}
+
+
+
+
+
+
+
+
+<div
+
+className="
 mt-4
 flex
 gap-3
 "
-          >
-            <button
-              onClick={onClose}
-              disabled={loading}
-              className="
+
+>
+
+
+
+
+<button
+
+onClick={onClose}
+
+disabled={loading}
+
+className="
 flex-1
 rounded-xl
 border
@@ -350,19 +673,34 @@ py-3
 text-sm
 font-bold
 "
-              style={{
-                borderColor: "#0F3D2E",
 
-                color: "#0F3D2E",
-              }}
-            >
-              Cancel
-            </button>
+style={{
 
-            <button
-              onClick={handleVote}
-              disabled={loading || !voteStatus.canVote}
-              className="
+borderColor:"#0F3D2E",
+
+color:"#0F3D2E"
+
+}}
+
+>
+
+Cancel
+
+</button>
+
+
+
+
+
+
+
+<button
+
+onClick={handleVote}
+
+disabled={disabled}
+
+className="
 flex-1
 rounded-xl
 py-3
@@ -374,24 +712,122 @@ justify-center
 gap-2
 disabled:opacity-50
 "
-              style={{
-                background: "#0F3D2E",
 
-                color: "#F8F5EF",
-              }}
-            >
-              {loading ? (
-                "Submitting..."
-              ) : (
-                <>
-                  <Check size={15} />
-                  Vote
-                </>
-              )}
-            </button>
-          </div>
-        </div>
-      </motion.div>
-    </div>
-  );
+style={{
+
+background:
+
+hasVoted
+
+?
+
+"#CBD5E1"
+
+:
+
+"#0F3D2E",
+
+
+color:
+
+hasVoted
+
+?
+
+"#475569"
+
+:
+
+"#F8F5EF"
+
+}}
+
+>
+
+
+
+
+
+{
+
+loading
+
+?
+
+"Submitting..."
+
+
+:
+
+hasVoted
+
+?
+
+<>
+
+<Lock size={15}/>
+
+Already Voted
+
+</>
+
+
+:
+
+
+!voteStatus.canVote
+
+?
+
+<>
+
+<Lock size={15}/>
+
+Closed
+
+</>
+
+
+:
+
+<>
+
+<Check size={15}/>
+
+Vote
+
+</>
+
+}
+
+
+
+</button>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+</motion.div>
+
+
+
+</div>
+
+);
+
 }
