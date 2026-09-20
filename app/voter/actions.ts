@@ -9,56 +9,57 @@ import { createPublicClient } from "@/lib/supabase/public";
 
 export const getActiveEvent = unstable_cache(
 
-  async()=>{
+async()=>{
 
-    const supabase = createPublicClient();
-
-
-    const {data,error}=await supabase
-
-      .from("events")
-
-      .select("*")
-
-      .eq(
-        "status",
-        "active"
-      )
-
-      .single();
+const supabase =
+createPublicClient();
 
 
+const {data,error} =
+await supabase
 
-    if(error){
+.from("events")
 
-      console.log(
-        "Active Event Error:",
-        error.message
-      );
+.select("*")
 
-      return null;
+.eq(
+"status",
+"active"
+)
 
-    }
-
-
-    return data;
-
-
-  },
+.single();
 
 
-  [
-    "active-event"
-  ],
+
+if(error){
+
+console.log(
+"Active Event Error:",
+error.message
+);
+
+return null;
+
+}
 
 
-  {
-    revalidate:60,
+return data;
 
-    tags:[
-      "events"
-    ]
-  }
+
+},
+
+[
+"active-event"
+],
+
+{
+revalidate:60,
+
+tags:[
+"events"
+]
+
+}
 
 );
 
@@ -68,96 +69,89 @@ export const getActiveEvent = unstable_cache(
 
 
 export async function getVotingStatus(
-  eventId:string
+eventId:string
 ){
 
-
-  const supabase = await createClient();
-
-
-
-  const {data,error}=await supabase
-
-    .from("voting_settings")
-
-    .select(
-      `
-      status,
-      is_open,
-      start_time,
-      end_time
-      `
-    )
-
-    .eq(
-      "event_id",
-      eventId
-    )
-
-    .single();
+const supabase =
+createPublicClient();
 
 
+const {data,error} =
+await supabase
 
+.from("voting_settings")
 
-  if(error){
+.select(
+`
+status,
+is_open,
+start_time,
+end_time
+`
+)
 
-    return {
+.eq(
+"event_id",
+eventId
+)
 
-      status:"closed",
-
-      is_open:false,
-
-      canVote:false,
-
-      message:"Voting settings unavailable."
-
-    };
-
-  }
+.single();
 
 
 
+if(error){
 
-  const canVote =
-    data.status === "open" &&
-    data.is_open === true;
+return {
+
+status:"closed",
+
+is_open:false,
+
+canVote:false,
+
+message:
+"Voting settings unavailable."
+
+};
+
+}
 
 
 
+const canVote =
+data.status==="open"
+&&
+data.is_open===true;
 
-  return {
 
-    status:data.status,
 
-    is_open:data.is_open,
+return {
 
-    start_time:data.start_time,
+...data,
 
-    end_time:data.end_time,
+canVote,
 
-    canVote,
+message:
 
-    message:
+canVote
 
-      canVote
+?
 
-      ?
+"Voting is open."
 
-      "Voting is open."
+:
 
-      :
+data.status==="paused"
 
-      data.status === "paused"
+?
 
-      ?
+"Voting is temporarily paused."
 
-      "Voting is temporarily paused."
+:
 
-      :
+"Voting is currently closed."
 
-      "Voting is currently closed."
-
-  };
+};
 
 
 }
@@ -170,82 +164,78 @@ export async function getVotingStatus(
 
 
 export async function getCategories(
-  eventId:string
+eventId:string
 ){
 
 
-  const cachedCategories = unstable_cache(
+const cached =
+unstable_cache(
+
+async()=>{
 
 
-    async()=>{
-
-
-      const supabase = createPublicClient();
-
-
-
-      const {data,error}=await supabase
-
-        .from("categories")
-
-        .select("*")
-
-        .eq(
-          "event_id",
-          eventId
-        )
-
-        .order(
-          "created_at",
-          {
-            ascending:true
-          }
-        );
+const supabase =
+createPublicClient();
 
 
 
+const {data,error} =
+await supabase
 
-      if(error){
+.from("categories")
 
-        console.log(
-          "Categories Error:",
-          error.message
-        );
+.select("*")
 
-        return [];
+.eq(
+"event_id",
+eventId
+)
 
-      }
-
-
-
-
-      return data || [];
-
-
-    },
-
-
-    [
-      `categories-${eventId}`
-    ],
-
-
-    {
-
-      revalidate:300,
-
-      tags:[
-        `categories-${eventId}`
-      ]
-
-    }
-
-
-  );
+.order(
+"created_at",
+{
+ascending:true
+}
+);
 
 
 
-  return cachedCategories();
+if(error){
+
+console.log(
+"Categories Error:",
+error.message
+);
+
+return [];
+
+}
+
+
+return data || [];
+
+},
+
+
+[
+`categories-${eventId}`
+],
+
+
+{
+
+revalidate:300,
+
+tags:[
+`categories-${eventId}`
+]
+
+}
+
+);
+
+
+return cached();
 
 
 }
@@ -258,117 +248,119 @@ export async function getCategories(
 
 
 export async function getCandidates(
-  eventId:string,
-  categoryId:string
+eventId:string,
+categoryId:string
 ){
 
 
+const cached =
+unstable_cache(
 
-  const cachedCandidates = unstable_cache(
-
-
-    async()=>{
-
-
-      const supabase = createPublicClient();
+async()=>{
 
 
-
-      const {data,error}=await supabase
-
-        .from("candidates")
-
-        .select(
-          `
-          *,
-          categories(
-            name
-          )
-          `
-        )
-
-        .eq(
-          "event_id",
-          eventId
-        )
-
-        .eq(
-          "category_id",
-          categoryId
-        )
-
-        .eq(
-          "status",
-          "active"
-        )
-
-        .order(
-          "candidate_number",
-          {
-            ascending:true
-          }
-        );
+const supabase =
+createPublicClient();
 
 
 
+let query =
+supabase
 
-      if(error){
+.from("candidates")
 
-        console.log(
-          "Candidates Error:",
-          error.message
-        );
+.select(
+`
+*,
+categories(
+name
+)
+`
+)
 
-        return [];
+.eq(
+"event_id",
+eventId
+)
 
-      }
-
-
-
-
-      return (
-
-        data || []
-
-      ).map(
-
-        candidate=>({
-
-          ...candidate,
-
-          category_name:
-            candidate.categories?.name || ""
-
-        })
-
-      );
+.eq(
+"status",
+"active"
+);
 
 
 
-    },
+if(categoryId !== "all"){
 
+query =
+query.eq(
+"category_id",
+categoryId
+);
 
-    [
-      `candidates-${eventId}-${categoryId}`
-    ],
-
-
-    {
-
-      revalidate:300,
-
-      tags:[
-        `candidates-${eventId}-${categoryId}`
-      ]
-
-    }
-
-
-  );
+}
 
 
 
-  return cachedCandidates();
+const {data,error} =
+await query
+
+.order(
+"candidate_number",
+{
+ascending:true
+}
+);
+
+
+
+if(error){
+
+console.log(
+"Candidates Error:",
+error.message
+);
+
+return [];
+
+}
+
+
+
+return (data || []).map(candidate=>({
+
+...candidate,
+
+category_name:
+candidate.categories?.name || ""
+
+}));
+
+
+},
+
+
+[
+`candidates-${eventId}-${categoryId}`
+],
+
+
+{
+
+revalidate:300,
+
+tags:[
+`candidates-${eventId}-${categoryId}`
+]
+
+}
+
+
+);
+
+
+
+return cached();
 
 
 }
@@ -380,126 +372,259 @@ export async function getCandidates(
 
 
 
+export async function getMyVotes(
+eventId:string
+){
+
+const supabase =
+await createClient();
+
+
+
+const {
+data:{
+user
+}
+}
+=
+await supabase.auth.getUser();
+
+
+
+if(!user){
+
+return {};
+
+}
+
+
+
+const {data:profile}
+=
+await supabase
+
+.from("profiles")
+
+.select("id")
+
+.eq(
+"id",
+user.id
+)
+
+.single();
+
+
+
+if(!profile){
+
+return {};
+
+}
+
+
+
+const {data:votes,error}
+=
+await supabase
+
+.from("votes")
+
+.select(
+`
+category_id,
+candidate_id
+`
+)
+
+.eq(
+"event_id",
+eventId
+)
+
+.eq(
+"voter_id",
+profile.id
+);
+
+
+
+if(error){
+
+console.log(
+"Get Votes Error:",
+error.message
+);
+
+return {};
+
+}
+
+
+
+const result:any = {};
+
+
+
+(votes || []).forEach(vote=>{
+
+
+result[vote.category_id]={
+
+voted:true,
+
+candidateId:
+vote.candidate_id
+
+};
+
+
+});
+
+
+return result;
+
+
+}
+
+
+
+
+
 
 export async function submitVote({
 
-  eventId,
+eventId,
 
-  categoryId,
+categoryId,
 
-  candidateId,
+candidateId,
 
 }:{
 
-  eventId:string;
+eventId:string;
 
-  categoryId:string;
+categoryId:string;
 
-  candidateId:string;
+candidateId:string;
 
 }){
 
 
-  const supabase = await createClient();
+try{
 
 
+const supabase =
+await createClient();
 
 
-  const {
 
-    data:{
-      user
+const {
+data:{
+user
+}
 
-    }
+}
+=
+await supabase.auth.getUser();
 
-  } = await supabase.auth.getUser();
 
 
+if(!user){
 
+return {
 
+success:false,
 
-  if(!user){
+message:"You must login first."
 
-    return {
+};
 
-      success:false,
+}
 
-      message:"You must login first."
 
-    };
 
-  }
 
 
+if(
+!categoryId ||
+categoryId==="all"
+){
 
+return {
 
+success:false,
 
+message:"Invalid category."
 
+};
 
-  const {data:settings}=await supabase
+}
 
-    .from("voting_settings")
 
-    .select(
-      "status,is_open"
-    )
 
-    .eq(
-      "event_id",
-      eventId
-    )
 
-    .single();
 
 
+const {
+data:settings,
+error:settingsError
 
+}
+=
+await supabase
 
+.from("voting_settings")
 
+.select(
+"status,is_open"
+)
 
-  if(
+.eq(
+"event_id",
+eventId
+)
 
-    !settings ||
+.single();
 
-    settings.status !== "open" ||
 
-    settings.is_open !== true
 
-  ){
 
-    return {
 
-      success:false,
+if(settingsError){
 
-      message:"Voting is currently closed."
+return {
 
-    };
+success:false,
 
-  }
+message:
+"Unable to check voting status."
 
+};
 
+}
 
 
 
 
 
-  const {
+if(
+settings.status !== "open" ||
+settings.is_open !== true
 
-    data:profile,
+){
 
-    error:profileError
+return {
 
-  } = await supabase
+success:false,
 
-    .from("profiles")
+message:
+"Voting is currently closed."
 
-    .select("id")
+};
 
-    .eq(
-      "id",
-      user.id
-    )
+}
 
-    .single();
 
 
 
@@ -507,125 +632,310 @@ export async function submitVote({
 
 
 
-  if(profileError || !profile){
+const {
+data:profile,
+error:profileError
 
-    return {
+}
+=
+await supabase
 
-      success:false,
+.from("profiles")
 
-      message:"Voter profile not found."
+.select("id")
 
-    };
+.eq(
+"id",
+user.id
+)
 
-  }
+.single();
 
 
 
 
 
+if(
+profileError ||
+!profile
+){
 
+return {
 
+success:false,
 
-  const {error}=await supabase
+message:
+"Voter profile not found."
 
-    .from("votes")
+};
 
-    .insert({
+}
 
-      event_id:eventId,
 
-      category_id:categoryId,
 
-      candidate_id:candidateId,
 
-      voter_id:profile.id
 
-    });
 
 
+// CHECK EXISTING VOTE FIRST
 
+const {
+data:existingVote,
+error:existingError
 
+}
+=
+await supabase
 
+.from("votes")
 
+.select(
+"id"
+)
 
+.eq(
+"event_id",
+eventId
+)
 
-  if(error){
+.eq(
+"category_id",
+categoryId
+)
 
+.eq(
+"voter_id",
+profile.id
+)
 
-    console.log(
-      "Submit Vote Error:",
-      error.message
-    );
+.maybeSingle();
 
 
 
 
-    if(error.code==="23505"){
 
+if(existingError){
 
-      return {
+console.log(
+"Existing Vote Check Error:",
+existingError
+);
 
-        success:false,
+return {
 
-        message:
-          "You already voted in this category."
+success:false,
 
-      };
+message:
+"Unable to verify previous vote."
 
+};
 
-    }
+}
 
 
 
 
 
-    if(
+if(existingVote){
 
-      error.message.includes(
-        "Voting is currently closed"
-      )
+return {
 
-    ){
+success:false,
 
-      return {
+message:
+"You already voted in this category."
 
-        success:false,
+};
 
-        message:
-          "Voting is currently closed."
+}
 
-      };
 
-    }
 
 
 
 
-    return {
 
-      success:false,
 
-      message:error.message
+const {
+data:candidate,
+error:candidateError
 
-    };
+}
+=
+await supabase
 
+.from("candidates")
 
-  }
+.select(
+"id,category_id"
+)
 
+.eq(
+"id",
+candidateId
+)
 
+.single();
 
 
 
 
 
-  return {
 
-    success:true,
 
-    message:
-      "Vote submitted successfully."
+if(
+candidateError ||
+!candidate
+){
 
-  };
+return {
+
+success:false,
+
+message:
+"Candidate not found."
+
+};
+
+}
+
+
+
+
+
+
+
+if(
+candidate.category_id !== categoryId
+
+){
+
+return {
+
+success:false,
+
+message:
+"Invalid candidate category."
+
+};
+
+}
+
+
+
+
+
+
+
+
+const {
+error:voteError
+
+}
+=
+await supabase
+
+.from("votes")
+
+.insert({
+
+event_id:eventId,
+
+category_id:categoryId,
+
+candidate_id:candidateId,
+
+voter_id:profile.id
+
+});
+
+
+
+
+
+
+
+if(voteError){
+
+
+console.log(
+"Vote Insert Error:",
+voteError
+);
+
+
+
+if(
+voteError.code==="23505"
+
+){
+
+return {
+
+success:false,
+
+message:
+"You already voted in this category."
+
+};
+
+}
+
+
+
+return {
+
+success:false,
+
+message:
+"Unable to submit vote."
+
+};
+
+
+}
+
+
+
+
+
+
+
+
+return {
+
+success:true,
+
+message:
+"Vote submitted successfully."
+
+};
+
+
+}
+
+
+
+catch(error:any){
+
+
+console.log(
+"Submit Vote Crash:",
+error
+);
+
+
+return {
+
+success:false,
+
+message:
+"Server error while submitting vote."
+
+};
+
+
+}
 
 
 }
