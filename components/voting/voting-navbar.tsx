@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { CldImage } from "next-cloudinary";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X, ArrowRight } from "lucide-react";
@@ -9,32 +10,30 @@ import { Menu, X, ArrowRight } from "lucide-react";
 import { SITE_CONFIG } from "@/components/site-config";
 
 const navigation = [
-  {
-    label: "Home",
-    href: "/",
-  },
-  {
-    label: "Candidates",
-    href: "/voting/candidates",
-  },
-  {
-    label: "Live Ranking",
-    href: "/voting/ranking",
-  },
+  { label: "Home", href: "/voting" },
+  { label: "Candidates", href: "/voting/candidates" },
 ];
 
 export default function VotingNavbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+
+  const isActive = (href: string) => {
+    if (href === "/voting") {
+      return pathname === "/voting";
+    }
+    return pathname.startsWith(href);
+  };
 
   return (
     <motion.header
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="absolute inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6 lg:px-8"
+      className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6 lg:px-8"
     >
       <div className="mx-auto max-w-7xl">
-        <nav className="flex h-[64px] items-center justify-between rounded-2xl border border-white/15 bg-[#123F2A]/35 px-3 shadow-[0_8px_30px_rgba(0,0,0,0.12)] backdrop-blur-2xl sm:h-[68px] sm:px-4">
+        <nav className="flex h-[64px] items-center justify-between rounded-2xl border border-white/15 bg-[#123F2A]/80 px-3 shadow-lg backdrop-blur-2xl sm:h-[68px] sm:px-4">
           {/* BRAND */}
           <Link
             href="/voting"
@@ -60,7 +59,7 @@ export default function VotingNavbar() {
               <p className="text-sm font-bold tracking-wide text-white">
                 {SITE_CONFIG.shortName}
               </p>
-              <p className="mt-1 text-[8px] font-semibold uppercase tracking-[0.25em] text-white/55">
+              <p className="mt-0.5 text-[8px] font-semibold uppercase tracking-[0.22em] text-white/55">
                 Mr. & Miss Parageyan 2026
               </p>
             </div>
@@ -72,30 +71,32 @@ export default function VotingNavbar() {
 
           {/* DESKTOP NAV */}
           <div className="hidden items-center gap-1 rounded-full border border-white/10 bg-white/5 p-1 backdrop-blur-xl lg:flex">
-            {navigation.map((item, index) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`
-                  relative rounded-full px-4 py-2.5 text-[11px] font-semibold transition-all duration-300
-                  ${
-                    index === 0
-                      ? "bg-white/15 text-white"
-                      : "text-white/60 hover:bg-white/10 hover:text-white"
-                  }
-                `}
-              >
-                {item.label}
-                {index === 2 && (
-                  <span className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-[#D4AF37] animate-pulse" />
-                )}
-              </Link>
-            ))}
+            {navigation.map((item) => {
+              const active = isActive(item.href);
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`relative rounded-full px-4 py-2.5 text-[11px] font-semibold transition-all duration-300 ${
+                    active
+                      ? "bg-white/20 text-white shadow-sm"
+                      : "text-white/55 hover:bg-white/10 hover:text-white"
+                  }`}
+                >
+                  {item.label}
+
+                  {/* Active indicator dot for Live Ranking */}
+                  {item.href === "/voting/ranking" && (
+                    <span className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-[#D4AF37] animate-pulse" />
+                  )}
+                </Link>
+              );
+            })}
           </div>
 
           {/* RIGHT SIDE */}
           <div className="flex items-center gap-3">
-            {/* Vote Now - Desktop only */}
             <Link
               href="/voting"
               className="hidden items-center gap-2 rounded-full bg-[#D4AF37] px-5 py-2.5 text-[11px] font-bold text-[#123F2A] transition duration-300 hover:scale-105 hover:shadow-lg lg:flex"
@@ -109,24 +110,26 @@ export default function VotingNavbar() {
               type="button"
               aria-label={isOpen ? "Close menu" : "Open menu"}
               onClick={() => setIsOpen((prev) => !prev)}
-              className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-white backdrop-blur-xl transition hover:bg-white/20 lg:hidden"
+              className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-white backdrop-blur-xl transition hover:bg-white/15 lg:hidden"
             >
               <AnimatePresence mode="wait" initial={false}>
                 {isOpen ? (
                   <motion.span
                     key="close"
-                    initial={{ opacity: 0, rotate: -90 }}
-                    animate={{ opacity: 1, rotate: 0 }}
-                    exit={{ opacity: 0, rotate: 90 }}
+                    initial={{ opacity: 0, rotate: -90, scale: 0.8 }}
+                    animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                    exit={{ opacity: 0, rotate: 90, scale: 0.8 }}
+                    transition={{ duration: 0.2 }}
                   >
                     <X className="h-5 w-5" />
                   </motion.span>
                 ) : (
                   <motion.span
                     key="menu"
-                    initial={{ opacity: 0, rotate: 90 }}
-                    animate={{ opacity: 1, rotate: 0 }}
-                    exit={{ opacity: 0, rotate: -90 }}
+                    initial={{ opacity: 0, rotate: 90, scale: 0.8 }}
+                    animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                    exit={{ opacity: 0, rotate: -90, scale: 0.8 }}
+                    transition={{ duration: 0.2 }}
                   >
                     <Menu className="h-5 w-5" />
                   </motion.span>
@@ -140,50 +143,52 @@ export default function VotingNavbar() {
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              initial={{ opacity: 0, y: -10, scale: 0.98 }}
+              initial={{ opacity: 0, y: -12, scale: 0.97 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -10, scale: 0.98 }}
-              transition={{ duration: 0.25 }}
-              className="mt-2 overflow-hidden rounded-2xl border border-white/15 bg-[#123F2A]/90 p-2 shadow-xl backdrop-blur-2xl lg:hidden"
+              exit={{ opacity: 0, y: -12, scale: 0.97 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="mt-2 overflow-hidden rounded-2xl border border-white/15 bg-[#123F2A]/95 p-2 shadow-xl backdrop-blur-2xl lg:hidden"
             >
-              {navigation.map((item, index) => (
-                <motion.div
-                  key={item.href}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.05 }}
-                >
-                  <Link
-                    href={item.href}
-                    onClick={() => setIsOpen(false)}
-                    className={`
-                      flex items-center rounded-xl px-4 py-3.5 text-sm font-medium transition
-                      ${
-                        index === 0
-                          ? "bg-white/10 text-white"
-                          : "text-white/70 hover:bg-white/10 hover:text-white"
-                      }
-                    `}
-                  >
-                    {item.label}
-                    {index === 0 && (
-                      <span className="ml-auto h-1.5 w-1.5 rounded-full bg-[#D4AF37]" />
-                    )}
-                  </Link>
-                </motion.div>
-              ))}
+              {navigation.map((item, index) => {
+                const active = isActive(item.href);
 
-              {/* Vote Now button for mobile */}
+                return (
+                  <motion.div
+                    key={item.href}
+                    initial={{ opacity: 0, x: -14 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.05, duration: 0.25 }}
+                  >
+                    <Link
+                      href={item.href}
+                      onClick={() => setIsOpen(false)}
+                      className={`flex items-center rounded-xl px-4 py-3.5 text-sm font-medium transition ${
+                        active
+                          ? "bg-white/15 text-white"
+                          : "text-white/65 hover:bg-white/10 hover:text-white"
+                      }`}
+                    >
+                      {item.label}
+
+                      {active && (
+                        <span className="ml-auto h-1.5 w-1.5 rounded-full bg-[#D4AF37]" />
+                      )}
+                    </Link>
+                  </motion.div>
+                );
+              })}
+
+              {/* Vote Now - mobile */}
               <motion.div
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.15 }}
-                className="mt-2 border-t border-white/10 pt-2"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.3 }}
+                className="mt-1 border-t border-white/10 pt-2"
               >
                 <Link
                   href="/voting"
                   onClick={() => setIsOpen(false)}
-                  className="flex items-center justify-center gap-2 rounded-xl bg-[#D4AF37] px-4 py-3.5 text-sm font-bold text-[#123F2A] transition hover:bg-[#c9a22f]"
+                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#D4AF37] px-4 py-3.5 text-sm font-bold text-[#123F2A] transition active:scale-[0.98]"
                 >
                   Vote Now
                   <ArrowRight size={16} />

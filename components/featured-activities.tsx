@@ -85,7 +85,7 @@ const activities: Activity[] = [
   },
   
   {
-    title: "Color Fun Run",
+    title: "Fun Run",
     date: "Oct 6, 2026",
     category: "Sports",
     description:
