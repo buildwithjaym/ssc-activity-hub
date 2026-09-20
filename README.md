@@ -1,7 +1,7 @@
 # 🎓 SSC Activity Hub
 
 <p align="center">
-  <img src="./public/assets/logo.png" width="120" alt="SSC Activity Hub Logo"/>
+  <img src="./public/trans-logo.png" width="120" alt="SSC Activity Hub Logo"/>
 </p>
 
 <h3 align="center">
