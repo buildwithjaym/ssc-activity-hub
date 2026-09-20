@@ -1,242 +1,441 @@
 # 🎓 SSC Activity Hub
 
 <p align="center">
-  <b>Official Digital Information Hub of the Supreme Student Council</b><br>
-  <b>Parageyan 2026 • Basilan State College</b>
+  <img src="./public/assets/logo.png" width="120" alt="SSC Activity Hub Logo"/>
 </p>
 
----
+<h3 align="center">
+Official Digital Information Platform of the Supreme Student Council
+</h3>
 
-## 📌 About the Project
+<p align="center">
+  <b>Parageyan 2026</b><br>
+  Basilan State College
+</p>
 
-**SSC Activity Hub** is the official digital information platform developed for the **Supreme Student Council (SSC) of Basilan State College** for **Parageyan 2026**.
+<p align="center">
 
-This platform serves as a centralized online hub where students can easily discover official activities, schedules, guidelines, announcements, and important updates organized or co-organized by the SSC.
+![Next.js](https://img.shields.io/badge/Next.js-15-black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-cyan)
+![Supabase](https://img.shields.io/badge/Supabase-Database-green)
+![License](https://img.shields.io/badge/license-MIT-purple)
 
-Instead of relying on scattered social media posts, group chats, and separate announcements, SSC Activity Hub provides students with a **single source of truth** where all verified Parageyan 2026 information can be accessed in a clean, organized, and user-friendly environment.
+</p>
 
----
-
-# 🎯 Project Goals
-
-The SSC Activity Hub was created to:
-
-- Make official SSC activities easier for students to discover
-- Provide clear and updated event schedules
-- Improve communication between SSC leaders and students
-- Encourage student participation and engagement
-- Promote unity, creativity, and college spirit
-- Establish a digital home for Parageyan 2026
 
 ---
 
-# ✨ Features
+# 📌 About The Project
 
-## 🏠 Hero Section
+**SSC Activity Hub** is the official digital platform developed for the **Supreme Student Council (SSC) of Basilan State College** for **Parageyan 2026**.
 
-- Modern landing page introducing Parageyan 2026
-- Live countdown timer until the event
-- Engaging visual presentation
-- Responsive design for all screen sizes
+The platform was created to provide students with a centralized and reliable source of information for all official SSC activities, competitions, announcements, schedules, and event-related updates.
+
+Instead of depending on scattered social media posts, group messages, and separate announcements, SSC Activity Hub provides a unified digital environment where students can easily access verified information anytime and anywhere.
+
+
+The system aims to improve:
+
+- Student engagement
+- Information accessibility
+- Event participation
+- Digital communication
+- Student organization management
+
 
 ---
 
-## ⚡ Quick Access
+# 🎯 Project Vision
 
-Provides students with fast navigation to important sections:
+To establish a modern digital ecosystem for student activities by combining information management, interactive experiences, and future student-centered services into one platform.
+
+
+---
+
+# ✨ Core Features
+
+
+## 🏠 Landing Page Experience
+
+A modern and responsive homepage featuring:
+
+- Parageyan 2026 introduction
+- Hero section
+- Event countdown timer
+- College branding
+- Interactive animations
+
+
+---
+
+## ⚡ Quick Access Navigation
+
+Provides students immediate access to:
 
 - Activities
-- Schedules
-- SSC Information
-- Announcements
+- Event schedules
 - Guidelines
+- SSC information
+- Announcements
+
 
 ---
 
-## 🏛 About SSC
+## 🏛 SSC Information Center
 
-A dedicated section explaining:
+Dedicated section for:
 
-- The Supreme Student Council
-- Student leadership roles
-- SSC mission and responsibilities
-- Student engagement initiatives
+- Supreme Student Council introduction
+- Leadership information
+- Student services
+- Organizational initiatives
+
 
 ---
 
-## 🐾 College Spirit Animals
+# 🐾 College Spirit Identity
 
-Interactive college representation cards featuring:
+Interactive college representation system featuring:
 
-- College identity
+- College identity cards
 - Spirit animals
 - Visual branding
-- Animated interactions
+- Animated presentation
 
-Designed to strengthen college pride and competition spirit.
 
----
+Designed to strengthen:
 
-## 🎉 Featured Activities
+- College pride
+- Team identity
+- Competition spirit
 
-Displays official Parageyan 2026 activities including:
-
-- Event titles
-- Descriptions
-- Important details
-- Activity highlights
 
 ---
 
-## 📱 Responsive Design
+# 🎉 Activity Information System
 
-The platform is optimized for:
+Students can explore official Parageyan 2026 activities including:
 
-- Desktop computers
-- Tablets
-- Mobile devices
+- Event descriptions
+- Activity details
+- Important schedules
+- Announcements
 
-Ensuring students can access information anytime and anywhere.
+
+---
+
+# 🗳 People Choice Award Voting System
+
+An integrated digital voting platform allowing authenticated users to participate in official SSC voting activities.
+
+
+Features:
+
+- User authentication
+- Candidate browsing
+- Category-based voting
+- Vote submission
+- Duplicate vote prevention
+- Already voted detection
+- Voting status validation
+- Responsive voting interface
+
+
+---
+
+# 👨‍💼 Admin Management System
+
+Administrative tools for managing platform content.
+
+
+Current capabilities:
+
+- Candidate management
+- Event management
+- Category management
+- Voting configuration
+- User management
+- Activity monitoring
+
+
+---
+
+# 📱 Responsive Design
+
+Built for multiple devices:
+
+✅ Desktop  
+✅ Tablet  
+✅ Mobile  
+
+
+Students can access the platform anywhere with a consistent experience.
+
 
 ---
 
 # 🛠 Technology Stack
 
+
 | Technology | Purpose |
-|------------|---------|
-| Next.js | Modern React framework using App Router |
+|---|---|
+| Next.js | React framework with App Router |
 | TypeScript | Type-safe development |
-| Tailwind CSS | Responsive UI styling |
-| Framer Motion | Animation and interactive effects |
-| Lucide Icons | Modern icon system |
-| shadcn/ui | Reusable UI components |
+| Tailwind CSS | Modern responsive styling |
+| Supabase | Authentication and database services |
+| PostgreSQL | Data storage |
+| Framer Motion | UI animations |
+| Lucide Icons | Interface icons |
+| shadcn/ui | Reusable components |
+
+
+---
+
+# 🏗 System Architecture
+
+
+```
+Frontend
+   |
+   |
+Next.js App Router
+   |
+   |
+Server Actions
+   |
+   |
+Supabase
+   |
+   |
+PostgreSQL Database
+```
+
 
 ---
 
 # 📁 Project Structure
 
+
 ```bash
 ssc-activity-hub/
+
 ├── app/
-│   └── page.tsx
-│
+│   ├── page.tsx
+│   ├── voter/
+│   ├── admin/
+│   └── api/
+
 ├── components/
-│   ├── navbar.tsx
-│   ├── hero-section.tsx
-│   ├── countdown.tsx
-│   ├── quick-access.tsx
-│   ├── about-ssc.tsx
-│   ├── college-spirit.tsx
-│   ├── intro-section.tsx
-│   ├── featured-activities.tsx
-│   ├── placeholder-section.tsx
-│   ├── footer.tsx
-│   └── site-config.ts
+│   ├── landing/
+│   ├── voter/
+│   ├── admin/
+│   └── ui/
+
+├── hooks/
 │
-├── data/
-│   └── placeholders.ts
-│
+├── lib/
+│   ├── supabase/
+│   └── utils/
+
 ├── public/
-│   ├── spirits/
-│   │   └── college spirit animal images
-│   └── assets/
-│
+│   ├── assets/
+│   └── spirits/
+
 ├── package.json
+├── next.config.js
 ├── tailwind.config.ts
 ├── tsconfig.json
-├── next.config.js
 └── README.md
+
 ```
+
 
 ---
 
 # 🚀 Getting Started
 
+
 ## Requirements
 
-Before running the project, make sure you have:
 
-- Node.js 18 or higher
-- npm, yarn, or pnpm installed
+Install:
+
+- Node.js 18+
+- npm / yarn / pnpm
+
 
 Check versions:
+
 
 ```bash
 node -v
 npm -v
 ```
 
+
 ---
 
 # 📦 Installation
 
-Clone the repository:
+
+Clone repository:
+
 
 ```bash
 git clone https://github.com/yourusername/ssc-activity-hub.git
 ```
 
-Navigate to the project folder:
+
+Navigate:
+
 
 ```bash
 cd ssc-activity-hub
 ```
 
+
 Install dependencies:
+
 
 ```bash
 npm install
 ```
 
+
 ---
 
-# ▶️ Running the Project
+# ▶️ Development
 
-Start the development server:
+
+Run development server:
+
 
 ```bash
 npm run dev
 ```
 
-Open your browser:
+
+Open:
+
 
 ```
 http://localhost:3000
 ```
 
+
 ---
 
 # 🏗 Production Build
 
-Create an optimized production build:
+
+Build:
+
 
 ```bash
 npm run build
 ```
 
-Run the production server:
+
+Start:
+
 
 ```bash
 npm start
 ```
 
+
 ---
 
 # 🌐 Deployment
 
-Recommended hosting platforms:
+
+Recommended platforms:
+
 
 - Vercel
 - Netlify
 - Cloudflare Pages
 
-Recommended deployment:
 
-**Next.js + Vercel**
+Recommended setup:
+
+```
+Next.js + Vercel + Supabase
+```
+
 
 ---
 
-# 👨‍💻 Developer Information
+# 🔖 Version History
+
+
+## v1.1.3 - Complete Voter Voting Flow
+
+Released:
+
+Features:
+
+- Added voter server actions
+- Added candidate fetching actions
+- Added voter page integration
+- Added vote submission flow
+- Added already voted detection
+- Added client-side vote state caching
+- Added duplicate vote prevention
+- Improved vote modal UX
+- Added disabled state for completed votes
+
+
+---
+
+## v1.1.2
+
+Admin management improvements.
+
+Features:
+
+- Admin dashboard
+- Candidate management
+- Event management
+
+
+---
+
+# 🔮 Future Roadmap
+
+
+## v1.2.0
+
+Planned:
+
+- Live leaderboard
+- Voting analytics
+- Real-time vote monitoring
+- Admin statistics dashboard
+
+
+## v1.3.0
+
+Planned:
+
+- Student accounts
+- Event registration
+- Attendance tracking
+- Digital certificates
+
+
+## Future
+
+- Notification system
+- Media gallery
+- Mobile application
+
+
+---
+
+# 👨‍💻 Developer
+
 
 ## Built By
 
@@ -244,116 +443,103 @@ Recommended deployment:
 
 Full Stack Developer
 
+
 Specialization:
 
-- Web Application Development
-- UI/UX Design
+- Full Stack Web Development
+- UI/UX Engineering
 - Digital Information Systems
-- Modern Frontend Development
+- Modern Web Applications
+
 
 ---
 
 # 🏫 Project Ownership
 
+
 **Project Owner**
-Jaymar Maruji
+
 Supreme Student Council  
 Basilan State College
 
-**Project**
 
-SSC Activity Hub  
-Parageyan 2026 Digital Information Platform
+**Project Name**
+
+SSC Activity Hub
+
+
+**Event**
+
+Parageyan 2026
+
 
 **Development Year**
 
 2026
 
----
-
-# 🔮 Future Improvements
-
-Future versions may include:
-
-- SSC administrator dashboard
-- Student account login system
-- Online event registration
-- Attendance monitoring
-- Digital certificates
-- Real-time announcements
-- Activity calendar integration
-- Notification system
-- Photo and media gallery
 
 ---
 
-# 🤝 Contribution Guidelines
+# 🤝 Contribution
 
-Contributions and improvements are welcome.
 
-Steps:
+Contributions are welcome.
 
-1. Fork the repository
 
-2. Create a new branch:
+Create a feature branch:
+
 
 ```bash
 git checkout -b feature/new-feature
 ```
 
-3. Commit changes:
+
+Commit:
+
 
 ```bash
 git commit -m "Add new feature"
 ```
 
-4. Push changes:
+
+Push:
+
 
 ```bash
 git push origin feature/new-feature
 ```
 
-5. Submit a Pull Request
+
+Submit a Pull Request.
+
 
 ---
 
 # 📄 License
 
-This project is licensed under the **MIT License**.
 
-```
 MIT License
 
-Copyright (c) 2026 [Jaymar Maruji / Supreme Student Council]
+
+Copyright (c) 2026 Jaymar Maruji / Supreme Student Council
+
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files, to deal in the Software
-without restriction, including without limitation the rights to use, copy,
-modify, merge, publish, distribute, sublicense, and/or sell copies of the Software.
+without restriction.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
-```
 
----
-
-# 📞 Contact
-
-**Supreme Student Council**  
-Basilan State College
-
-For official inquiries:
-
-📧 Email: [SSC Official Email]
-
-🌐 Website: [Official Website]
 
 ---
 
 <p align="center">
-  Built with ❤️ for the students of Basilan State College
-  <br>
-  Parageyan 2026
+
+Built with ❤️ for the students of Basilan State College
+
+<br>
+
+<b>Parageyan 2026</b>
+
 </p>
