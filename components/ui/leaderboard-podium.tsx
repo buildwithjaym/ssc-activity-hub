@@ -1,29 +1,39 @@
 "use client";
 
 import * as React from "react";
+
 import { Crown } from "lucide-react";
-import { cn } from "@/lib/utils";
+
 
 export interface CandidateRanking {
-  candidateId: string;
 
-  candidateName: string;
+  candidateId:string;
 
-  candidateNumber: number;
+  candidateName:string;
 
-  categoryId: string;
+  candidateNumber:number;
 
-  categoryName: string;
+  categoryId:string;
 
-  votes: number;
+  categoryName:string;
 
-  imageUrl?: string | null;
+  votes:number;
 
-  rank: number;
+  percentage:number;
+
+  totalVoters:number;
+
+  imageUrl?:string|null;
+
+  rank:number;
+
 }
+
+
+
 interface Props {
 
-  rankings: CandidateRanking[];
+  rankings:CandidateRanking[];
 
   categories:any[];
 
@@ -33,92 +43,158 @@ interface Props {
 
 }
 
-const PODIUM = {
-  1: {
-    height: "h-36",
-    color: "#D4AF37",
-    label: "Champion",
-  },
 
-  2: {
-    height: "h-28",
-    color: "#CBD5E1",
-    label: "Second",
-  },
 
-  3: {
-    height: "h-24",
-    color: "#FDBA74",
-    label: "Third",
-  },
+const COLORS = {
+
+first:"#D4AF37",
+
+second:"#CBD5E1",
+
+third:"#FDBA74"
+
 };
+
+
+
 
 export function LeaderboardPodium({
 
- rankings,
-
- categories,
-
- selectedCategory,
-
- setSelectedCategory
+rankings,
 
 }:Props){
-  const top3 = rankings.sort((a, b) => a.rank - b.rank).slice(0, 3);
 
-  if (top3.length === 0) {
-    return (
-      <div
-        className="
-text-center
-py-12
-text-slate-500
-"
-      >
-        No votes yet
-      </div>
-    );
-  }
 
-  const order = [
-    top3.find((x) => x.rank === 2),
 
-    top3.find((x) => x.rank === 1),
+const sorted =
+React.useMemo(()=>{
 
-    top3.find((x) => x.rank === 3),
-  ].filter(Boolean) as CandidateRanking[];
 
-  return (
-    <div
-      className="
-flex
-items-end
-justify-center
-gap-8
-py-10
-"
-    >
-      {order.map((candidate) => {
-        const config = PODIUM[candidate.rank as 1 | 2 | 3];
+return [...rankings]
 
-        return (
-          <div
-            key={candidate.candidateId}
-            className="
+.sort(
+(a,b)=>
+b.votes-a.votes
+)
+
+.map(
+(item,index)=>({
+
+...item,
+
+rank:index+1
+
+})
+
+);
+
+
+},[rankings]);
+
+
+
+
+
+if(!sorted.length){
+
+return (
+
+<div className="py-12 text-center text-slate-500">
+
+No votes yet
+
+</div>
+
+);
+
+}
+
+
+
+
+
+
+const champion =
+sorted[0];
+
+const second =
+sorted[1];
+
+const third =
+sorted[2];
+
+
+
+
+
+function PodiumCard({
+candidate,
+position
+}:{
+candidate?:CandidateRanking;
+position:number;
+}){
+
+
+if(!candidate)
+return null;
+
+
+
+const color =
+position===1
+?
+COLORS.first
+
+:
+
+position===2
+?
+COLORS.second
+
+:
+COLORS.third;
+
+
+
+const maxVotes =
+champion.votes || 1;
+
+
+
+const height =
+Math.max(
+60,
+(candidate.votes / maxVotes) * 240
+);
+
+
+
+
+return (
+
+<div
+
+className="
 flex
 flex-col
 items-center
 "
-          >
-            <div
-              className="
-relative
-"
-            >
-              <img
-                src={candidate.imageUrl ?? "/placeholder.png"}
-                alt={candidate.candidateName}
-                className="
+
+>
+
+
+<div className="relative">
+
+
+<img
+
+src={
+candidate.imageUrl ??
+"/placeholder.png"
+}
+
+className="
 h-24
 w-24
 rounded-full
@@ -127,10 +203,14 @@ border-4
 border-white
 shadow-xl
 "
-              />
 
-              <div
-                className="
+/>
+
+
+
+<div
+
+className="
 absolute
 -bottom-1
 -right-1
@@ -139,64 +219,275 @@ bg-white
 p-1
 shadow
 "
-              >
-                <Crown
-                  size={20}
-                  style={{
-                    color: config.color,
-                  }}
-                />
-              </div>
-            </div>
 
-            <p
-              className="
+>
+
+<Crown
+
+size={18}
+
+style={{
+color
+}}
+
+/>
+
+</div>
+
+
+</div>
+
+
+
+<p
+
+className="
 mt-3
 font-bold
 text-center
+text-[#0A2A1F]
 max-w-[150px]
-truncate
-text-[#0A2A1F]
 "
-            >
-              #{candidate.candidateNumber} {candidate.candidateName}
-            </p>
 
-            <p
-              className="
-text-xs
-text-slate-500
-"
-            >
-              {candidate.categoryName}
-            </p>
+>
 
-            <p
-              className="
-mt-1
+#{candidate.candidateNumber}
+
+{" "}
+
+{candidate.candidateName}
+
+</p>
+
+
+
+
+<p className="text-xs text-slate-500">
+
+{candidate.categoryName}
+
+</p>
+
+
+
+
+<p className="font-bold mt-1">
+
+{candidate.votes}
+
+votes
+
+</p>
+
+
+
+
+<p className="text-xs text-slate-400">
+
+{candidate.percentage ?? 0}% of voters
+
+</p>
+
+
+
+
+
+<div
+
+className="
+mt-4
+w-36
+rounded-t-2xl
+flex
+items-end
+justify-center
+pb-3
+text-white
 font-bold
-text-[#0A2A1F]
 "
-            >
-              {candidate.votes.toLocaleString()}
-              votes
-            </p>
 
-            <div
-              className={cn(
-                "mt-4 w-36 rounded-t-2xl flex items-center justify-center font-bold text-white",
+style={{
 
-                config.height,
-              )}
-              style={{
-                backgroundColor: config.color,
-              }}
-            >
-              #{candidate.rank}
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  );
+height:`${height}px`,
+
+backgroundColor:color
+
+}}
+
+>
+
+#{position}
+
+</div>
+
+
+
+</div>
+
+);
+
+}
+
+
+
+
+
+
+
+return (
+
+<div className="space-y-10">
+
+
+
+<div
+
+className="
+flex
+justify-center
+items-end
+gap-8
+min-h-[450px]
+"
+
+>
+
+
+{/* THIRD LEFT */}
+
+<PodiumCard
+
+candidate={third}
+
+position={3}
+
+/>
+
+
+
+
+{/* CHAMPION CENTER */}
+
+<PodiumCard
+
+candidate={champion}
+
+position={1}
+
+/>
+
+
+
+
+{/* SECOND RIGHT */}
+
+<PodiumCard
+
+candidate={second}
+
+position={2}
+
+/>
+
+
+
+</div>
+
+
+
+
+
+
+<div
+
+className="
+grid
+grid-cols-2
+md:grid-cols-5
+gap-6
+justify-center
+"
+
+>
+
+
+{
+
+sorted
+.slice(3,10)
+.map(candidate=>(
+
+
+<div
+
+key={candidate.candidateId}
+
+className="
+flex
+flex-col
+items-center
+"
+
+>
+
+
+<img
+
+src={
+candidate.imageUrl ??
+"/placeholder.png"
+}
+
+className="
+h-16
+w-16
+rounded-full
+object-cover
+"
+
+/>
+
+
+<p className="text-sm font-bold text-center">
+
+#{candidate.rank}
+
+{" "}
+
+{candidate.candidateName}
+
+</p>
+
+
+<p className="text-xs">
+
+{candidate.votes} votes
+
+</p>
+
+
+<p className="text-xs text-slate-400">
+
+{candidate.percentage ?? 0}%
+
+</p>
+
+
+</div>
+
+
+))
+
+}
+
+
+</div>
+
+
+
+
+</div>
+
+);
+
 }

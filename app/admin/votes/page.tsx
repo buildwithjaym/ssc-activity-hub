@@ -1,53 +1,92 @@
 import {
+
   getVoteDashboard,
+
   getVotingSettings,
+
   getVotingResults,
+
   getRecentVotes,
+
   getVoteCategories,
+
+  getTotalVoters,
+
 } from "@/lib/votes/queries";
 
 
 import VotesClient
+
 from "@/components/votes/votes-client";
+
+
 
 
 
 export default async function VotesPage(){
 
 
+
 const settings =
+
 await getVotingSettings();
 
 
 
+
+
 const eventId =
+
 settings?.event_id ?? "";
 
 
 
+
+
 const [
+
 dashboard,
+
 results,
+
 recentVotes,
+
 categories,
+
+totalVoters,
+
 ]=await Promise.all([
+
 
 
 getVoteDashboard(),
 
 
+
 getVotingResults(),
+
 
 
 getRecentVotes(),
 
 
+
 getVoteCategories(
+
 eventId
+
 ),
 
 
+
+getTotalVoters(),
+
+
+
 ]);
+
+
+
 
 
 
@@ -67,6 +106,8 @@ recentVotes={recentVotes}
 eventId={eventId}
 
 categories={categories}
+
+totalVoters={totalVoters}
 
 />
 
