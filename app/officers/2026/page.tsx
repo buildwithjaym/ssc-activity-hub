@@ -65,20 +65,20 @@ function OfficerCard({
       viewport={{ once: true, amount: 0.15 }}
       transition={{ duration: 0.4, delay: index * 0.04 }}
       className={`group relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg ${
-        featured ? "p-7" : "p-5"
+        featured ? "p-6 sm:p-7" : "p-5"
       }`}
     >
       <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-[#D4AF37]/12 blur-3xl transition duration-500 group-hover:bg-[#D4AF37]/20" />
 
       {officer.rank && (
-        <div className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full bg-[#0A2A1F] text-[11px] font-bold text-[#D4AF37]">
+        <div className="absolute right-3 top-3 flex h-7 w-7 items-center justify-center rounded-full bg-[#0A2A1F] text-[10px] font-bold text-[#D4AF37] sm:right-4 sm:top-4 sm:h-8 sm:w-8 sm:text-[11px]">
           {officer.rank}
         </div>
       )}
 
       <div
         className={`relative mx-auto overflow-hidden rounded-full border-[3px] border-[#D4AF37]/30 ${
-          featured ? "h-48 w-48" : "h-36 w-36"
+          featured ? "h-40 w-40 sm:h-48 sm:w-48" : "h-32 w-32 sm:h-36 sm:w-36"
         }`}
       >
         <CldImage
@@ -94,14 +94,18 @@ function OfficerCard({
         />
       </div>
 
-      <div className="relative mt-5 text-center">
+      <div className="relative mt-4 text-center sm:mt-5">
         <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#D4AF37]">
           {officer.position}
         </p>
 
-        <h3 className="mt-2 text-lg font-bold text-[#0A2A1F]">{officer.name}</h3>
+        <h3 className="mt-1.5 text-base font-bold text-[#0A2A1F] sm:mt-2 sm:text-lg">
+          {officer.name}
+        </h3>
 
-        <p className="mt-1 text-sm font-medium text-slate-500">{officer.unit}</p>
+        <p className="mt-1 text-xs font-medium text-slate-500 sm:text-sm">
+          {officer.unit}
+        </p>
 
         {officer.bio && (
           <p className="mt-3 text-sm leading-relaxed text-slate-600">
@@ -125,11 +129,18 @@ function OfficerCard({
   );
 }
 
+const stats = [
+  { label: "Senators", value: OFFICERS_DATA.senators.length },
+  { label: "Representatives", value: OFFICERS_DATA.representatives.length },
+  { label: "Appointees", value: OFFICERS_DATA.appointees.length },
+  { label: "Marshall", value: OFFICERS_DATA.marshall.length },
+];
+
 export default function OfficersPage() {
   return (
     <main className="bg-[#F8F5EF]">
-      {/* Hero - compact & aligned */}
-      <section className="relative overflow-hidden bg-[#0A2A1F] px-5 pb-14 pt-24 sm:px-8 sm:pt-28 lg:px-10">
+      {/* Hero */}
+      <section className="relative overflow-hidden bg-[#0A2A1F] px-4 pb-12 pt-20 sm:px-6 sm:pb-14 sm:pt-24 lg:px-10">
         <div className="absolute -right-24 -top-16 h-72 w-72 rounded-full bg-[#D4AF37]/10 blur-3xl" />
         <div className="absolute -bottom-24 -left-24 h-56 w-56 rounded-full bg-white/5 blur-3xl" />
 
@@ -141,13 +152,13 @@ export default function OfficersPage() {
           >
             <Link
               href="/"
-              className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur-md transition hover:bg-white/15"
+              className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-3.5 py-2 text-sm font-semibold text-white backdrop-blur-md transition hover:bg-white/15"
             >
               ← Back to Home
             </Link>
           </motion.div>
 
-          <div className="mt-10 max-w-xl">
+          <div className="mt-8 max-w-xl sm:mt-10">
             <motion.p
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -161,7 +172,7 @@ export default function OfficersPage() {
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.45 }}
-              className="mt-3 text-3xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-4xl lg:text-5xl"
+              className="mt-3 text-3xl font-extrabold leading-[1.15] tracking-tight text-white sm:text-4xl lg:text-5xl"
             >
               The People Behind
               <span className="mt-1 block text-[#D4AF37]">
@@ -178,47 +189,26 @@ export default function OfficersPage() {
               {OFFICERS_DATA.meta.description}
             </motion.p>
 
+            {/* Stats - responsive grid */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.22, duration: 0.45 }}
-              className="mt-7 flex gap-3"
+              className="mt-7 grid grid-cols-2 gap-2.5 sm:flex sm:flex-wrap sm:gap-3"
             >
-              <div className="rounded-xl border border-white/10 bg-white/5 px-5 py-3 backdrop-blur-md">
-                <p className="text-xl font-bold text-white">
-                  {OFFICERS_DATA.senators.length}
-                </p>
-                <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-white/50">
-                  Senators
-                </p>
-              </div>
-
-              <div className="rounded-xl border border-white/10 bg-white/5 px-5 py-3 backdrop-blur-md">
-                <p className="text-xl font-bold text-white">
-                  {OFFICERS_DATA.representatives.length}
-                </p>
-                <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-white/50">
-                  Representatives
-                </p>
-              </div>
-
-               <div className="rounded-xl border border-white/10 bg-white/5 px-5 py-3 backdrop-blur-md">
-                <p className="text-xl font-bold text-white">
-                  {OFFICERS_DATA.appointees.length}
-                </p>
-                <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-white/50">
-                  Appointees
-                </p>
-              </div>
-                <div className="rounded-xl border border-white/10 bg-white/5 px-5 py-3 backdrop-blur-md">
-                <p className="text-xl font-bold text-white">
-                  {OFFICERS_DATA.marshall.length}
-                </p>
-                <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-white/50">
-                  Marshall
-                </p>
-              </div>
-
+              {stats.map((stat) => (
+                <div
+                  key={stat.label}
+                  className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 backdrop-blur-md sm:px-5"
+                >
+                  <p className="text-lg font-bold text-white sm:text-xl">
+                    {stat.value}
+                  </p>
+                  <p className="mt-0.5 text-[9px] font-semibold uppercase tracking-wider text-white/50 sm:text-[10px]">
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
             </motion.div>
           </div>
 
@@ -234,81 +224,86 @@ export default function OfficersPage() {
       </section>
 
       {/* Content */}
-      <section className="mx-auto max-w-6xl space-y-16 px-5 py-14 sm:px-8 lg:px-10">
+      <section className="mx-auto max-w-6xl space-y-14 px-4 py-12 sm:space-y-16 sm:px-6 sm:py-14 lg:px-10">
+        {/* Adviser */}
         <div>
           <SectionHeader
             title="SSC Adviser"
             description="Provides guidance and support to strengthen student leadership and council initiatives."
           />
-          <div className="mt-7 max-w-xs">
+          <div className="mt-6 max-w-xs sm:mt-7">
             <OfficerCard officer={OFFICERS_DATA.adviser} featured index={0} />
           </div>
         </div>
 
+        {/* Executive */}
         <div>
           <SectionHeader
             title="Executive Council"
             description="Leads council operations, represents students, and coordinates major programs."
           />
-          <div className="mt-7 grid gap-5 md:grid-cols-2">
+          <div className="mt-6 grid gap-4 sm:mt-7 sm:grid-cols-2 sm:gap-5">
             {OFFICERS_DATA.executive.map((officer, i) => (
               <OfficerCard key={officer.name} officer={officer} index={i} />
             ))}
           </div>
         </div>
 
+        {/* Senators */}
         <div>
           <SectionHeader
             title="SSC Senators"
             description="Elected student leaders who represent the concerns, ideas, and initiatives of the student body."
           />
-          <div className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-6 grid gap-4 sm:mt-7 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
             {OFFICERS_DATA.senators.map((officer, i) => (
               <OfficerCard key={officer.name} officer={officer} index={i} />
             ))}
           </div>
         </div>
 
+        {/* Representatives */}
         <div>
           <SectionHeader
             title="College Representatives"
-            description="Connects departments/colleges with the Supreme Student Council."
+            description="Connects departments and colleges with the Supreme Student Council."
           />
-          <div className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-6 grid gap-4 sm:mt-7 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
             {OFFICERS_DATA.representatives.map((officer, i) => (
               <OfficerCard key={officer.name} officer={officer} index={i} />
             ))}
           </div>
         </div>
-    
 
-      <div>
+        {/* Appointees */}
+        <div>
           <SectionHeader
             title="Appointees"
-            description="Capable and worth one."
+            description="Appointed officers who support specialized roles and council operations."
           />
-          <div className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-6 grid gap-4 sm:mt-7 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
             {OFFICERS_DATA.appointees.map((officer, i) => (
               <OfficerCard key={officer.name} officer={officer} index={i} />
             ))}
           </div>
         </div>
 
+        {/* Marshall */}
         <div>
           <SectionHeader
             title="Marshall"
-            description="The Defender."
+            description="Maintains order and assists in the safety and discipline of student activities."
           />
-          <div className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-6 grid gap-4 sm:mt-7 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
             {OFFICERS_DATA.marshall.map((officer, i) => (
               <OfficerCard key={officer.name} officer={officer} index={i} />
             ))}
           </div>
         </div>
-     </section>
+      </section>
 
       {/* Closing */}
-      <section className="bg-[#0A2A1F] px-5 py-14 text-center text-white">
+      <section className="bg-[#0A2A1F] px-4 py-12 text-center text-white sm:px-6 sm:py-14">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
