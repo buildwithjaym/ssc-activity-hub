@@ -94,9 +94,9 @@ export const OFFICERS_DATA = {
       position: "SSC Senator",
       unit: "CAH",
       image: "jaymie",
-      facebook: "",
+      facebook: "https://www.facebook.com/jaymiesuzainne?mibextid=wwXIfr&mibextid=wwXIfr",
       bio:
-        "Supports student programs and promotes inclusive participation across the institution.",
+        "      NOT JUST TO LEAD, BUT TO LISTEN, LIFT AND SERVE .As your SSC Officer, I truly believe leadership is about being approachable and looking out for your well-being, not just holding a title. I’m always ready to listen to your ideas and work hard to make our campus a better, more supportive environment for all of us.",
     },
 
     {
@@ -138,9 +138,9 @@ export const OFFICERS_DATA = {
       position: "SSC Senator",
       unit: "CHUSOCOM",
       image: "jhul",
-      facebook: "",
+      facebook: "https://www.facebook.com/jhulman.salasain.2024",
       bio:
-        "Dedicated to supporting student initiatives and strengthening campus representation.",
+        "I am Julman A. Salasain, a student leader who believes that true leadership is not about being above others, but about being willing to stand with them. As an SSC Officer, I value service, responsibility, teamwork, and listening to the voices of students. I believe that even small efforts can create meaningful change when they are done with sincerity and purpose. For me, leadership is an opportunity to serve, learn, and leave a positive impact on the people and community I represent.",
     },
 
     {
@@ -184,9 +184,9 @@ export const OFFICERS_DATA = {
       position: "College Representative",
       unit: "CAH",
       image: "cah_rep",
-      facebook: "",
+      facebook: "https://www.facebook.com/alfhariz.arawangsa",
       bio:
-        "Supports student coordination and helps promote council programs within the college.",
+        "Leading with purpose, heart, and commitment to inclusivity and equality.",
     },
 
     {
@@ -214,9 +214,9 @@ export const OFFICERS_DATA = {
       position: "College Representative",
       unit: "CPAdm",
       image: "sarha",
-      facebook: "",
+      facebook: "https://www.facebook.com/sarha.alano.ascala.salahuddin",
       bio:
-        "Supports college representation and helps coordinate student concerns.",
+        "My role is to be the voice of the students to bridge them with the school administration. I am committed to promoting transparency, unity, and student welfare. As an SSC Officer, I will lead with dedication, work with purpose, and make sure that every student’s needs and ideas are heard and valued.",
     },
 
     {
@@ -290,7 +290,7 @@ appointees: [
       image: "auditor",
       facebook: "",
       bio:
-        "Being a student leader is to serve the student body and contribute to the learning community. As an SSC officer, I always believed that leadership is such a crucial role and must not be taken for granted. It should be embodied and not to chase clout from it.",
+        "I am Al-Shameer E. Saratal, the Treasurer of the SSC. A leaderr who believes that transparency is the best investment in building trust and becoming a responsible and effective student leader...",
     },
 
     {
@@ -334,9 +334,9 @@ marshall : [
     position: "Marshall",
     unit: "CCJE",
     image: "ramram",
-    facebook: "",
+    facebook: "https://www.facebook.com/share/1SCKqiaKBH/",
     bio:
-    "",
+    "Hi, I'm Ramram, serving as an SSC Marshal. ",
   },
 
    {
@@ -353,7 +353,7 @@ marshall : [
     name: "Emmil C. Asaali",
     position: "Marshall",
     unit: "CCJE",
-    image: "emil",
+    image: "emmil",
     facebook: "https://www.facebook.com/share/1DeJhFQHGg/?mibextid=wwXIfr",
     bio:
     "Hi, I'm Emmil C. Asaali, an SSC Officer who wants to help. I believe that being a leader is not just about having a position, but also about being responsible, approachable, and willing to listen. I want to do my best to serve the students, listen to their concerns, and help make our school a better place for everyone.",
@@ -364,9 +364,9 @@ marshall : [
     position: "Marshall",
     unit: "CHUSOCOM",
     image: "arnafy",
-    facebook: "",
+    facebook: "https://www.facebook.com/arnafy.tulawie",
     bio:
-    "",
+    "Hi, I’m Ar-Nafy Y. Tulawie, serving as a Marshall in the SSC. I believe leadership is about maintaining order, supporting others, and carrying out responsibilities with respect and fairness. I strive to be responsible, approachable, and committed to serving the student community.",
   },
 
    {
