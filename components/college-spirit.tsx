@@ -11,7 +11,7 @@ const spiritAnimals = [
     id: "iis",
     college: "Institute of Islamic Studies",
     shortCode: "IIS",
-    animal: "Eagle",
+    animal: "Blue Eagle",
     color: "#1A5276",
     image: "iis.jpg",
     description:
@@ -22,7 +22,7 @@ const spiritAnimals = [
     id: "cte",
     college: "College of Education",
     shortCode: "CTE",
-    animal: "Wolves",
+    animal: "Noble Wolves",
     color: "#A93226",
     image: "cte",
     description:
@@ -46,7 +46,7 @@ const spiritAnimals = [
     shortCode: "CCS",
     animal: "Golden Phoenix",
     color: "#6C1D2B",
-    image: "ccs",
+    image: "basu-ccs",
     description:
       "Rising with precision and power. The Golden Phoenix embodies innovation, speed, and the digital future.",
     rally: "Focus. Code. Dominate.",
@@ -55,7 +55,7 @@ const spiritAnimals = [
     id: "chusocom",
     college: "College of Humanities, Social Sciences & Communication",
     shortCode: "CHUSOCOM",
-    animal: "Golden Lion",
+    animal: "Blue Falcon",
     color: "#066fb4",
     image: "chusocom.jpg",
     description:
@@ -66,7 +66,7 @@ const spiritAnimals = [
     id: "cpadm",
     college: "College of Public Administration",
     shortCode: "CPADM",
-    animal: "Eagle",
+    animal: "Lion",
     color: "#ebb120",
     image: "cpadm.jpg",
     description:
@@ -77,7 +77,7 @@ const spiritAnimals = [
     id: "ca",
     college: "College of Agriculture",
     shortCode: "CA",
-    animal: "Carabao",
+    animal: "Green Buffalo",
     color: "#196F3D",
     image: "ca.jpg",
     description:
@@ -88,7 +88,7 @@ const spiritAnimals = [
     id: "ihtm",
     college: "Institute of Hospitality & Tourism Management",
     shortCode: "IHTM",
-    animal: "Narwhal",
+    animal: "Navigating Narwhal",
     color: "#8B6914",
     image: "ihtm.jpg",
     description:
@@ -99,7 +99,7 @@ const spiritAnimals = [
     id: "cah",
     college: "College of Allied Health",
     shortCode: "CAH",
-    animal: "Female Tiger",
+    animal: "Growling Tiger",
     color: "#c936bc",
     image: "cah.jpg",
     description:
