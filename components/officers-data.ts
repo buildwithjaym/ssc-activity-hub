@@ -46,13 +46,13 @@ export const OFFICERS_DATA = {
   senators: [
     {
       rank: 1,
-      name: "Moh. Ershad Sahiron",
+      name: "Mohammad Ershad D. Sahiron",
       position: "SSC Senator",
       unit: "CAH",
       image: "shad",
       facebook: "",
       bio:
-        "Represents student concerns and contributes to initiatives focused on student welfare and campus development.",
+        "I am a student leader from the College of Allied Health and currently serve as the SSC Senate President, representing the student body across the whole campus. I previously served as the SSC Public Information Officer for Academic Years 2025–2026 and 2026–2027, where I focused on communication, student engagement, and informing the campus community. As Senate President, I continue to uphold leadership through service, accountability, integrity, and meaningful representation of every student.",
     },
 
     {
@@ -72,9 +72,9 @@ export const OFFICERS_DATA = {
       position: "SSC Senator",
       unit: "CTE",
       image: "nicole",
-      facebook: "",
+      facebook: "https://www.facebook.com/nikooooooooooooolits?mibextid=wwXIfr&mibextid=wwXIfr",
       bio:
-        "Advocates for student voices and supports programs that encourage inclusive participation.",
+        "My name is Nicole Shane P. Prino from Bachelor of Education. I am a Senator. I know within myself that I am capable of managing different activities. I love to serve in the SSC not because of the title, but because it is for the good of my fellow students",
     },
 
     {
@@ -83,9 +83,9 @@ export const OFFICERS_DATA = {
       position: "SSC Senator",
       unit: "CICTT",
       image: "jay",
-      facebook: "https://www.facebook.com/jaymar",
+      facebook: "https://www.facebook.com/jaymar.maruji",
       bio:
-        "Focuses on technology-driven solutions and digital initiatives that improve student engagement and services.",
+        "Tech-driven student leader and startup founder passionate about service, innovation, and action. I listen, lead, and turn students’ ideas into meaningful change.",
     },
 
     {
@@ -160,106 +160,86 @@ export const OFFICERS_DATA = {
       position: "SSC Senator",
       unit: "IHTM",
       image: "bev",
-      facebook: "",
+      facebook: "https://www.facebook.com/beverly.jane.francisco.2025?mibextid=wwXIfr&mibextid=wwXIfr",
       bio:
-        "Supports student engagement and helps create meaningful campus experiences.",
+        "Hello! Being an SSC Senator to me just means being there when needed. I’m not here to make fancy promises I can't keep. I just want to stay approachable, bring your real concerns to the council, and help get practical things done for our batch.",
     },
   ],
 
-
-  representatives: [
-
-    {
-      name: "Alyanna Hamsirani",
-      position: "College Representative",
-      unit: "CTE",
-      image: "cte_rep",
-      facebook: "https://www.facebook.com/crystal.yanna.7",
-      bio:
-        "Being a student leader is to serve the student body and contribute to the learning community. As an SSC officer, I always believed that leadership is such a crucial role and must not be taken for granted. It should be embodied and not to chase clout from it.",
-    },
-
-    {
-      name: "Alfhariz Arawangsa",
-      position: "College Representative",
-      unit: "CAH",
-      image: "cah_rep",
-      facebook: "https://www.facebook.com/alfhariz.arawangsa",
-      bio:
-        "Leading with purpose, heart, and commitment to inclusivity and equality.",
-    },
-
-    {
-      name: "Amir Naiff Julsali",
-      position: "College Representative",
-      unit: "CICTT",
-      image: "amir",
-      facebook: "https://www.facebook.com/delis.mir",
-      bio:
-        "I’m a strategic thinker who understands that information, communication, and influence can shape outcomes. I observe carefully, think several steps ahead, and approach challenges like a system waiting to be decoded. As an SSC Officer, I use these qualities responsibly—to understand people, earn trust, solve problems, and lead with purpose.",
-    },
-
-    {
-      name: "Ahmad Jayveen Abubakar",
-      position: "College Representative",
-      unit: "CHUSOCOM",
-      image: "jayvin",
-      facebook: "https://www.facebook.com/share/1BszTZ3zyW/",
-      bio:
-        "I am a student who believes that being a leader means being a voice for others. As an SSC Representative, I want to listen to my fellow students, understand their concerns, and help bring their ideas and needs to the right people. I value honesty, responsibility, respect, and teamwork. For me, leadership is not just about having a position, but about serving and making a positive difference in our school community.",
-    },
-
-    {
-      name: "Sarha",
-      position: "College Representative",
-      unit: "CPAdm",
-      image: "sarha",
-      facebook: "https://www.facebook.com/sarha.alano.ascala.salahuddin",
-      bio:
-        "My role is to be the voice of the students to bridge them with the school administration. I am committed to promoting transparency, unity, and student welfare. As an SSC Officer, I will lead with dedication, work with purpose, and make sure that every student’s needs and ideas are heard and valued.",
-    },
-
-    {
-      name: "Yan Nelle E. Singson",
-      position: "Representative",
-      unit: "BPA",
-      image: "yan",
-      facebook: "https://www.facebook.com/yn.ll.singson",
-      bio:
-        "I see leadership as more than having a position. For me, it means being willing to listen, understand, and help whenever I can. As an SSC Officer, I want to represent my fellow students honestly, take their concerns seriously, and do my part in making our school community better. I may not have all the answers, but I believe a good leader is someone who is willing to learn, listen, and serve.",
-    },
-
-    {
-      name: "Al-rafie M. Majid",
-      position: "Representative",
-      unit: "Representative",
-      image: "alrafie",
-      facebook: "",
-      bio:
-        "Supports representation and coordination between satellite campuses and the council.",
-    },
-
-    {
-      name: "Adzra H. Aknalin",
-      position: "Representative",
-      unit: "Representative",
-      image: "adzra",
-      facebook: "",
-      bio:
-        "Represents satellite campus students and promotes active participation.",
-    },
-
-    {
-      name: "Gerry A. Jannatil",
-      position: "Representative",
-      unit: "CA",
-      image: "clara_rep",
-      facebook: "https://www.facebook.com/jannatilgerry",
-      bio:
-        "Helps bridge student concerns between the satellite campus and Supreme Student Council.",
-    },
-
-  ],
+representatives: [
+  {
+    name: "Alyanna Hamsirani",
+    position: "College Representative",
+    unit: "CTE",
+    image: "cte_rep",
+    facebook: "https://www.facebook.com/crystal.yanna.7",
+    bio: "Being a student leader is to serve the student body and contribute to the learning community. As an SSC officer, I always believed that leadership is such a crucial role and must not be taken for granted. It should be embodied and not to chase clout from it.",
+  },
+  {
+    name: "Alfhariz Arawangsa",
+    position: "College Representative",
+    unit: "CAH",
+    image: "cah_rep",
+    facebook: "https://www.facebook.com/alfhariz.arawangsa",
+    bio: "Leading with purpose, heart, and commitment to inclusivity and equality.",
+  },
+  {
+    name: "Amir Naiff Julsali",
+    position: "College Representative",
+    unit: "CICTT",
+    image: "amir",
+    facebook: "https://www.facebook.com/delis.mir",
+    bio: "I’m a strategic thinker who understands that information, communication, and influence can shape outcomes. I observe carefully, think several steps ahead, and approach challenges like a system waiting to be decoded. As an SSC Officer, I use these qualities responsibly—to understand people, earn trust, solve problems, and lead with purpose.",
+  },
+  {
+    name: "Ahmad Jayveen Abubakar",
+    position: "College Representative",
+    unit: "CHUSOCOM",
+    image: "jayvin",
+    facebook: "https://www.facebook.com/share/1BszTZ3zyW/",
+    bio: "I am a student who believes that being a leader means being a voice for others. As an SSC Representative, I want to listen to my fellow students, understand their concerns, and help bring their ideas and needs to the right people. I value honesty, responsibility, respect, and teamwork. For me, leadership is not just about having a position, but about serving and making a positive difference in our school community.",
+  },
+  {
+    name: "Sarha",
+    position: "College Representative",
+    unit: "CPAdm",
+    image: "sarha",
+    facebook: "https://www.facebook.com/sarha.alano.ascala.salahuddin",
+    bio: "My role is to be the voice of the students to bridge them with the school administration. I am committed to promoting transparency, unity, and student welfare. As an SSC Officer, I will lead with dedication, work with purpose, and make sure that every student’s needs and ideas are heard and valued.",
+  },
+  {
+    name: "Yan Nelle E. Singson",
+    position: "Representative",
+    unit: "BPA",
+    image: "yan",
+    facebook: "https://www.facebook.com/yn.ll.singson",
+    bio: "I see leadership as more than having a position. For me, it means being willing to listen, understand, and help whenever I can. As an SSC Officer, I want to represent my fellow students honestly, take their concerns seriously, and do my part in making our school community better. I may not have all the answers, but I believe a good leader is someone who is willing to learn, listen, and serve.",
+  },
+  {
+    name: "Al-rafie M. Majid",
+    position: "Representative",
+    unit: "Representative",
+    image: "alrafie",
+    facebook: "",
+    bio: "I am committed to strengthening the connection between satellite campuses and the Supreme Student Council. As a representative, I work to ensure that student concerns from every campus are heard, coordinated, and acted upon with care and responsibility.",
+  },
+  {
+    name: "Adzra H. Aknalin",
+    position: "Representative",
+    unit: "Representative",
+    image: "adzra",
+    facebook: "",
+    bio: "I believe every student deserves a voice, no matter which campus they come from. As a representative, I aim to encourage active participation, share student concerns, and help build a stronger sense of unity across all satellite campuses.",
+  },
+  {
+    name: "Gerry A. Jannatil",
+    position: "Representative",
+    unit: "CA",
+    image: "clara_rep",
+    facebook: "https://www.facebook.com/jannatilgerry",
+    bio: "My goal is to bridge the gap between satellite campus students and the Supreme Student Council. I am dedicated to listening to their needs, carrying their concerns forward, and helping create solutions that truly serve the student community.",
+  },
+],
 
 appointees: [
 
@@ -277,7 +257,7 @@ appointees: [
       name: "Nadzree A. Sulaiman",
       position: "Treasurer",
       unit: "CHUSOCOM",
-      image: "treasurer",
+      image: "logo",
       facebook: "",
       bio: 
       ""
@@ -307,10 +287,10 @@ appointees: [
       name: "Dione Barbel Catubag",
       position: "Project Manager",
       unit: "CCJE",
-      image: "project_manager",
+      image: "logo",
       facebook: "",
       bio:
-        "Being a student leader is to serve the student body and contribute to the learning community. As an SSC officer, I always believed that leadership is such a crucial role and must not be taken for granted. It should be embodied and not to chase clout from it.",
+        "",
     },
 
  
@@ -323,7 +303,7 @@ marshall : [
     name: "Jan Ivan Vincent Garingo",
     position: "Marshall",
     unit: "CPADM",
-    image: "ivan",
+    image: "logo",
     facebook: "",
     bio:
     "",
@@ -343,7 +323,7 @@ marshall : [
     name: "Almhansur Madjakin",
     position: "Marshall",
     unit: "CCJE",
-    image: "mhansur",
+    image: "logo",
     facebook: "",
     bio:
     "",
