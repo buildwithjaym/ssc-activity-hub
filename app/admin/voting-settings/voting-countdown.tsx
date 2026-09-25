@@ -1,590 +1,300 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 
-import {
-useEffect,
-useState
-} from "react";
+import { Clock, PlayCircle, Flag, PauseCircle } from "lucide-react";
 
+import { syncVotingStatus } from "./actions"; // change path if needed
 
-import {
-Clock,
-PlayCircle,
-Flag,
-PauseCircle
-} from "lucide-react";
+type VotingStatus = "open" | "paused" | "closed";
 
+interface Props {
+  eventId: string;
 
+  start?: string | null;
 
-interface Props{
+  end?: string | null;
 
-start?:string|null;
-
-end?:string|null;
-
-status?:
-"open"
-|
-"paused"
-|
-"closed";
-
+  status?: VotingStatus;
 }
 
+interface Time {
+  days: number;
 
+  hours: number;
+
+  minutes: number;
+
+  seconds: number;
+}
 
 export default function VotingCountdown({
+  eventId,
 
-start,
+  start,
 
-end,
+  end,
 
-status="closed"
+  status = "closed",
+}: Props) {
+  const [now, setNow] = useState(new Date());
 
-}:Props){
+  const synced = useRef(false);
 
+  /*
+  ------------------------------------
+  LIVE CLOCK
+  ------------------------------------
+  */
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setNow(new Date());
+    }, 1000);
 
-const [now,setNow]=useState(
-new Date()
-);
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
 
+  /*
+  ------------------------------------
+  AUTO CLOSE WHEN TIME ENDS
+  ------------------------------------
+  */
 
+  useEffect(() => {
+    if (!eventId || !end) {
+      return;
+    }
 
+    const current = new Date().getTime();
 
+    const endTime = new Date(end).getTime();
 
-/*
-|--------------------------------------------------------------------------
-| LIVE CLOCK
-|--------------------------------------------------------------------------
-*/
+    if (current >= endTime && !synced.current) {
+      synced.current = true;
 
-useEffect(()=>{
+      syncVotingStatus(eventId).catch((error) => {
+        console.error("Voting sync error:", error);
 
+        synced.current = false;
+      });
+    }
+  }, [now, eventId, end]);
 
-const interval=setInterval(()=>{
+  function calculate(target: string): Time {
+    const difference = new Date(target).getTime() - now.getTime();
 
-setNow(
-new Date()
-);
+    if (difference <= 0) {
+      return {
+        days: 0,
 
-},1000);
+        hours: 0,
 
+        minutes: 0,
 
+        seconds: 0,
+      };
+    }
 
-return()=>clearInterval(interval);
+    return {
+      days: Math.floor(difference / 86400000),
 
+      hours: Math.floor(difference / 3600000) % 24,
 
-},[]);
+      minutes: Math.floor(difference / 60000) % 60,
 
+      seconds: Math.floor(difference / 1000) % 60,
+    };
+  }
 
+  if (!start || !end) {
+    return null;
+  }
 
+  const current = now.getTime();
 
+  const startTime = new Date(start).getTime();
 
+  const endTime = new Date(end).getTime();
 
-function calculate(
+  /*
+  ------------------------------------
+  PAUSED
+  ------------------------------------
+  */
 
-target:string
+  if (status === "paused") {
+    return (
+      <Card>
+        <PauseCircle size={20} />
 
-){
+        <h2>Voting Paused</h2>
 
+        <p>Countdown temporarily stopped.</p>
+      </Card>
+    );
+  }
 
-const difference =
-new Date(target).getTime()
--
-now.getTime();
+  /*
+  ------------------------------------
+  BEFORE START
+  ------------------------------------
+  */
 
+  if (current < startTime) {
+    return (
+      <CountdownCard
+        icon={<PlayCircle />}
+        title="Voting starts in"
+        time={calculate(start)}
+      />
+    );
+  }
 
+  /*
+  ------------------------------------
+  ACTIVE
+  ------------------------------------
+  */
 
-if(difference<=0)
+  if (status === "open" && current < endTime) {
+    return (
+      <CountdownCard
+        icon={<Clock />}
+        title="Voting ends in"
+        time={calculate(end)}
+      />
+    );
+  }
 
-return {
-days:0,
-hours:0,
-minutes:0,
-seconds:0
-};
+  /*
+  ------------------------------------
+  CLOSED
+  ------------------------------------
+  */
 
+  return (
+    <Card>
+      <Flag size={20} />
 
+      <h2>Voting Ended</h2>
 
-return {
-
-
-days:
-Math.floor(
-difference /
-86400000
-),
-
-
-hours:
-Math.floor(
-difference /
-3600000
-)%24,
-
-
-minutes:
-Math.floor(
-difference /
-60000
-)%60,
-
-
-seconds:
-Math.floor(
-difference /
-1000
-)%60
-
-
-};
-
-
+      <p>The voting period has finished.</p>
+    </Card>
+  );
 }
-
-
-
-
-
-
-
-if(!start || !end){
-
-return null;
-
-}
-
-
-
-
-/*
-|--------------------------------------------------------------------------
-| CLOSED
-|--------------------------------------------------------------------------
-*/
-
-
-if(status==="closed"){
-
-
-return (
-
-<Card>
-
-<Flag size={20}/>
-
-<h2>
-Voting Closed
-</h2>
-
-<p>
-Voting is not available.
-</p>
-
-
-</Card>
-
-);
-
-
-}
-
-
-
-
-
-
-/*
-|--------------------------------------------------------------------------
-| PAUSED
-|--------------------------------------------------------------------------
-*/
-
-
-if(status==="paused"){
-
-
-return (
-
-<Card>
-
-<PauseCircle size={20}/>
-
-<h2>
-
-Voting Paused
-
-</h2>
-
-
-<p>
-
-Countdown temporarily stopped.
-
-</p>
-
-
-</Card>
-
-
-);
-
-
-}
-
-
-
-
-
-const current =
-now.getTime();
-
-
-
-const startTime =
-new Date(start)
-.getTime();
-
-
-
-const endTime =
-new Date(end)
-.getTime();
-
-
-
-
-
-
-/*
-|--------------------------------------------------------------------------
-| BEFORE START
-|--------------------------------------------------------------------------
-*/
-
-
-if(current < startTime){
-
-
-const time =
-calculate(start);
-
-
-
-return (
-
-<CountdownCard
-
-icon={<PlayCircle/>}
-
-title="Voting starts in"
-
-time={time}
-
-/>
-
-);
-
-
-}
-
-
-
-
-
-
-/*
-|--------------------------------------------------------------------------
-| ACTIVE
-|--------------------------------------------------------------------------
-*/
-
-
-if(
-current >= startTime
-&&
-current < endTime
-){
-
-
-const time =
-calculate(end);
-
-
-
-return (
-
-<CountdownCard
-
-icon={<Clock/>}
-
-title="Voting ends in"
-
-time={time}
-
-/>
-
-);
-
-
-}
-
-
-
-
-
-
-
-return (
-
-<Card>
-
-<Flag size={20}/>
-
-<h2>
-
-Voting Ended
-
-</h2>
-
-
-<p>
-
-The voting period has finished.
-
-</p>
-
-
-</Card>
-
-
-);
-
-
-}
-
-
-
-
-
-
 
 function CountdownCard({
+  icon,
 
-icon,
+  title,
 
-title,
+  time,
+}: {
+  icon: React.ReactNode;
 
-time
+  title: string;
 
-}:any){
-
-
-return (
-
-<div
-
-className="
+  time: Time;
+}) {
+  return (
+    <div
+      className="
 rounded-3xl
 bg-[#062B20]
 text-white
 p-6
 "
-
->
-
-
-<div
-
-className="
+    >
+      <div
+        className="
 flex
 gap-3
 items-center
 text-white/60
 "
+      >
+        {icon}
 
->
+        <span>Voting Countdown</span>
+      </div>
 
-{icon}
-
-<span>
-
-Voting Countdown
-
-</span>
-
-
-</div>
-
-
-
-<h2
-
-className="
+      <h2
+        className="
 text-2xl
 font-bold
 mt-3
 "
+      >
+        {title}
+      </h2>
 
->
-
-{title}
-
-</h2>
-
-
-
-
-<div
-
-className="
+      <div
+        className="
 grid
 grid-cols-4
 gap-3
 mt-5
 "
+      >
+        <Box value={time.days} label="Days" />
 
->
+        <Box value={time.hours} label="Hours" />
 
+        <Box value={time.minutes} label="Minutes" />
 
-<Box
-
-value={time.days}
-
-label="Days"
-
-/>
-
-
-<Box
-
-value={time.hours}
-
-label="Hours"
-
-/>
-
-
-<Box
-
-value={time.minutes}
-
-label="Minutes"
-
-/>
-
-
-<Box
-
-value={time.seconds}
-
-label="Seconds"
-
-/>
-
-
-</div>
-
-
-
-</div>
-
-
-);
-
-
+        <Box value={time.seconds} label="Seconds" />
+      </div>
+    </div>
+  );
 }
 
-
-
-
-
-
-
-
 function Box({
+  value,
 
-value,
+  label,
+}: {
+  value: number;
 
-label
-
-}:any){
-
-
-return (
-
-<div
-
-className="
+  label: string;
+}) {
+  return (
+    <div
+      className="
 rounded-2xl
 bg-white/10
 p-4
 text-center
 "
-
->
-
-
-<div
-
-className="
+    >
+      <div
+        className="
 text-3xl
 font-bold
 "
+      >
+        {String(value).padStart(2, "0")}
+      </div>
 
->
-
-{
-String(value)
-.padStart(2,"0")
-}
-
-</div>
-
-
-
-<p
-
-className="
+      <p
+        className="
 text-xs
 uppercase
 text-white/60
 "
-
->
-
-{label}
-
-</p>
-
-
-
-</div>
-
-);
-
-
+      >
+        {label}
+      </p>
+    </div>
+  );
 }
 
-
-
-
-
-
-
-function Card({
-
-children
-
-}:any){
-
-
-return (
-
-<div
-
-className="
+function Card({ children }: { children: React.ReactNode }) {
+  return (
+    <div
+      className="
 rounded-3xl
 bg-[#062B20]
 text-white
@@ -593,14 +303,8 @@ flex
 items-center
 gap-3
 "
-
->
-
-{children}
-
-</div>
-
-);
-
-
+    >
+      {children}
+    </div>
+  );
 }
