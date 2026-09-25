@@ -759,18 +759,18 @@ export default function DashboardClient({ eventId }: { eventId: string }) {
                   tickLine={false}
                 />
                 <Tooltip
-  contentStyle={{
-    backgroundColor: "#0A2A1F",
-    border: "none",
-    borderRadius: "12px",
-    color: "#fff",
-    fontSize: "13px",
-  }}
-  formatter={(value, _name, props) => [
-    `${value} votes`,
-    (props as any)?.payload?.fullName ?? _name,
-  ]}
-/>
+                  contentStyle={{
+                    backgroundColor: "#0A2A1F",
+                    border: "none",
+                    borderRadius: "12px",
+                    color: "#fff",
+                    fontSize: "13px",
+                  }}
+                  formatter={(value, _name, props) => [
+                    `${value} votes`,
+                    (props as any)?.payload?.fullName ?? _name,
+                  ]}
+                />
                 <Bar
                   dataKey="votes"
                   fill="#D4AF37"
