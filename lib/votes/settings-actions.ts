@@ -7,14 +7,6 @@ import { revalidatePath } from "next/cache";
 
 
 
-
-
-/*
-|--------------------------------------------------------------------------
-| CREATE VOTING SETTINGS
-|--------------------------------------------------------------------------
-*/
-
 export async function createVotingSettings(
 
 eventId:string,
@@ -106,13 +98,6 @@ revalidatePath(
 return data;
 
 }
-
-
-/*
-|--------------------------------------------------------------------------
-| UPDATE SCHEDULE
-|--------------------------------------------------------------------------
-*/
 
 
 export async function updateVotingSchedule(
