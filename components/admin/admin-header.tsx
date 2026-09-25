@@ -2,153 +2,79 @@
 
 import Image from "next/image";
 
-import {
-  SITE_CONFIG
-} from "@/components/site-config";
-
-
+import { SITE_CONFIG } from "@/components/site-config";
 
 interface Props {
+  profile: {
+    full_name?: string | null;
 
-profile:{
+    email?: string | null;
 
-full_name?:string|null;
+    avatar_url?: string | null;
 
-email?:string|null;
+    department?: string | null;
 
-avatar_url?:string|null;
-
-department?:string|null;
-
-role?:string|null;
-
-} | null;
-
+    role?: string | null;
+  } | null;
 }
 
+export default function AdminHeader({ profile }: Props) {
+  const initials = profile?.full_name
+    ? profile.full_name
 
+        .split(" ")
 
+        .map((word) => word.charAt(0))
 
-export default function AdminHeader({
+        .slice(0, 2)
 
-profile
+        .join("")
 
-}:Props){
+        .toUpperCase()
+    : "AD";
 
-
-
-const initials =
-
-profile?.full_name
-
-?
-
-profile.full_name
-
-.split(" ")
-
-.map(
-(word)=>word.charAt(0)
-)
-
-.slice(0,2)
-
-.join("")
-
-.toUpperCase()
-
-:
-
-"AD";
-
-
-
-
-
-return (
-
-<div
-
-className="
+  return (
+    <div
+      className="
 flex
 items-center
 gap-4
 
 "
+    >
+      {/* INFORMATION */}
 
->
-
-
-
-
-
-{/* INFORMATION */}
-
-
-<div
-
-className="
+      <div
+        className="
 hidden
 text-right
 sm:block
 
 "
-
->
-
-
-<p
-
-className="
+      >
+        <p
+          className="
 text-sm
 font-bold
 text-[#0A2A1F]
 
 "
+        >
+          {profile?.full_name ?? "Administrator"}
+        </p>
 
->
-
-{
-
-profile?.full_name ??
-
-"Administrator"
-
-}
-
-</p>
-
-
-
-
-<p
-
-className="
+        <p
+          className="
 text-xs
 text-slate-500
 
 "
+        >
+          {profile?.department ?? profile?.email ?? "SSC Administrator"}
+        </p>
 
->
-
-{
-
-profile?.department ??
-
-profile?.email ??
-
-"SSC Administrator"
-
-}
-
-</p>
-
-
-
-
-<span
-
-className="
+        <span
+          className="
 mt-1
 inline-flex
 
@@ -171,35 +97,15 @@ tracking-widest
 text-[#D4AF37]
 
 "
+        >
+          {profile?.role ?? "admin"}
+        </span>
+      </div>
 
->
+      {/* AVATAR */}
 
-{
-
-profile?.role ??
-
-"admin"
-
-}
-
-</span>
-
-
-
-</div>
-
-
-
-
-
-
-
-{/* AVATAR */}
-
-
-<div
-
-className="
+      <div
+        className="
 relative
 
 h-12
@@ -219,42 +125,20 @@ bg-[#D4AF37]
 shadow-md
 
 "
-
->
-
-
-{
-
-profile?.avatar_url ? (
-
-
-<Image
-
-src={profile.avatar_url}
-
-alt="Profile picture"
-
-fill
-
-sizes="48px"
-
-className="
+      >
+        {profile?.avatar_url ? (
+          <Image
+            src={profile.avatar_url}
+            alt="Profile picture"
+            fill
+            sizes="48px"
+            className="
 object-cover
 "
-
-/>
-
-
-)
-
-:
-
-(
-
-
-<div
-
-className="
+          />
+        ) : (
+          <div
+            className="
 flex
 h-full
 w-full
@@ -268,29 +152,11 @@ font-bold
 text-[#0A2A1F]
 
 "
-
->
-
-{initials}
-
-</div>
-
-
-)
-
-}
-
-
-
-</div>
-
-
-
-
-
-</div>
-
-
-)
-
+          >
+            {initials}
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
