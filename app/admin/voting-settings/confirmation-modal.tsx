@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  AlertTriangle,
-  Loader2,
-  X,
-} from "lucide-react";
+import { AlertTriangle, Loader2, X } from "lucide-react";
 
 interface ConfirmationModalProps {
   open: boolean;
@@ -81,9 +77,7 @@ export default function ConfirmationModal({
               justify-center
               rounded-2xl
               ${
-                danger
-                  ? "bg-red-50 text-red-600"
-                  : "bg-amber-50 text-amber-600"
+                danger ? "bg-red-50 text-red-600" : "bg-amber-50 text-amber-600"
               }
             `}
           >
@@ -187,12 +181,7 @@ export default function ConfirmationModal({
                 }
               `}
             >
-              {loading && (
-                <Loader2
-                  size={17}
-                  className="animate-spin"
-                />
-              )}
+              {loading && <Loader2 size={17} className="animate-spin" />}
 
               {loading ? "Processing..." : confirmText}
             </button>
