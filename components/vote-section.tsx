@@ -80,8 +80,8 @@ export function VoteSection() {
               },
               {
                 icon: ArrowRight,
-                title: "Live Ranking",
-                desc: "Watch the standings update in real time.",
+                title: "Google Login",
+                desc: "For secure and automated authentication.",
               },
             ].map((item) => (
               <div
