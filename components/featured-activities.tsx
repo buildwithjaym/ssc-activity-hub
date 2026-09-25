@@ -22,7 +22,7 @@ const activities: Activity[] = [
     date: "Sep 28–30, 2026",
     category: "Creative",
     description:
-      "Create banners and mascots that proudly represent your college spirit.",
+      "Design creative banners that showcase your college colors, identity, and Parageyan spirit.",
     image: "banners.jpg",
     status: "Registration Open",
     guidelinesUrl: "/guidelines/banner",
@@ -32,18 +32,30 @@ const activities: Activity[] = [
     title: "Mascot Making Contest",
     date: "Sep 28–30, 2026",
     category: "Creative",
-    description: "Create mascots that proudly represent your college spirit.",
+    description:
+      "Build a standout mascot that represents your college with creativity, craftsmanship, and pride.",
     image: "mascot_competition.jpg",
     status: "Registration Open",
     guidelinesUrl: "/guidelines/mascot",
-    facebookUrl: "https://facebook.com",
+    facebookUrl: "https://www.facebook.com/BascSSC/posts/pfbid02osKKtDFc5C9ZWb3s72uCe9PymLrJuqqBvx174vtxbipM9Ma2SzzjbD8mrZ5nR6zPl",
+  },
+  {
+    title: "Trade Fair",
+    date: "September 28–October 07, 2026",
+    category: "Community",
+    description:
+      "Open booths that highlight creativity, entrepreneurship, and the unique culture of each college.",
+    image: "trade-fairs.jpg",
+    status: "Coming Soon",
+    guidelinesUrl: "/guidelines/trade-fair",
+    facebookUrl: "",
   },
   {
     title: "Subul Duk Budjang Si Paregeyan",
-    date: "Sep 29 & Oct 01,2026",
+    date: "Sep 29 & Oct 01, 2026",
     category: "Fashion",
     description:
-      "",
+      "A cultural fashion showcase celebrating tradition, elegance, and the beauty of Parageyan identity.",
     image: "subuldukbudjang.jpg",
     status: "Registration Open",
     guidelinesUrl: "",
@@ -54,45 +66,10 @@ const activities: Activity[] = [
     date: "Oct 3, 2026",
     category: "Team Competition",
     description:
-      "Bring the Energy. Bring the Noise. Be Part of the Cheer!",
+      "Ignite school spirit with powerful cheers, synchronized energy, and unstoppable team pride.",
     image: "bench_yell.jpg",
     status: "Coming Soon",
     guidelinesUrl: "#activities",
-    facebookUrl: "",
-  },
-  
-  {
-    title: "Movie House",
-    date: "TBA",
-    category: "Entertainment",
-    description:
-      "Watch a movie together and let the love grows within.",
-    image: "movie_house.jpg",
-    status: "Coming Soon",
-    guidelinesUrl: "#activities",
-    facebookUrl: "https://facebook.com",
-  },
-  
-  {
-    title: "Fun Run",
-    date: "Oct 6, 2026",
-    category: "Sports",
-    description:
-      "Run, have fun, and celebrate unity with the Parageyan community.",
-    image: "funrun.jpg",
-    status: "Registration Open",
-    guidelinesUrl: "/guidelines/color-fun-run",
-    facebookUrl: "https://facebook.com",
-  },
-  {
-    title: "Larong Pinoy",
-    date: "Oct 4,5 & 7, 2026",
-    category: "Sports",
-    description:
-      "Enjoy traditional Filipino games while competing with fellow students.",
-    image: "larong-pinoy.jpg",
-    status: "Coming Soon",
-    guidelinesUrl: "/guidelines/larong-pinoy",
     facebookUrl: "",
   },
   {
@@ -100,22 +77,44 @@ const activities: Activity[] = [
     date: "Oct 4, 2026",
     category: "Academic",
     description:
-      "Put your knowledge to the test in an exciting academic competition.",
+      "Compete head-to-head in a high-energy quiz battle that rewards knowledge, focus, and teamwork.",
     image: "battle-of-the-brains.jpg",
     status: "Coming Soon",
     guidelinesUrl: "/guidelines/battle-of-the-brains",
     facebookUrl: "https://facebook.com",
   },
   {
-    title: "Trade Fair",
-    date: "September 28-October 07, 2026",
-    category: "Community",
+    title: "Larong Pinoy",
+    date: "Oct 4, 5 & 7, 2026",
+    category: "Sports",
     description:
-      "Showcase creativity, entrepreneurship, and college pride through booths.",
-    image: "trade-fairs.jpg",
+      "Relive traditional Filipino games in a friendly competition full of fun, skill, and camaraderie.",
+    image: "larong-pinoy.jpg",
     status: "Coming Soon",
-    guidelinesUrl: "/guidelines/trade-fair",
+    guidelinesUrl: "/guidelines/larong-pinoy",
     facebookUrl: "",
+  },
+  {
+    title: "Fun Run",
+    date: "Oct 6, 2026",
+    category: "Sports",
+    description:
+      "Lace up and join a vibrant campus run that celebrates fitness, friendship, and Parageyan unity.",
+    image: "funrun.jpg",
+    status: "Registration Open",
+    guidelinesUrl: "/guidelines/color-fun-run",
+    facebookUrl: "https://www.facebook.com/share/p/1JHeouh6oH/",
+  },
+  {
+    title: "Movie House",
+    date: "TBA",
+    category: "Entertainment",
+    description:
+      "Gather with fellow students for a shared movie night filled with good vibes and campus bonding.",
+    image: "movie_house.jpg",
+    status: "Coming Soon",
+    guidelinesUrl: "#activities",
+    facebookUrl: "https://facebook.com",
   },
 ];
 
