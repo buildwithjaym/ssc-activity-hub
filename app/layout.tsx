@@ -84,11 +84,11 @@ export const metadata: Metadata = {
       "Official digital platform for Parageyan 2026 activities, schedules, student participation, and the People's Choice Award voting system. Developed by Jaymar Maruji.",
     images: [
       {
-        url: "/og-image.png",
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "SSC Activity Hub - Parageyan 2026 | Developed by Jaymar Maruji",
-        type: "image/png",
+        type: "image/jpg",
       },
     ],
   },
