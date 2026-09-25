@@ -26,7 +26,7 @@ const activities: Activity[] = [
     image: "banners.jpg",
     status: "Registration Open",
     guidelinesUrl: "/guidelines/banner",
-    facebookUrl: "https://facebook.com",
+    facebookUrl: "https://www.facebook.com/BascSSC/posts/pfbid0azYFApuy9xJLnTtvVNAo3QjJEF76CjJLUcN5c1TaD2bbYzi79yMNWcpNhMoqKdVql",
   },
   {
     title: "Mascot Making Contest",
@@ -48,7 +48,7 @@ const activities: Activity[] = [
     image: "trade-fairs.jpg",
     status: "Coming Soon",
     guidelinesUrl: "/guidelines/trade-fair",
-    facebookUrl: "",
+    facebookUrl: "https://www.facebook.com/BascSSC/posts/pfbid0JMziEs6To1wPtT926o5oyDUXqKsEpvgwqo53QFWmFKN7RDYuUDH8cLXnNtnWAme3l",
   },
   {
     title: "Subul Duk Budjang Si Paregeyan",
@@ -81,7 +81,7 @@ const activities: Activity[] = [
     image: "battle-of-the-brains.jpg",
     status: "Coming Soon",
     guidelinesUrl: "/guidelines/battle-of-the-brains",
-    facebookUrl: "https://facebook.com",
+    facebookUrl: "https://www.facebook.com/share/p/14s8m5fehai/",
   },
   {
     title: "Larong Pinoy",
@@ -103,7 +103,7 @@ const activities: Activity[] = [
     image: "funrun.jpg",
     status: "Registration Open",
     guidelinesUrl: "/guidelines/color-fun-run",
-    facebookUrl: "https://www.facebook.com/share/p/1JHeouh6oH/",
+    facebookUrl: "https://www.facebook.com/share/p/1DgqfbXoAk/",
   },
   {
     title: "Movie House",

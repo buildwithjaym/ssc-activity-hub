@@ -81,7 +81,7 @@ export const OFFICERS_DATA = {
       rank: 4,
       name: "Jaymar H. Maruji",
       position: "SSC Senator",
-      unit: "CICTT",
+      unit: "CCS",
       image: "jay",
       facebook: "https://www.facebook.com/jaymar.maruji",
       bio:
@@ -186,7 +186,7 @@ representatives: [
   {
     name: "Amir Naiff Julsali",
     position: "College Representative",
-    unit: "CICTT",
+    unit: "CCS",
     image: "amir",
     facebook: "https://www.facebook.com/delis.mir",
     bio: "I’m a strategic thinker who understands that information, communication, and influence can shape outcomes. I observe carefully, think several steps ahead, and approach challenges like a system waiting to be decoded. As an SSC Officer, I use these qualities responsibly—to understand people, earn trust, solve problems, and lead with purpose.",
