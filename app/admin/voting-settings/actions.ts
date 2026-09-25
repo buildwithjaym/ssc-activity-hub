@@ -392,3 +392,179 @@ export async function deleteVotingSettings(eventId: string) {
     success: true,
   };
 }
+
+
+/*AUTO SYNC TIME STATUS*/
+export async function syncVotingStatus(
+  eventId:string
+){
+
+console.log(
+  "SYNC VOTING RUN:",
+  eventId
+);
+
+
+validateEvent(eventId);
+
+
+const supabase = await createClient();
+
+
+const {
+ data:voting,
+ error
+}=await supabase
+
+.from("voting_settings")
+.select("*")
+.eq("event_id",eventId)
+.single();
+
+
+
+if(error){
+
+ throw new Error(error.message);
+
+}
+
+
+
+console.log(
+ "CURRENT DB STATUS",
+ voting.status,
+ voting.is_open
+);
+
+
+
+const now = new Date();
+
+
+const start =
+new Date(voting.start_time);
+
+
+const end =
+new Date(voting.end_time);
+
+
+
+let newStatus:VotingStatus="closed";
+
+let newOpen=false;
+
+
+
+if(
+ now >= start &&
+ now < end
+){
+
+ newStatus="open";
+
+ newOpen=true;
+
+}
+
+
+
+console.log(
+ "NEW STATUS",
+ newStatus,
+ newOpen
+);
+
+
+
+if(
+ voting.status === newStatus &&
+ voting.is_open === newOpen
+){
+
+ return voting;
+
+}
+
+
+
+const {
+data:updated,
+error:updateError
+
+}=await supabase
+
+.from("voting_settings")
+
+.update({
+
+ status:newStatus,
+
+ is_open:newOpen,
+
+ updated_at:
+ new Date().toISOString()
+
+})
+
+.eq(
+"event_id",
+eventId
+)
+
+.select()
+.single();
+
+
+
+if(updateError){
+
+throw new Error(
+ updateError.message
+);
+
+}
+
+
+
+console.log(
+"UPDATED",
+updated
+);
+
+
+
+await createAuditLog({
+
+action:
+newStatus==="closed"
+?"AUTO_CLOSE_VOTING"
+:"AUTO_OPEN_VOTING",
+
+table:
+"voting_settings",
+
+recordId:
+updated.id,
+
+metadata:{
+
+event_id:eventId,
+
+old_status:voting.status,
+
+new_status:newStatus
+
+}
+
+});
+
+
+
+revalidatePath(PATH);
+
+
+return updated;
+
+}
