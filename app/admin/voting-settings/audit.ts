@@ -2,95 +2,60 @@
 
 import { createClient } from "@/lib/supabase/server";
 
-
 export async function createAuditLog({
+  action,
 
-action,
+  table,
 
-table,
+  recordId,
 
-recordId,
+  metadata,
+}: {
+  action: string;
 
-metadata,
+  table: string;
 
-}:{
-action:string;
+  recordId?: string | null;
 
-table:string;
+  metadata?: any;
+}) {
+  const supabase = await createClient();
 
-recordId?:string | null;
+  const { data: userData } = await supabase.auth.getUser();
 
-metadata?:any;
+  const userId = userData.user?.id ?? null;
 
-}){
+  const {
+    data,
 
+    error,
+  } = await supabase
 
-const supabase = await createClient();
+    .from("audit_logs")
 
+    .insert({
+      user_id: userId,
 
+      action,
 
-const {
-data:userData
-}=await supabase.auth.getUser();
+      table_name: table,
 
+      record_id: recordId ?? null,
 
-const userId =
-userData.user?.id ?? null;
+      metadata: metadata ?? {},
+    })
 
+    .select()
 
+    .single();
 
-const {
-data,
+  if (error) {
+    console.error("AUDIT INSERT FAILED:", error);
 
-error
+    throw new Error(error.message);
+  }
 
-}=await supabase
+  console.log("AUDIT CREATED:", data);
 
-.from("audit_logs")
-
-.insert({
-
-user_id:userId,
-
-action,
-
-table_name:table,
-
-record_id:recordId ?? null,
-
-metadata:metadata ?? {}
-
-})
-
-.select()
-
-.single();
-
-
-
-if(error){
-
-console.error(
-"AUDIT INSERT FAILED:",
-error
-);
-
-throw new Error(
-error.message
-);
-
-}
-
-
-
-console.log(
-"AUDIT CREATED:",
-data
-);
-
-
-
-return data;
-
-
+  return data;
 }
