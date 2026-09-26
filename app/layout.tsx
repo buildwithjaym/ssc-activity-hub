@@ -5,7 +5,7 @@ import { AppLoader } from "@/components/app-loader";
 import { SITE_CONFIG } from "@/components/site-config";
 import { Analytics } from "@vercel/analytics/next";
 import { Toaster } from "sonner";
-
+import SSCAssistantWrapper from "@/components/ssc/ssc-assistant-wrapper";
 const geistSans = Geist({
   variable: "--font-geist",
   subsets: ["latin"],
@@ -144,6 +144,7 @@ export default function RootLayout({
         <AppLoader>{children}</AppLoader>
         <Toaster position="top-right" richColors />
         <Analytics />
+        <SSCAssistantWrapper />
       </body>
     </html>
   );
