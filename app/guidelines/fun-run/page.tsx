@@ -20,9 +20,7 @@ import {
 } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 
-// ======================
-// Data
-// ======================
+
 const introSlides = [
   {
     icon: HeartPulse,
@@ -34,7 +32,7 @@ const introSlides = [
     icon: Activity,
     title: "Choose Your Distance",
     description:
-      "Challenge yourself with either the 3KM or 5KM run on the Basilan State College School Grounds.",
+      "Challenge yourself with either the 3KM or 5KM run on the Basilan State University School Grounds.",
   },
   {
     icon: Trophy,
@@ -55,13 +53,13 @@ const benefits = [
     icon: Users,
     title: "Build Connections",
     description:
-      "Create memories with friends, classmates, and the entire BaSC community.",
+      "Create memories with friends, classmates, and the entire BaSU community.",
   },
   {
     icon: Sparkles,
     title: "Show School Spirit",
     description:
-      "Celebrate unity and pride while running for Basilan State College.",
+      "Celebrate unity and pride while running for Basilan State University.",
   },
   {
     icon: Trophy,
@@ -266,7 +264,7 @@ export default function FunRunGuidelinesPage() {
               />
               <InfoCard
                 title="Venue"
-                description="Basilan State College School Grounds"
+                description="Basilan State University School Grounds"
               />
               <InfoCard
                 title="Distances"

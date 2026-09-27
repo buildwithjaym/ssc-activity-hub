@@ -390,7 +390,7 @@ export default function MascotMakingGuidelinesPage() {
         </Link>
 
         <p className="mt-4 text-xs text-slate-500">
-          Supreme Student Council • Basilan State College • Parageyan 2025
+          Supreme Student Council • Basilan State University • Parageyan 2025
         </p>
       </footer>
     </main>

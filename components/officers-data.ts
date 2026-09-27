@@ -2,10 +2,10 @@ export const OFFICERS_DATA = {
   meta: {
     schoolYear: "2026–2027",
     organization: "Supreme Student Council",
-    institution: "Basilan State College",
+    institution: "Basilan State University",
     partylist: "Students' Union Party",
     description:
-      "Meet the elected student leaders of Basilan State College dedicated to service, representation, and creating meaningful experiences for the student community.",
+      "Meet the elected student leaders of Basilan State University dedicated to service, representation, and creating meaningful experiences for the student community.",
   },
 
 
@@ -38,7 +38,7 @@ export const OFFICERS_DATA = {
       image: "vpres",
       facebook: "https://www.facebook.com/jay.pee.723715?mibextid=ZbWKwL ",
       bio:
-        "I’m John Paul L. Labastilla, Vice President of the Supreme Student Council at Basilan State College and a BSED Mathematics student, actively involved in student leadership, music, creativity, community service, youth empowerment, and health advocacy. I serve as President of the BaSC Choir, Auditor of the BSED organization, and an Editorial Cartoonist and Creative Artist, while also participating in youth, media, and community service organizations. Through these experiences, I continue to grow by working with diverse people and promoting service, collaboration, and holistic youth well-being, including physical, mental, and emotional health. As an SSC leader, I value service, integrity, and empowerment, believing that leadership is not about creating followers, but helping others become leaders themselves.",
+        "I’m John Paul L. Labastilla, Vice President of the Supreme Student Council at Basilan State University and a BSED Mathematics student, actively involved in student leadership, music, creativity, community service, youth empowerment, and health advocacy. I serve as President of the BaSC Choir, Auditor of the BSED organization, and an Editorial Cartoonist and Creative Artist, while also participating in youth, media, and community service organizations. Through these experiences, I continue to grow by working with diverse people and promoting service, collaboration, and holistic youth well-being, including physical, mental, and emotional health. As an SSC leader, I value service, integrity, and empowerment, believing that leadership is not about creating followers, but helping others become leaders themselves.",
     },
   ],
 

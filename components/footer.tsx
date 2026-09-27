@@ -97,7 +97,7 @@ export function Footer() {
 
 
             <p>
-              © 2026 Supreme Student Council · Basilan State College
+              © 2026 Supreme Student Council · Basilan State University
             </p>
 
 

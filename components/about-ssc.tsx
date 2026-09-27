@@ -8,7 +8,7 @@ const values = [
     icon: Users,
     title: "Student Leadership",
     description:
-      "We stand for every student of Basilan State College. Your voice is our duty.",
+      "We stand for every student of Basilan State University. Your voice is our duty.",
   },
   {
     icon: Target,
@@ -39,7 +39,7 @@ export function AboutSSC() {
             Supreme Student Council
           </h2>
           <p className="mt-5 text-base leading-relaxed text-slate-600">
-            We are the official student governing body of Basilan State College,
+            We are the official student governing body of Basilan State University,
             committed to representing student voices, creating meaningful programs,
             and building experiences that strengthen unity, leadership, and college pride.
 

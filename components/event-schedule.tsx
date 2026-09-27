@@ -9,7 +9,7 @@ const schedule = [
     date: "September 28–30, 2026",
     title: "Banner Making Contest",
     category: "Creative Competition",
-    venue: "Basilan State College",
+    venue: "Basilan State University, Gymnasium",
     description:
       "Design creative banners that showcase your college colors, identity, and Parageyan spirit.",
   },
@@ -17,7 +17,7 @@ const schedule = [
     date: "September 28–30, 2026",
     title: "Mascot Making Contest",
     category: "Creative Competition",
-    venue: "Basilan State College",
+    venue: "Basilan State University, Gymnasium",
     description:
       "Build a standout mascot that represents your college with creativity, craftsmanship, and pride.",
   },
@@ -25,7 +25,7 @@ const schedule = [
     date: "September 28–October 7, 2026",
     title: "Trade Fair",
     category: "Community Activity",
-    venue: "Basilan State College",
+    venue: "Basilan State University",
     description:
       "Open booths that highlight creativity, entrepreneurship, and the unique culture of each college.",
   },
@@ -33,7 +33,7 @@ const schedule = [
     date: "September 29 & October 4, 2026",
     title: "Subul Duk Budjang Si Paregeyan",
     category: "Cultural Fashion",
-    venue: "Basilan State College",
+    venue: "Basilan State University, Gymnasium",
     description:
       "A cultural fashion showcase celebrating tradition, elegance, and the beauty of Parageyan identity.",
   },
@@ -41,7 +41,7 @@ const schedule = [
     date: "October 3, 2026",
     title: "Bench Yell",
     category: "Team Competition",
-    venue: "Basilan State College",
+    venue: "Basilan State University, Gymnasium",
     description:
       "Ignite school spirit with powerful cheers, synchronized energy, and unstoppable team pride.",
   },
@@ -49,7 +49,7 @@ const schedule = [
     date: "October 4, 2026",
     title: "Battle of the Brains",
     category: "Academic Competition",
-    venue: "Basilan State College",
+    venue: "SSC Office",
     description:
       "Compete head-to-head in a high-energy quiz battle that rewards knowledge, focus, and teamwork.",
   },
@@ -57,7 +57,7 @@ const schedule = [
     date: "October 4 & 5, 2026",
     title: "Larong Pinoy",
     category: "Cultural Sports",
-    venue: "Basilan State College",
+    venue: "Basilan State University",
     description:
       "Relive traditional Filipino games in a friendly competition full of fun, skill, and camaraderie.",
   },
@@ -65,7 +65,7 @@ const schedule = [
     date: "October 6, 2026",
     title: "Fun Run",
     category: "Sports Activity",
-    venue: "Basilan State College",
+    venue: "Basilan State University",
     description:
       "Lace up and join a vibrant campus run that celebrates fitness, friendship, and Parageyan unity.",
   },
@@ -73,7 +73,7 @@ const schedule = [
     date: "TBA",
     title: "Movie House",
     category: "Entertainment",
-    venue: "Basilan State College",
+    venue: "SSC Office",
     description:
       "Gather with fellow students for a shared movie night filled with good vibes and campus bonding.",
   },

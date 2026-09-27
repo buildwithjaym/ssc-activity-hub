@@ -48,7 +48,7 @@ export default function VotingHero() {
           {/* Description */}
           <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-slate-600 sm:text-[15px]">
             Your vote celebrates confidence, character, and leadership.
-            Support the finalist who represents the pride of Basilan State College.
+            Support the finalist who represents the pride of Basilan State University.
           </p>
 
           {/* CTA */}

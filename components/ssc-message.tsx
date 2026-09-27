@@ -227,7 +227,7 @@ sm:text-lg
 "Parageyan 2026 is more than a competition.
 It is a celebration of friendship, talent,
 and the shared spirit that connects every
-student of Basilan State College."
+student of Basilan State University."
 </p>
 
 
@@ -272,7 +272,7 @@ text-xs
 text-white/50
 "
 >
-Basilan State College
+Basilan State University
 </p>
 
 

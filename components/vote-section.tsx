@@ -33,7 +33,7 @@ export function VoteSection() {
 
             <p className="mt-5 max-w-md text-[15px] leading-relaxed text-white/70">
               Support the finalists who embody confidence, character, and the
-              pride of Basilan State College. Your vote makes a difference.
+              pride of Basilan State University. Your vote makes a difference.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">

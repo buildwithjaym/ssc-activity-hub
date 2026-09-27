@@ -27,7 +27,7 @@ const introSlides = [
     icon: Brain,
     title: "Challenge Your Knowledge",
     description:
-      "Test your understanding of Basilan State College history, policies, notable personalities, and institutional information.",
+      "Test your understanding of Basilan State University history, policies, notable personalities, and institutional information.",
   },
   {
     icon: Users,
@@ -57,7 +57,7 @@ const requiredDocuments = [
 ];
 
 const participants = [
-  "Open to first-year students only of Basilan State College.",
+  "Open to first-year students only of Basilan State University.",
   "Each college may send one (1) official team.",
   "Each team shall be composed of three (3) official members.",
   "All participants must be officially enrolled first-year students of BaSC.",
@@ -66,7 +66,7 @@ const participants = [
 ];
 
 const coverage = [
-  "History of Basilan State College",
+  "History of Basilan State University",
   "Important milestones and significant events of BaSC",
   "BaSC policies and regulations",
   "BaSC vision, mission, goals, and core values",
@@ -221,7 +221,7 @@ export default function BattleOfTheBrainsPage() {
           <p className="mt-5 max-w-3xl text-base leading-7 text-white/75 sm:text-lg">
             An academic competition designed to promote students’ knowledge,
             awareness, and appreciation of the history, policies, and notable
-            personalities of Basilan State College — held in the spirit of
+            personalities of Basilan State University — held in the spirit of
             Larong Pinoy.
           </p>
 
@@ -455,7 +455,7 @@ export default function BattleOfTheBrainsPage() {
               <CheckCircle2 className="h-5 w-5 shrink-0 text-[#D4AF37]" />
               <p className="text-sm leading-6 text-slate-600">
                 Study the history, policies, and notable personalities of
-                Basilan State College. Prepare your team and take the challenge
+                Basilan State University. Prepare your team and take the challenge
                 on October 4, 2026.
               </p>
             </div>

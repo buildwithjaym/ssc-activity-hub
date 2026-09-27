@@ -251,7 +251,7 @@ export default function TradeFairGuidelinesPage() {
 
           <p className="mt-5 max-w-3xl text-base leading-7 text-white/75 sm:text-lg">
             A place to discover great foods, unique products, and local
-            businesses — right inside Basilan State College during Parageyan
+            businesses — right inside Basilan State University during Parageyan
             2026.
           </p>
 
@@ -338,7 +338,7 @@ export default function TradeFairGuidelinesPage() {
             </h2>
             <p className="mt-4 leading-7 text-slate-600">
               This is your opportunity to introduce your brand, showcase your
-              products, and connect with the Basilan State College community.
+              products, and connect with the Basilan State University community.
             </p>
           </div>
 
@@ -389,7 +389,7 @@ export default function TradeFairGuidelinesPage() {
             title="Vendor Guidelines"
             items={[
               "Vendors must coordinate with the Supreme Student Council Trade Fair Committee.",
-              "Products and services must follow Basilan State College policies.",
+              "Products and services must follow Basilan State University policies.",
               "Vendors are responsible for booth setup, materials, and arrangements.",
               "Maintain cleanliness and professionalism throughout the event.",
               "Respect other vendors, students, and visitors at all times.",

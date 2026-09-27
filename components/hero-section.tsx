@@ -16,7 +16,7 @@ export function HeroSection() {
       <div className="absolute inset-0">
         <CldImage
           src={SITE_CONFIG.images.hero}
-          alt="Basilan State College campus"
+          alt="Basilan State University campus"
           fill
           priority
           sizes="100vw"
@@ -46,7 +46,7 @@ export function HeroSection() {
             </div>
 
             <h1 className="text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
-              Basilan State College
+              Basilan State University
               <span className="mt-2 block bg-gradient-to-r from-[#D4AF37] to-[#F0D060] bg-clip-text text-transparent">
                 PARAGEYAN 2026
               </span>

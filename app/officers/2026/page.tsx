@@ -318,7 +318,7 @@ export default function OfficersPage() {
           </h2>
           <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-white/60">
             Committed to listening, representing, and creating meaningful
-            experiences for every BASC student.
+            experiences for every BASU student.
           </p>
         </motion.div>
       </section>

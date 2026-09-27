@@ -3,12 +3,12 @@ export const SITE_CONFIG = {
 
   shortName: "SSC Hub",
 
-  institution: "Basilan State College",
+  institution: "Basilan State University",
 
   event: {
     name: "Parageyan 2026",
 
-    label: "Basilan State College Parageyan 2026",
+    label: "Basilan State University Parageyan 2026",
 
     startDate: "2026-10-03T07:00:00+08:00", //October 03, 2026 7:00am
 
@@ -16,7 +16,7 @@ export const SITE_CONFIG = {
   },
 
   description:
-    "Your official digital hub for Parageyan 2026 activities, schedules, guidelines, and participation information at Basilan State College.",
+    "Your official digital hub for Parageyan 2026 activities, schedules, guidelines, and participation information at Basilan State University.",
 
   images: {
     logo: "ssc-logo",

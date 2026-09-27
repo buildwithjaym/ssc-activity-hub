@@ -18,9 +18,8 @@ import {
 import { AnimatePresence, motion } from "framer-motion";
 import SocialIcons from "@/components/social/social-icons";
 
-
-const SENATOR_FACEBOOK_LINK = "https://www.facebook.com/share/1CkJwg6CVr/?mibextid=wwXIfr";
-
+const SENATOR_FACEBOOK_LINK =
+  "https://www.facebook.com/share/1CkJwg6CVr/?mibextid=wwXIfr";
 
 function FacebookIcon({ className = "h-4 w-4" }: { className?: string }) {
   return (
@@ -35,9 +34,6 @@ function FacebookIcon({ className = "h-4 w-4" }: { className?: string }) {
   );
 }
 
-// ======================
-// Data
-// ======================
 const introSlides = [
   {
     icon: History,
@@ -69,22 +65,25 @@ const benefits = [
   {
     icon: Users,
     title: "Team Collaboration",
-    description: "Strengthen friendships by working together with your teammates.",
+    description:
+      "Strengthen friendships by working together with your teammates.",
   },
   {
     icon: Medal,
     title: "Earn Ranking Points",
-    description: "Teams compete through different games and accumulate ranking points.",
+    description:
+      "Teams compete through different games and accumulate ranking points.",
   },
   {
     icon: Sparkles,
     title: "Create Memories",
-    description: "Be part of Parageyan 2026 and celebrate a meaningful student activity.",
+    description:
+      "Be part of Parageyan 2026 and celebrate a meaningful student activity.",
   },
 ];
 
 const guidelines = [
-  "Open to all students of Basilan State College/University.",
+  "Open to all students of Basilan State University.",
   "Members may come from different departments.",
   "Limited to 10 teams only.",
   "Each team shall consist of 10 members.",
@@ -175,9 +174,6 @@ const games = [
   },
 ];
 
-// ======================
-// Main Component
-// ======================
 export default function LarongPinoyGuidelinesPage() {
   const [showModal, setShowModal] = useState(true);
   const [activeSlide, setActiveSlide] = useState(0);
@@ -454,9 +450,6 @@ export default function LarongPinoyGuidelinesPage() {
   );
 }
 
-// ======================
-// Sub Components
-// ======================
 function InfoCard({
   icon,
   title,
@@ -512,9 +505,7 @@ function Section({
     <section>
       <h2 className="text-2xl font-bold">{title}</h2>
 
-      {children && (
-        <p className="mt-3 leading-7 text-slate-600">{children}</p>
-      )}
+      {children && <p className="mt-3 leading-7 text-slate-600">{children}</p>}
 
       {items && (
         <ul className="mt-4 space-y-3 text-slate-600">
