@@ -65,7 +65,7 @@ For Parageyan 2026, SSC organizes activities that encourage creativity, teamwork
 PARAGEYAN 2026
 
 Event: Parageyan 2026
-Organizer: Supreme Student Council
+Organizer: OCTA and the Supreme Student Council is co-organizer
 Institution: Basilan State College
 School Year: 2026 to 2027
 
@@ -379,10 +379,10 @@ Use Vote Now when you are ready to support a candidate.
 COMMON QUESTIONS
 
 What is Parageyan 2026?
-Parageyan 2026 is the main SSC event of Basilan State College that celebrates college spirit, creativity, leadership, and student participation.
+Parageyan 2026 is the main event of Basilan State College that celebrates college spirit, teamwork, creativity, leadership, and student participation.
 
 Who organizes Parageyan 2026?
-The Supreme Student Council of Basilan State College.
+The Supreme Student Council is the Co-Organizer of Basilan State College.
 
 Who is the SSC President?
 Owen Mac A. Salain.
