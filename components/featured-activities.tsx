@@ -37,7 +37,7 @@ const activities: Activity[] = [
     image: "mascot_competition.jpg",
     status: "Registration Open",
     guidelinesUrl: "/guidelines/mascot",
-    facebookUrl: "https://www.facebook.com/BascSSC/posts/pfbid02osKKtDFc5C9ZWb3s72uCe9PymLrJuqqBvx174vtxbipM9Ma2SzzjbD8mrZ5nR6zPl",
+    facebookUrl: "https://www.facebook.com/share/p/1DC1BzK9pr",
   },
   {
     title: "Trade Fair",
@@ -48,18 +48,18 @@ const activities: Activity[] = [
     image: "trade-fairs.jpg",
     status: "Coming Soon",
     guidelinesUrl: "/guidelines/trade-fair",
-    facebookUrl: "https://www.facebook.com/BascSSC/posts/pfbid0JMziEs6To1wPtT926o5oyDUXqKsEpvgwqo53QFWmFKN7RDYuUDH8cLXnNtnWAme3l",
+    facebookUrl: "https://www.facebook.com/share/p/1DSb2VB5oS/",
   },
   {
     title: "Subul Duk Budjang Si Paregeyan",
-    date: "Sep 29 & Oct 01, 2026",
+    date: "Sep 29 & Oct 04, 2026",
     category: "Fashion",
     description:
       "A cultural fashion showcase celebrating tradition, elegance, and the beauty of Parageyan identity.",
     image: "subuldukbudjang.jpg",
     status: "Registration Open",
     guidelinesUrl: "",
-    facebookUrl: "https://facebook.com",
+    facebookUrl: "https://www.facebook.com/BascSSC/posts/pfbid02XbR1B2Mhrbnc8B39BYJCcDcigJvHeXuzGoNHzvQyzCR6KHzqZ5y4JHpxUGPNiihJl",
   },
   {
     title: "Bench Yell",
@@ -69,8 +69,8 @@ const activities: Activity[] = [
       "Ignite school spirit with powerful cheers, synchronized energy, and unstoppable team pride.",
     image: "bench_yell.jpg",
     status: "Coming Soon",
-    guidelinesUrl: "#activities",
-    facebookUrl: "",
+    guidelinesUrl: "/guidelines/bench-yell",
+    facebookUrl: "https://www.facebook.com/share/p/19mLf8driz/",
   },
   {
     title: "Battle of the Brains",
@@ -79,20 +79,20 @@ const activities: Activity[] = [
     description:
       "Compete head-to-head in a high-energy quiz battle that rewards knowledge, focus, and teamwork.",
     image: "battle-of-the-brains.jpg",
-    status: "Coming Soon",
+    status: "Registration Open",
     guidelinesUrl: "/guidelines/battle-of-the-brains",
-    facebookUrl: "https://www.facebook.com/share/p/14s8m5fehai/",
+    facebookUrl: "https://www.facebook.com/BascSSC/posts/pfbid02su8sLbRHPoTjmQ6mWqzuZfbqh3zSDNbHucvzuCVhXhk71ueUp7MNgvMb6grRhUYCl",
   },
   {
     title: "Larong Pinoy",
-    date: "Oct 4, 5 & 7, 2026",
+    date: "Oct 4 & 5, 2026",
     category: "Sports",
     description:
       "Relive traditional Filipino games in a friendly competition full of fun, skill, and camaraderie.",
     image: "larong-pinoy.jpg",
-    status: "Coming Soon",
+    status: "Registration Open",
     guidelinesUrl: "/guidelines/larong-pinoy",
-    facebookUrl: "",
+    facebookUrl: "https://www.facebook.com/BascSSC/posts/pfbid02dXs3yURymotjHBKdW1dnQSCKpqBeJkbTSss4EjJHRYWetH86ZK37BgGhFRyYwEn4l",
   },
   {
     title: "Fun Run",
@@ -102,8 +102,8 @@ const activities: Activity[] = [
       "Lace up and join a vibrant campus run that celebrates fitness, friendship, and Parageyan unity.",
     image: "funrun.jpg",
     status: "Registration Open",
-    guidelinesUrl: "/guidelines/color-fun-run",
-    facebookUrl: "https://www.facebook.com/share/p/1DgqfbXoAk/",
+    guidelinesUrl: "/guidelines/fun-run",
+    facebookUrl: "https://www.facebook.com/BascSSC/posts/pfbid0fvLqQShGYBtwMmjhLaPAz23R9UzNXvEWEmnQPraF2z5eBzpdGQ8K3YQTXRYJJk9Cl",
   },
   {
     title: "Movie House",
@@ -114,7 +114,7 @@ const activities: Activity[] = [
     image: "movie_house.jpg",
     status: "Coming Soon",
     guidelinesUrl: "#activities",
-    facebookUrl: "https://facebook.com",
+    facebookUrl: "https://www.facebook.com/share/p/18JHkvhvV4/",
   },
 ];
 
