@@ -30,7 +30,7 @@ const schedule = [
       "Open booths that highlight creativity, entrepreneurship, and the unique culture of each college.",
   },
   {
-    date: "September 29 & October 1, 2026",
+    date: "September 29 & October 4, 2026",
     title: "Subul Duk Budjang Si Paregeyan",
     category: "Cultural Fashion",
     venue: "Basilan State College",
@@ -54,7 +54,7 @@ const schedule = [
       "Compete head-to-head in a high-energy quiz battle that rewards knowledge, focus, and teamwork.",
   },
   {
-    date: "October 4, 5 & 7, 2026",
+    date: "October 4 & 5, 2026",
     title: "Larong Pinoy",
     category: "Cultural Sports",
     venue: "Basilan State College",
