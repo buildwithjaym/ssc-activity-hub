@@ -8,7 +8,9 @@ export default function SSCAssistantWrapper() {
 
   const hideAssistant =
     pathname.startsWith("/admin") ||
-    pathname.startsWith("/voting");
+    pathname.startsWith("/voting") ||
+    pathname.startsWith("/voter") ||
+    pathname.startsWith("/officers");
 
   if (hideAssistant) {
     return null;
