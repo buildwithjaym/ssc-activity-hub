@@ -13,7 +13,7 @@ const spiritAnimals = [
     shortCode: "IIS",
     animal: "Blue Eagle",
     color: "#1A5276",
-    image: "iis.jpg",
+    image: "blue-eagle.jpg",
     description:
       "Clear vision and soaring ambition. The Eagle represents faith, wisdom, and the courage to rise above.",
     rally: "Rise. Believe. Soar.",
@@ -57,7 +57,7 @@ const spiritAnimals = [
     shortCode: "CHUSOCOM",
     animal: "Blue Falcon",
     color: "#066fb4",
-    image: "chusocom.jpg",
+    image: "blue-falcon.jpg",
     description:
       "Bold, expressive, and commanding. The Golden Lion thrives on ideas, stories, and powerful connections.",
     rally: "Speak. Connect. Create.",
@@ -68,7 +68,7 @@ const spiritAnimals = [
     shortCode: "CPADM",
     animal: "Lion",
     color: "#ebb120",
-    image: "cpadm.jpg",
+    image: "chusocom.jpg",
     description:
       "Vision and leadership in service. The Eagle represents clarity, governance, and rising above for the public good.",
     rally: "Serve. Lead. Elevate.",
