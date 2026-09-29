@@ -7,6 +7,7 @@ import { SITE_CONFIG } from "@/components/site-config";
 import { Analytics } from "@vercel/analytics/next";
 import { Toaster } from "sonner";
 import SSCAssistantWrapper from "@/components/ssc/ssc-assistant-wrapper";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const geistSans = Geist({
   variable: "--font-geist",
@@ -263,6 +264,7 @@ export default function RootLayout({
         <AppLoader>{children}</AppLoader>
         <Toaster position="top-right" richColors />
         <Analytics />
+        <SpeedInsights />
         <SSCAssistantWrapper />
       </body>
     </html>
