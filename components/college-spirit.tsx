@@ -20,7 +20,7 @@ const spiritAnimals = [
   },
   {
     id: "cte",
-    college: "College of Education",
+    college: "College of Teacher Education",
     shortCode: "CTE",
     animal: "Noble Wolves",
     color: "#A93226",
