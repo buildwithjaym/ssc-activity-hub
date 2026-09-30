@@ -59,10 +59,24 @@ export default function SSCChatWindow({
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: 20, scale: 0.96 }}
         transition={{ duration: 0.25 }}
-        className="fixed bottom-4 left-4 right-4 z-[999] flex h-[min(600px,85dvh)] flex-col overflow-hidden rounded-3xl border border-[#D4AF37]/30 bg-white shadow-2xl sm:bottom-24 sm:left-auto sm:right-6 sm:w-[390px]"
+        className="
+          fixed z-[999] flex flex-col overflow-hidden
+          rounded-3xl border border-[#D4AF37]/30 bg-white shadow-2xl
+
+          /* Mobile – smaller + safe areas */
+          bottom-[max(1rem,env(safe-area-inset-bottom))]
+          left-[max(1rem,env(safe-area-inset-left))]
+          right-[max(1rem,env(safe-area-inset-right))]
+          h-[min(480px,calc(70dvh-env(safe-area-inset-bottom)))]
+          max-h-[calc(100svh-2rem-env(safe-area-inset-bottom))]
+
+          /* Desktop – keep original size */
+          sm:bottom-24 sm:left-auto sm:right-6 sm:w-[390px]
+          sm:h-[min(600px,85dvh)] sm:max-h-none
+        "
       >
         {/* HEADER */}
-        <div className="flex items-center justify-between bg-[#0A2A1F] px-5 py-4 text-white">
+        <div className="flex shrink-0 items-center justify-between bg-[#0A2A1F] px-5 py-4 text-white">
           <div className="flex items-center gap-3">
             <motion.div
               animate={{ y: [0, -3, 0] }}
@@ -89,7 +103,7 @@ export default function SSCChatWindow({
         </div>
 
         {/* BODY */}
-        <div className="flex-1 space-y-3 overflow-y-auto bg-[#F8F5EF] p-4">
+        <div className="min-h-0 flex-1 space-y-3 overflow-y-auto overscroll-contain bg-[#F8F5EF] p-4 [-webkit-overflow-scrolling:touch]">
           {messages.length === 0 && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -160,7 +174,7 @@ export default function SSCChatWindow({
         </div>
 
         {/* INPUT */}
-        <div className="border-t border-[#D4AF37]/30 bg-white p-3">
+        <div className="shrink-0 border-t border-[#D4AF37]/30 bg-white p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
           <div className="flex items-center gap-2 rounded-full border border-[#0A2A1F]/15 bg-[#F8F5EF] px-4 focus-within:border-[#D4AF37]/50">
             <input
               ref={inputRef}
