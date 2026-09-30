@@ -64,7 +64,7 @@ const spiritAnimals = [
   },
   {
     id: "cpadm",
-    college: "College of Public Administration",
+    college: "College of Public Administration Management",
     shortCode: "CPADM",
     animal: "Lion",
     color: "#ebb120",
