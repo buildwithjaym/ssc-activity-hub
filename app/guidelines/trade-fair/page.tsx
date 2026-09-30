@@ -375,7 +375,7 @@ export default function TradeFairGuidelinesPage() {
               <InfoCard
                 icon={<Store className="h-5 w-5" />}
                 title="Booth Fee"
-                description="₱1,000 per day for booth rental."
+                description="You may ask the head committee for booth rental."
               />
               <InfoCard
                 icon={<Calendar className="h-5 w-5" />}
