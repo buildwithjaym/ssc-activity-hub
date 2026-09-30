@@ -15,7 +15,7 @@ const spiritAnimals = [
     color: "#1A5276",
     image: "blue-eagle.jpg",
     description:
-      "Clear vision and soaring ambition. The Eagle represents faith, wisdom, and the courage to rise above.",
+      "With clear vision and soaring faith, the Blue Eagle rises above every challenge. It embodies wisdom, spiritual strength, and the courage to lead with purpose.",
     rally: "Rise. Believe. Soar.",
   },
   {
@@ -26,7 +26,7 @@ const spiritAnimals = [
     color: "#A93226",
     image: "cte",
     description:
-      "Loyal, united, and strong. The Wolves represent resilience, teamwork, and the educators who shape the future.",
+      "Loyal, united, and fiercely protective of their pack. The Noble Wolves stand for resilience, collaboration, and the educators who shape tomorrow’s leaders.",
     rally: "Rise. Teach. Inspire.",
   },
   {
@@ -37,7 +37,7 @@ const spiritAnimals = [
     color: "#1C2833",
     image: "ccje.jpg",
     description:
-      "Silent strength and sharp instinct. The Black Panther stands for discipline, justice, and unwavering protection.",
+      "Silent, focused, and unyielding. The Black Panther represents discipline, sharp instinct, and an unwavering commitment to justice and protection.",
     rally: "United. Disciplined. Strong.",
   },
   {
@@ -48,7 +48,7 @@ const spiritAnimals = [
     color: "#6C1D2B",
     image: "basu-ccs",
     description:
-      "Rising with precision and power. The Golden Phoenix embodies innovation, speed, and the digital future.",
+      "Reborn through code and innovation. The Golden Phoenix rises with precision, speed, and the power to transform the digital future.",
     rally: "Focus. Code. Dominate.",
   },
   {
@@ -59,7 +59,7 @@ const spiritAnimals = [
     color: "#066fb4",
     image: "blue-falcon.jpg",
     description:
-      "Bold, expressive, and commanding. The Golden Lion thrives on ideas, stories, and powerful connections.",
+      "Swift, expressive, and sharp-eyed. The Blue Falcon soars on ideas, stories, and powerful connections that shape culture and conversation.",
     rally: "Speak. Connect. Create.",
   },
   {
@@ -70,7 +70,7 @@ const spiritAnimals = [
     color: "#ebb120",
     image: "chusocom.jpg",
     description:
-      "Vision and leadership in service. The Eagle represents clarity, governance, and rising above for the public good.",
+      "Bold leadership in service of the people. The Lion embodies courage, clarity, and the strength to rise and govern with integrity.",
     rally: "Serve. Lead. Elevate.",
   },
   {
@@ -81,7 +81,7 @@ const spiritAnimals = [
     color: "#196F3D",
     image: "ca.jpg",
     description:
-      "Steady, strong, and deeply rooted. The Carabao stands for hard work, patience, and the foundation of our land.",
+      "Steady, powerful, and deeply rooted in the land. The Green Buffalo stands for hard work, patience, and the enduring foundation of our nation’s harvest.",
     rally: "Rooted. Strong. Enduring.",
   },
   {
@@ -92,7 +92,7 @@ const spiritAnimals = [
     color: "#8B6914",
     image: "ihtm.jpg",
     description:
-      "Warmth, excellence, and presence. The Lion represents service with pride and hospitality that leaves a mark.",
+      "Graceful, rare, and always guided by purpose. The Navigating Narwhal represents warm service, excellence, and hospitality that leaves a lasting impression.",
     rally: "Serve. Shine. Excel.",
   },
   {
@@ -103,7 +103,7 @@ const spiritAnimals = [
     color: "#c936bc",
     image: "cah.jpg",
     description:
-      "Fierce yet nurturing. The Female Tiger embodies strength, care, and the quiet power of those who heal.",
+      "Fierce in spirit yet gentle in care. The Growling Tiger embodies strength, compassion, and the quiet power of those who heal and protect life.",
     rally: "Heal. Grow. Transform.",
   },
 ];
