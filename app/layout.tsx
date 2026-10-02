@@ -38,10 +38,11 @@ export const viewport: Viewport = {
   ],
   width: "device-width",
   initialScale: 1,
-  maximumScale: 5,
+  maximumScale: 5,          // keep for accessibility (pinch-to-zoom)
+  userScalable: true,
+  viewportFit: "cover",      // needed for env(safe-area-inset-*) on iPhone
   colorScheme: "light",
 };
-
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
