@@ -188,7 +188,8 @@ export default function SSCChatWindow({
               }}
               placeholder="Ask Kuya SSC..."
               disabled={typing}
-              className="flex-1 bg-transparent py-2.5 text-sm text-[#0A2A1F] outline-none placeholder:text-slate-400 disabled:opacity-60"
+              /* text-base (16px) prevents iOS Safari auto-zoom on focus */
+              className="flex-1 bg-transparent py-2.5 text-base text-[#0A2A1F] outline-none placeholder:text-slate-400 disabled:opacity-60 sm:text-sm"
             />
 
             <button
