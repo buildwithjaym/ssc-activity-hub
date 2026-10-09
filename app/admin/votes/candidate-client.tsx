@@ -27,155 +27,222 @@ import {
 } from "@/lib/supabase/client";
 
 import {
-  getVotingResults
-} from "@/lib/votes/queries";
+  getLiveVotingResults
+} from "@/lib/votes/client-actions";
 
-interface Props{
 
-dashboard:any;
 
-settings:any;
+interface Props {
 
-results:any[];
+  dashboard:any;
 
-recentVotes:any[];
+  settings:any;
 
-eventId:string;
+  results:any[];
+
+  recentVotes:any[];
+
+  eventId:string;
 
 }
+
+
+
+interface Result {
+
+  candidateId:string;
+
+  candidateName:string;
+
+  categoryId:string;
+
+  categoryName:string;
+
+  votes:number;
+
+  percentage:number;
+
+  imageUrl?:string|null;
+
+  rank:number;
+
+}
+
+
+
+
 
 
 export default function VotesClient({
 
-dashboard,
+  dashboard,
 
-settings,
+  settings,
 
-results,
+  results,
 
-recentVotes,
+  recentVotes,
 
-eventId
+  eventId
 
 }:Props){
 
 
-const supabase = createClient();
 
+  const supabase =
+    createClient();
 
-const [liveResults,setLiveResults] =
-useState(results ?? []);
 
 
-const [loading,setLoading] =
-useState(false);
 
+  const [
+    liveResults,
+    setLiveResults
+  ] =
+  useState<Result[]>(
+    results as Result[] ?? []
+  );
 
 
 
 
-async function refreshResults(){
+  const [
+    loading,
+    setLoading
+  ] =
+  useState(false);
 
-try{
 
 
-setLoading(true);
 
 
-const updated =
-await getVotingResults();
 
 
-setLiveResults(
-updated ?? []
-);
+  async function refreshResults(){
 
 
-toast.success(
-"Results refreshed"
-);
+    try{
 
 
-}catch(error:any){
+      setLoading(true);
 
 
-toast.error(
-error.message || "Failed to refresh results"
-);
 
+      const updated =
+        await getLiveVotingResults(
+          eventId
+        );
 
-}finally{
 
 
-setLoading(false);
+      setLiveResults(
+        updated as Result[]
+      );
 
 
-}
 
-}
+      toast.success(
+        "Leaderboard updated"
+      );
 
 
+    }
 
+    catch(error:any){
 
 
+      toast.error(
+        error.message ??
+        "Failed to update rankings"
+      );
 
 
-useEffect(()=>{
+    }
 
+    finally{
 
-const channel =
 
-supabase
+      setLoading(false);
 
-.channel(
-"votes-monitor"
-)
 
-.on(
+    }
 
-"postgres_changes",
 
-{
+  }
 
-event:"INSERT",
 
-schema:"public",
 
-table:"votes"
 
-},
 
-()=>{
 
 
-toast.success(
-"New vote received"
-);
 
+  useEffect(()=>{
 
-refreshResults();
 
+    if(!eventId)
+      return;
 
-}
 
-)
 
-.subscribe();
+    refreshResults();
 
 
 
-return ()=>{
+    const channel =
 
+      supabase
 
-supabase.removeChannel(
-channel
-);
+      .channel(
+        `candidate-ranking-${eventId}`
+      )
 
+      .on(
 
-};
+        "postgres_changes",
 
+        {
+          event:"UPDATE",
+          schema:"public",
+          table:"candidate_rankings"
+        },
 
-},[]);
+        ()=>{
+
+
+          toast.success(
+            "Ranking refreshed"
+          );
+
+
+          refreshResults();
+
+
+        }
+
+      )
+
+      .subscribe();
+
+
+
+
+
+    return ()=>{
+
+
+      supabase.removeChannel(
+        channel
+      );
+
+
+    };
+
+
+  },[
+    eventId
+  ]);
+
 
 
 
@@ -186,6 +253,7 @@ channel
 return (
 
 <div className="space-y-8">
+
 
 
 <motion.div
@@ -235,12 +303,14 @@ text-slate-500
 mt-2
 ">
 
-Monitor People's Choice Award voting activity and results.
+Monitor People's Choice Award rankings.
 
 </p>
 
 
 </motion.div>
+
+
 
 
 
@@ -305,6 +375,7 @@ icon={Layers}
 
 
 
+
 <div className="
 rounded-3xl
 bg-white
@@ -321,7 +392,6 @@ items-center
 
 
 <div>
-
 
 <h2 className="
 text-xl
@@ -351,12 +421,13 @@ Current voting availability
 
 
 <span
+
 className={`
 px-4
 py-2
 rounded-full
-text-sm
 font-semibold
+text-sm
 
 ${
 settings?.is_open
@@ -372,116 +443,18 @@ settings?.is_open
 }
 
 `}
+
 >
 
-
 {
-
 settings?.is_open
-
 ?
-
 "OPEN"
-
 :
-
 "CLOSED"
-
 }
-
 
 </span>
-
-
-</div>
-
-
-
-
-
-<div className="
-grid
-md:grid-cols-2
-gap-5
-mt-6
-">
-
-
-<div>
-
-<p className="
-text-sm
-text-slate-500
-">
-
-Start Time
-
-</p>
-
-
-<p className="font-semibold">
-
-
-{
-
-settings?.start_time
-
-?
-
-new Date(
-settings.start_time
-).toLocaleString()
-
-:
-
-"N/A"
-
-}
-
-
-</p>
-
-</div>
-
-
-
-
-
-<div>
-
-<p className="
-text-sm
-text-slate-500
-">
-
-End Time
-
-</p>
-
-
-<p className="font-semibold">
-
-
-{
-
-settings?.end_time
-
-?
-
-new Date(
-settings.end_time
-).toLocaleString()
-
-:
-
-"N/A"
-
-}
-
-
-</p>
-
-</div>
 
 
 
@@ -507,6 +480,7 @@ overflow-hidden
 ">
 
 
+
 <div className="
 flex
 justify-between
@@ -526,11 +500,9 @@ items-center
 gap-2
 ">
 
-
 <Trophy size={20}/>
 
-Live Results
-
+Candidate Rankings
 
 </h2>
 
@@ -559,17 +531,12 @@ text-white
 
 
 <RefreshCcw
-
-size={16}
-
-className={
-loading
-?
-"animate-spin"
-:
-""
-}
-
+  size={16}
+  className={
+    loading
+      ? "animate-spin"
+      : ""
+  }
 />
 
 
@@ -579,7 +546,9 @@ Refresh
 </button>
 
 
+
 </div>
+
 
 
 
@@ -599,36 +568,28 @@ text-white
 <tr>
 
 
-<th className="
-px-6
-py-4
-text-left
-">
+<th className="px-6 py-4 text-left">
+Rank
+</th>
 
+
+<th className="px-6 py-4 text-left">
 Candidate
-
 </th>
 
 
-<th className="
-px-6
-py-4
-text-left
-">
-
+<th className="px-6 py-4 text-left">
 Category
-
 </th>
 
 
-<th className="
-px-6
-py-4
-text-left
-">
-
+<th className="px-6 py-4 text-left">
 Votes
+</th>
 
+
+<th className="px-6 py-4 text-left">
+Percentage
 </th>
 
 
@@ -640,31 +601,29 @@ Votes
 
 
 
+
+
+
 <tbody>
 
 
 {
-
 liveResults.length === 0
 
 ?
 
-
 <tr>
 
 <td
-
-colSpan={3}
-
+colSpan={5}
 className="
 text-center
 py-10
 text-slate-500
 "
-
 >
 
-No votes recorded yet.
+No rankings available.
 
 </td>
 
@@ -675,14 +634,12 @@ No votes recorded yet.
 
 
 liveResults.map(
-(item:any,index:number)=>(
+(item)=>
 
 
 <tr
 
-key={
-item.candidate?.id ?? index
-}
+key={item.candidateId}
 
 className="
 border-b
@@ -691,27 +648,9 @@ border-b
 >
 
 
-<td className="
-px-6
-py-4
-font-semibold
-">
+<td className="px-6 py-4">
 
-
-#
-
-{
-item.candidate?.candidate_number
-}
-
-
-{" "}
-
-
-{
-item.candidate?.full_name
-}
-
+#{item.rank}
 
 </td>
 
@@ -720,13 +659,19 @@ item.candidate?.full_name
 <td className="
 px-6
 py-4
+font-semibold
 ">
 
+{item.candidateName}
 
-{
-item.category?.name ?? "N/A"
-}
+</td>
 
+
+
+
+<td className="px-6 py-4">
+
+{item.categoryName}
 
 </td>
 
@@ -740,11 +685,15 @@ font-bold
 text-[#0A2A1F]
 ">
 
+{item.votes}
 
-{
-item.votes ?? 0
-}
+</td>
 
+
+
+<td className="px-6 py-4">
+
+{item.percentage}%
 
 </td>
 
@@ -755,9 +704,6 @@ item.votes ?? 0
 
 )
 
-)
-
-
 }
 
 
@@ -765,7 +711,9 @@ item.votes ?? 0
 </tbody>
 
 
+
 </table>
+
 
 
 </div>
@@ -806,24 +754,6 @@ space-y-4
 
 
 {
-
-recentVotes.length===0
-
-?
-
-
-<p className="
-text-slate-500
-">
-
-No recent votes.
-
-</p>
-
-
-:
-
-
 recentVotes.map(
 (vote:any)=>(
 
@@ -844,14 +774,9 @@ pb-3
 
 <div>
 
+<p className="font-semibold">
 
-<p className="
-font-semibold
-">
-
-{
-vote.candidate?.full_name ?? "Unknown"
-}
+{vote.candidate?.full_name ?? "Unknown"}
 
 </p>
 
@@ -862,14 +787,13 @@ text-sm
 text-slate-500
 ">
 
-{
-vote.category?.name ?? "Unknown"
-}
+{vote.category?.name ?? "Unknown"}
 
 </p>
 
 
 </div>
+
 
 
 
@@ -889,7 +813,8 @@ text-slate-500
 {
 new Date(
 vote.created_at
-).toLocaleTimeString()
+)
+.toLocaleTimeString()
 }
 
 
@@ -912,6 +837,7 @@ vote.created_at
 
 
 </div>
+
 
 
 
@@ -963,15 +889,12 @@ w-fit
 
 size={20}
 
-className="
-text-[#D4AF37]
-"
+className="text-[#D4AF37]"
 
 />
 
 
 </div>
-
 
 
 
@@ -1001,7 +924,7 @@ text-[#0A2A1F]
 
 </div>
 
-
 );
+
 
 }
