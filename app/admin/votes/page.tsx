@@ -1,25 +1,14 @@
 import {
-
   getVoteDashboard,
-
   getVotingSettings,
-
   getVotingResults,
-
   getRecentVotes,
-
   getVoteCategories,
-
   getTotalVoters,
-
 } from "@/lib/votes/queries";
 
 
-import VotesClient
-
-from "@/components/votes/votes-client";
-
-
+import VotesClient from "@/components/votes/votes-client";
 
 
 
@@ -28,17 +17,28 @@ export default async function VotesPage(){
 
 
 const settings =
-
 await getVotingSettings();
 
 
 
-
-
 const eventId =
-
 settings?.event_id ?? "";
 
+
+
+if(!eventId){
+
+return (
+
+<div className="p-10 text-center">
+
+No active voting event found.
+
+</div>
+
+);
+
+}
 
 
 
@@ -59,22 +59,26 @@ totalVoters,
 
 
 
-getVoteDashboard(),
+getVoteDashboard(
+eventId
+),
 
 
 
-getVotingResults(),
+getVotingResults(
+eventId
+),
 
 
 
-getRecentVotes(),
+getRecentVotes(
+eventId
+),
 
 
 
 getVoteCategories(
-
 eventId
-
 ),
 
 
@@ -84,8 +88,6 @@ getTotalVoters(),
 
 
 ]);
-
-
 
 
 
@@ -112,6 +114,5 @@ totalVoters={totalVoters}
 />
 
 );
-
 
 }
