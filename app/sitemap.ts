@@ -1,8 +1,7 @@
 import type { MetadataRoute } from "next";
 
 const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  "https://basilanstateuniversity-ssc.org";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://basilanstateuniversity-ssc.org";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -58,16 +57,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
 
     {
-  url: `${siteUrl}/privacy`,
-  lastModified: now,
-  changeFrequency: "yearly",
-  priority: 0.3,
-},
-{
-  url: `${siteUrl}/terms`,
-  lastModified: now,
-  changeFrequency: "yearly",
-  priority: 0.3,
-},
+      url: `${siteUrl}/privacy`,
+      lastModified: now,
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    {
+      url: `${siteUrl}/terms`,
+      lastModified: now,
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
   ];
 }
