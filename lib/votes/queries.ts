@@ -1,67 +1,177 @@
 "use server";
 
-import { createClient } from "@/lib/supabase/server";
+
+import { createClient }
+from "@/lib/supabase/server";
 
 
-export async function getVoteDashboard(){
-
-  const supabase = await createClient();
 
 
-  const { count: totalVotes } =
+
+export async function getVotingSettings(){
+
+
+  const supabase =
+    await createClient();
+
+
+
+  const {
+    data,
+    error
+  }
+  =
   await supabase
+
+  .from("voting_settings")
+
+  .select("*")
+
+  .order(
+    "created_at",
+    {
+      ascending:false
+    }
+  )
+
+  .limit(1)
+
+  .maybeSingle();
+
+
+
+
+  if(error){
+
+    throw new Error(
+      error.message
+    );
+
+  }
+
+
+
+
+  return data ?? null;
+
+
+}
+
+
+
+
+
+
+
+export async function getVoteDashboard(
+  eventId:string
+){
+
+
+  const supabase =
+    await createClient();
+
+
+
+
+  const {
+    count:totalVotes
+  }
+  =
+  await supabase
+
   .from("votes")
+
   .select(
     "id",
     {
       count:"exact",
-      head:true,
+      head:true
     }
+  )
+
+  .eq(
+    "event_id",
+    eventId
   );
+
+
+
+
 
 
   const {
     data:voters
-  } =
+  }
+  =
   await supabase
+
   .from("votes")
-  .select("voter_id");
 
+  .select(
+    "voter_id"
+  )
 
-  const uniqueVoters =
-  new Set(
-    voters?.map(
-      item=>item.voter_id
-    )
+  .eq(
+    "event_id",
+    eventId
   );
+
+
+
+
+
+  const totalVoters =
+    new Set(
+      voters?.map(
+        item=>item.voter_id
+      )
+    )
+    .size;
+
+
+
 
 
   const {
     count:totalCategories
-  } =
+  }
+  =
   await supabase
+
   .from("categories")
+
   .select(
     "id",
     {
       count:"exact",
-      head:true,
+      head:true
     }
+  )
+
+  .eq(
+    "event_id",
+    eventId
   );
+
+
+
+
 
 
   return {
 
+
     totalVotes:
-    totalVotes ?? 0,
+      totalVotes ?? 0,
 
 
-    totalVoters:
-    uniqueVoters.size,
+    totalVoters,
 
 
     totalCategories:
-    totalCategories ?? 0,
+      totalCategories ?? 0
+
 
   };
 
@@ -70,130 +180,105 @@ export async function getVoteDashboard(){
 
 
 
+
+
+
+
 export async function getTotalVoters(){
 
+
   const supabase =
-  await createClient();
+    await createClient();
+
+
 
 
   const {
     count,
     error
-  } =
+  }
+  =
   await supabase
+
   .from("profiles")
+
   .select(
     "id",
     {
       count:"exact",
-      head:true,
+      head:true
     }
   )
+
   .eq(
     "role",
     "voter"
   );
 
 
-  if(error){
 
-    console.log(
-      error.message
-    );
+
+
+  if(error){
 
     return 0;
 
   }
 
 
+
+
+
   return count ?? 0;
 
-}
-
-
-
-
-export async function getVotingSettings(){
-
-  const supabase =
-  await createClient();
-
-
-  const {
-    data,
-    error
-  } =
-  await supabase
-  .from("voting_settings")
-  .select("*")
-  .order(
-    "created_at",
-    {
-      ascending:false
-    }
-  )
-  .limit(1)
-  .maybeSingle();
-
-
-  if(error){
-
-    throw new Error(
-      error.message
-    );
-
-  }
-
-
-  return data ?? null;
 
 }
+
+
+
+
 
 
 
 
 export async function getVoteCategories(
-eventId?:string
+eventId:string
 ){
 
+
   const supabase =
-  await createClient();
+    await createClient();
 
-
-  let query =
-  supabase
-  .from("categories")
-  .select(
-    `
-    id,
-    event_id,
-    name
-    `
-  )
-  .order(
-    "name",
-    {
-      ascending:true
-    }
-  );
-
-
-  if(eventId){
-
-    query =
-    query.eq(
-      "event_id",
-      eventId
-    );
-
-  }
 
 
   const {
     data,
     error
-  } =
-  await query;
+  }
+  =
+  await supabase
+
+  .from("categories")
+
+  .select(
+`
+id,
+event_id,
+name
+`
+  )
+
+  .eq(
+    "event_id",
+    eventId
+  )
+
+  .order(
+    "name"
+  );
+
+
+
 
 
   if(error){
@@ -203,6 +288,7 @@ eventId?:string
     );
 
   }
+
 
 
   return data ?? [];
@@ -212,38 +298,55 @@ eventId?:string
 
 
 
+
+
+
+
 export async function getVotingResults(
-categoryId?:string
+eventId:string
 ){
 
+
   const supabase =
-  await createClient();
+    await createClient();
+
+
 
 
   const {
     data,
     error
-  } =
+  }
+  =
   await supabase
+
   .from("votes")
+
   .select(
-    `
-    id,
+`
+candidate:candidate_id(
+id,
+candidate_number,
+full_name,
+image_url
+),
 
-    candidate:candidate_id(
-      id,
-      candidate_number,
-      full_name,
-      image_url,
-      college
-    ),
+category:category_id(
+id,
+name
+)
 
-    category:category_id(
-      id,
-      name
-    )
-    `
+`
+  )
+
+  .eq(
+    "event_id",
+    eventId
   );
+
+
+
+
 
 
   if(error){
@@ -255,159 +358,12 @@ categoryId?:string
   }
 
 
-  const filtered =
-  categoryId
-
-  ?
-
-  (data ?? [])
-  .filter(
-    (vote:any)=>
-    vote.category?.id === categoryId
-  )
-
-  :
-
-  (data ?? []);
 
 
 
-  const results:any = {};
+  const grouped:any={};
 
 
-
-  filtered.forEach(
-    (vote:any)=>{
-
-
-      const id =
-      vote.candidate?.id;
-
-
-      if(!id)
-      return;
-
-
-
-      if(!results[id]){
-
-
-        results[id]={
-
-          candidate:
-          vote.candidate,
-
-          category:
-          vote.category,
-
-          votes:0
-
-        };
-
-
-      }
-
-
-      results[id].votes++;
-
-
-    }
-  );
-
-
-
-  return Object.values(results)
-  .sort(
-    (a:any,b:any)=>
-    b.votes-a.votes
-  )
-  .map(
-    (item:any,index)=>({
-
-      ...item,
-
-      rank:index+1
-
-    })
-  );
-
-}
-
-
-
-
-export async function getLeaderboard(
-eventId:string,
-categoryId?:string
-){
-
-  const supabase =
-  await createClient();
-
-
-  let query =
-  supabase
-  .from("votes")
-  .select(
-    `
-    candidate_id,
-
-    category_id,
-
-    candidate:candidate_id(
-      id,
-      candidate_number,
-      full_name,
-      image_url,
-      college
-    ),
-
-    category:category_id(
-      id,
-      name
-    )
-
-    `
-  )
-  .eq(
-    "event_id",
-    eventId
-  );
-
-
-  if(categoryId){
-
-    query =
-    query.eq(
-      "category_id",
-      categoryId
-    );
-
-  }
-
-
-
-  const {
-    data,
-    error
-  } =
-  await query;
-
-
-
-  if(error){
-
-    console.log(
-      error.message
-    );
-
-    return [];
-
-  }
-
-
-
-  const results:any = {};
 
 
 
@@ -416,17 +372,20 @@ categoryId?:string
     (vote:any)=>{
 
 
-      const id =
-      vote.candidate_id;
+      const key =
+      `${vote.category.id}-${vote.candidate.id}`;
 
 
 
-      if(!results[id]){
+      if(!grouped[key]){
 
 
-        results[id]={
+        grouped[key]={
 
-          candidateId:id,
+
+          candidateId:
+          vote.candidate.id,
+
 
           candidateName:
           vote.candidate.full_name,
@@ -437,7 +396,7 @@ categoryId?:string
 
 
           categoryId:
-          vote.category_id,
+          vote.category.id,
 
 
           categoryName:
@@ -448,11 +407,8 @@ categoryId?:string
           vote.candidate.image_url,
 
 
-          college:
-          vote.candidate.college,
-
-
           votes:0
+
 
         };
 
@@ -461,7 +417,9 @@ categoryId?:string
 
 
 
-      results[id].votes++;
+
+      grouped[key].votes++;
+
 
 
     }
@@ -469,57 +427,38 @@ categoryId?:string
 
 
 
-  const totalVoters =
-  await getTotalVoters();
 
 
 
-  return Object.values(results)
+  return Object.values(grouped)
 
   .sort(
-    (a:any,b:any)=>
-    b.votes-a.votes
-  )
-
-  .map(
-    (item:any,index)=>({
-
-      ...item,
-
-      rank:index+1,
-
-      percentage:
-      totalVoters === 0
-
-      ?
-
-      0
-
-      :
-
-      Number(
-        (
-          item.votes /
-          totalVoters *
-          100
-        )
-        .toFixed(2)
-      ),
-
-      totalVoters
-
-    })
+    (
+      a:any,
+      b:any
+    )=>
+      b.votes-a.votes
   );
+
+
 
 }
 
 
 
 
-export async function getRecentVotes(){
+
+
+
+
+export async function getRecentVotes(
+eventId:string
+){
+
 
   const supabase =
-  await createClient();
+    await createClient();
+
 
 
   const {
@@ -528,33 +467,40 @@ export async function getRecentVotes(){
   }
   =
   await supabase
+
   .from("votes")
+
   .select(
-    `
-    id,
-    created_at,
+`
+id,
+created_at,
 
-    candidate:candidate_id(
-      full_name
-    ),
+candidate:candidate_id(
+full_name
+),
 
-    category:category_id(
-      name
-    ),
+category:category_id(
+name
+)
 
-    voter:voter_id(
-      full_name
-    )
-
-    `
+`
   )
+
+  .eq(
+    "event_id",
+    eventId
+  )
+
   .order(
     "created_at",
     {
       ascending:false
     }
   )
+
   .limit(10);
+
+
 
 
 
@@ -565,6 +511,8 @@ export async function getRecentVotes(){
     );
 
   }
+
+
 
 
   return data ?? [];
