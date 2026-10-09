@@ -40,7 +40,7 @@ export default function GoogleButton() {
         provider: "google",
         options: {
           redirectTo:
-            "https://www.basilanstateuniversity-ssc.org/auth/callback",
+            "https://basilanstateuniversity-ssc.org/auth/callback",
         },
       });
 
