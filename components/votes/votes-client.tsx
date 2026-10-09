@@ -1,10 +1,12 @@
 "use client";
 
+
 import {
   useEffect,
   useMemo,
   useState,
 } from "react";
+
 
 import {
   motion,
@@ -32,8 +34,8 @@ import {
 
 
 import {
-  getVotingResults,
-} from "@/lib/votes/queries";
+  getLiveVotingResults,
+} from "@/lib/votes/client-actions";
 
 
 import WinnerExport from "@/components/export/winner-export";
@@ -47,39 +49,41 @@ import {
 
 interface Props {
 
-dashboard:any;
+  dashboard:any;
 
-settings:any|null;
+  settings:any;
 
-results:any[];
+  results:any[];
 
-recentVotes:any[];
+  recentVotes:any[];
 
-eventId:string;
+  eventId:string;
 
-categories:any[];
+  categories:any[];
 
-totalVoters:number;
+  totalVoters:number;
 
 }
 
 
 
+
+
 export default function VotesClient({
 
-dashboard,
+  dashboard,
 
-settings,
+  settings,
 
-results,
+  results,
 
-recentVotes,
+  recentVotes,
 
-eventId,
+  eventId,
 
-categories,
+  categories,
 
-totalVoters,
+  totalVoters,
 
 }:Props){
 
@@ -88,23 +92,37 @@ totalVoters,
 const supabase =
 useMemo(
 ()=>createClient(),
-[]);
+[]
+);
 
 
 
-const [fullResults,setFullResults]
+
+const [
+resultsData,
+setResultsData
+]
 =
-useState(results || []);
+useState<any[]>(
+results ?? []
+);
 
 
 
-const [loading,setLoading]
+const [
+loading,
+setLoading
+]
 =
 useState(false);
 
 
 
-const [selectedCategory,setSelectedCategory]
+
+const [
+selectedCategory,
+setSelectedCategory
+]
 =
 useState("");
 
@@ -112,227 +130,9 @@ useState("");
 
 
 
-const leaderboard =
-useMemo(()=>{
 
 
-const filtered =
-
-selectedCategory
-
-?
-
-fullResults.filter(
-(item:any)=>
-item.category?.id === selectedCategory
-)
-
-:
-
-fullResults;
-
-
-
-if(!filtered.length){
-
-return [];
-
-}
-
-
-
-
-
-const totalVotes =
-
-filtered.reduce(
-
-(sum:number,item:any)=>
-
-sum + (item.votes ?? 0),
-
-0
-
-);
-
-
-
-
-
-
-
-return filtered
-
-.map(
-
-(item:any)=>({
-
-
-
-candidateId:
-item.candidate.id,
-
-
-candidateName:
-item.candidate.full_name,
-
-
-candidateNumber:
-item.candidate.candidate_number,
-
-
-categoryId:
-item.category.id,
-
-
-categoryName:
-item.category.name,
-
-
-imageUrl:
-item.candidate.image_url,
-
-
-votes:
-item.votes ?? 0,
-
-
-
-percentage:
-
-totalVotes > 0
-
-?
-
-Number(
-
-(
-(item.votes / totalVotes)
-
-*
-
-100
-
-).toFixed(1)
-
-)
-
-:
-
-0,
-
-
-
-}))
-
-
-.sort(
-
-(a:any,b:any)=>
-
-b.votes-a.votes
-
-)
-
-
-.map(
-
-(item:any,index:number,arr:any[])=>{
-
-
-const previous =
-arr[index-1];
-
-
-let rank =
-index + 1;
-
-
-
-if(
-previous &&
-previous.votes === item.votes
-){
-
-rank =
-previous.rank;
-
-}
-
-
-
-return {
-
-...item,
-
-rank
-
-};
-
-
-});
-
-
-
-},[
-fullResults,
-selectedCategory
-]);
-
-
-
-
-
-
-
-
-
-const exportData =
-
-useMemo(()=>{
-
-
-return leaderboard.map(
-(item:any)=>({
-
-
-rank:item.rank,
-
-
-candidateName:
-item.candidateName,
-
-
-categoryName:
-item.categoryName,
-
-
-votes:
-item.votes,
-
-
-percentage:
-item.percentage+"%"
-
-
-})
-
-);
-
-
-},[
-leaderboard
-]);
-
-
-
-
-
-
-
-
-
-async function refreshResults(){
+async function loadResults(){
 
 
 try{
@@ -342,19 +142,15 @@ setLoading(true);
 
 
 
-const updated =
-await getVotingResults();
-
-
-
-setFullResults(
-updated || []
+const data =
+await getLiveVotingResults(
+eventId
 );
 
 
 
-toast.success(
-"Leaderboard updated"
+setResultsData(
+data ?? []
 );
 
 
@@ -365,7 +161,8 @@ catch(error:any){
 
 
 toast.error(
-error.message
+error.message ??
+"Unable to load votes"
 );
 
 
@@ -388,9 +185,17 @@ setLoading(false);
 
 
 
-
-
 useEffect(()=>{
+
+
+if(!eventId)
+return;
+
+
+
+loadResults();
+
+
 
 
 const channel =
@@ -398,7 +203,7 @@ const channel =
 supabase
 
 .channel(
-`votes-live-${eventId}`
+`votes-channel-${eventId}`
 )
 
 
@@ -428,8 +233,7 @@ toast.success(
 );
 
 
-refreshResults();
-
+loadResults();
 
 
 }
@@ -455,8 +259,105 @@ channel
 
 
 },[
-eventId,
-supabase
+eventId
+]);
+
+
+
+
+
+
+
+
+
+const leaderboard =
+useMemo(()=>{
+
+
+let data =
+[
+...resultsData
+];
+
+
+
+if(selectedCategory){
+
+
+data =
+data.filter(
+(item:any)=>
+item.categoryId === selectedCategory
+);
+
+
+}
+
+
+
+
+return data
+
+.sort(
+(a:any,b:any)=>
+b.votes-a.votes
+)
+
+.map(
+(item:any,index:number)=>({
+
+
+...item,
+
+
+rank:index+1
+
+
+})
+
+);
+
+
+
+},[
+resultsData,
+selectedCategory
+]);
+
+
+
+
+
+
+
+
+
+const exportData =
+useMemo(()=>{
+
+
+return leaderboard.map(
+(item:any)=>({
+
+rank:item.rank,
+
+candidateName:item.candidateName,
+
+categoryName:item.categoryName,
+
+votes:item.votes,
+
+percentage:
+item.percentage ?? 0
+
+})
+
+);
+
+
+
+},[
+leaderboard
 ]);
 
 
@@ -469,11 +370,8 @@ supabase
 
 return (
 
-<div
-className="
-space-y-8
-"
->
+<div className="space-y-8">
+
 
 
 <motion.div
@@ -491,15 +389,13 @@ y:0
 >
 
 
-<p
-className="
+<p className="
 text-xs
-font-bold
 uppercase
 tracking-[0.3em]
+font-bold
 text-[#D4AF37]
-"
->
+">
 
 PARAGEYAN 2026
 
@@ -507,14 +403,12 @@ PARAGEYAN 2026
 
 
 
-<h1
-className="
-mt-3
+<h1 className="
 text-3xl
 font-bold
 text-[#0A2A1F]
-"
->
+mt-3
+">
 
 Voting Monitoring
 
@@ -522,11 +416,9 @@ Voting Monitoring
 
 
 
-<p
-className="
+<p className="
 text-slate-500
-"
->
+">
 
 Monitor People's Choice Award voting activity.
 
@@ -543,13 +435,11 @@ Monitor People's Choice Award voting activity.
 
 
 
-<div
-className="
+<div className="
 grid
 gap-5
 md:grid-cols-3
-"
->
+">
 
 
 <StatsCard
@@ -593,7 +483,6 @@ icon={Layers}
 />
 
 
-
 </div>
 
 
@@ -604,72 +493,52 @@ icon={Layers}
 
 
 
-<div
-className="
+<div className="
 rounded-3xl
 border
 bg-white
 p-8
-"
->
+">
 
 
-
-<div
-className="
-mb-8
+<div className="
 flex
-items-center
 justify-between
-"
->
+items-center
+mb-8
+">
 
 
-<div
-className="
+<div className="
 flex
 items-center
 gap-3
-"
->
+">
 
 
 <Trophy
-className="
-text-[#D4AF37]
-"
+className="text-[#D4AF37]"
 />
 
 
-
-<h2
-className="
+<h2 className="
 text-xl
 font-bold
 text-[#0A2A1F]
-"
->
+">
 
 Leaderboard
 
 </h2>
 
 
-
 </div>
 
 
 
 
 
-
-
-<div
-className="
-flex
-gap-3
-"
->
+<div className="flex gap-3">
 
 
 <WinnerExport
@@ -683,36 +552,30 @@ winners={exportData}
 
 
 
-
 <select
 
 value={selectedCategory}
 
-onChange={(e)=>
-
+onChange={
+(e)=>
 setSelectedCategory(
 e.target.value
 )
-
 }
 
 className="
-rounded-xl
 border
+rounded-xl
 px-4
 py-2
-font-semibold
 "
 
 >
 
 
 <option value="">
-
 All Categories
-
 </option>
-
 
 
 {
@@ -740,6 +603,7 @@ value={category.id}
 }
 
 
+
 </select>
 
 
@@ -749,6 +613,8 @@ value={category.id}
 
 
 </div>
+
+
 
 
 
@@ -772,7 +638,6 @@ setSelectedCategory
 
 
 
-
 </div>
 
 
@@ -783,31 +648,25 @@ setSelectedCategory
 
 
 
-<div
-className="
+<div className="
 rounded-3xl
 border
 bg-white
 p-6
-"
->
+">
 
 
-
-<div
-className="
+<div className="
 flex
 justify-between
-"
->
+items-center
+">
 
 
-<h2
-className="
+<h2 className="
 text-xl
 font-bold
-"
->
+">
 
 Live Results
 
@@ -815,37 +674,34 @@ Live Results
 
 
 
+
 <button
 
-onClick={refreshResults}
+onClick={loadResults}
 
 disabled={loading}
 
 className="
 flex
 gap-2
-rounded-xl
+items-center
 bg-[#0A2A1F]
+text-white
 px-4
 py-2
-text-white
+rounded-xl
 "
 
 >
 
 
 <RefreshCcw
-
-size={16}
-
-className={
-loading
-?
-"animate-spin"
-:
-""
-}
-
+  size={16}
+  className={
+    loading
+      ? "animate-spin"
+      : ""
+  }
 />
 
 
@@ -863,58 +719,37 @@ Refresh
 
 
 
-<table
-className="
-mt-5
-w-full
-"
->
 
 
+<table className="w-full mt-5">
 
-<thead
-className="
+
+<thead className="
 bg-[#0A2A1F]
 text-white
-"
->
+">
 
 
 <tr>
 
 
 <th className="p-4 text-left">
-
 Rank
-
 </th>
 
 
 <th className="p-4 text-left">
-
 Candidate
-
 </th>
 
 
 <th className="p-4 text-left">
-
 Category
-
 </th>
 
 
 <th className="p-4 text-left">
-
 Votes
-
-</th>
-
-
-<th className="p-4 text-left">
-
-Share
-
 </th>
 
 
@@ -936,28 +771,17 @@ leaderboard.map(
 
 
 <tr
-
 key={item.candidateId}
-
-className="
-border-b
-"
-
+className="border-b"
 >
 
 
 <td className="p-4">
-
 #{item.rank}
-
 </td>
 
 
-
-<td className="
-p-4
-font-semibold
-">
+<td className="p-4 font-semibold">
 
 #{item.candidateNumber}
 
@@ -977,20 +801,9 @@ font-semibold
 
 
 
-<td className="
-p-4
-font-bold
-">
+<td className="p-4 font-bold">
 
 {item.votes}
-
-</td>
-
-
-
-<td className="p-4">
-
-{item.percentage}%
 
 </td>
 
@@ -1010,9 +823,7 @@ font-bold
 </tbody>
 
 
-
 </table>
-
 
 
 
@@ -1026,22 +837,18 @@ font-bold
 
 
 
-<div
-className="
+<div className="
 rounded-3xl
 border
 bg-white
 p-6
-"
->
+">
 
 
-<h2
-className="
+<h2 className="
 text-xl
 font-bold
-"
->
+">
 
 Recent Votes
 
@@ -1050,12 +857,10 @@ Recent Votes
 
 
 
-<div
-className="
+<div className="
 mt-5
 space-y-4
-"
->
+">
 
 
 {
@@ -1088,31 +893,24 @@ pb-3
 
 
 
-<p className="
-text-sm
-text-slate-500
-">
+<p className="text-sm text-slate-500">
 
 {vote.category?.name}
 
 </p>
 
 
-
 </div>
 
 
 
-
-<div
-className="
+<div className="
 flex
 items-center
 gap-2
 text-sm
 text-slate-500
-"
->
+">
 
 
 <Clock size={15}/>
@@ -1127,13 +925,11 @@ vote.created_at
 }
 
 
-
 </div>
 
 
 
 </div>
-
 
 
 )
@@ -1147,9 +943,7 @@ vote.created_at
 </div>
 
 
-
 </div>
-
 
 
 
@@ -1170,7 +964,6 @@ vote.created_at
 
 
 
-
 function StatsCard({
 title,
 value,
@@ -1180,33 +973,27 @@ icon:Icon
 
 return (
 
-<div
-className="
+<div className="
 rounded-3xl
 border
 bg-white
 p-5
-"
->
+">
 
 
-<div
-className="
+<div className="
 rounded-2xl
 bg-[#0A2A1F]
 p-3
 w-fit
-"
->
+">
 
 
 <Icon
 
 size={20}
 
-className="
-text-[#D4AF37]
-"
+className="text-[#D4AF37]"
 
 />
 
@@ -1227,18 +1014,15 @@ text-slate-500
 
 
 
-<h2
-className="
+<h2 className="
 text-3xl
 font-bold
 text-[#0A2A1F]
-"
->
+">
 
 {value}
 
 </h2>
-
 
 
 </div>
